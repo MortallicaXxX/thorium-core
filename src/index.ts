@@ -19,6 +19,15 @@ export interface ElementTemplate{
     proto?:Record<string,any>;
 }
 
+export interface ConnectorTemplate{
+        /** component's attributes */
+        attr?:Record<string,string>;
+        /** component's childrens */
+        childrens?:ElementTemplate[];
+        /** component's prototypes methods and variables */
+        proto?:Record<string,any>;
+}
+
 /** Allow to generate element with a template */
 export const Hook = (template:ElementTemplate) => {
 
@@ -39,6 +48,17 @@ export const Hook = (template:ElementTemplate) => {
 
     return element;
 
+}
+
+export const Connector = (template:ElementTemplate) => {
+    return (optionTemplate?:ConnectorTemplate) => {
+        return {
+            localName : template.localName,
+            attr : {...(template.attr ? template.attr : {}) , ...(optionTemplate.attr ? optionTemplate.attr : {})},
+            childrens : [...(template.childrens ? template.childrens : []) , ...(optionTemplate.childrens ? optionTemplate.childrens : [])],
+            proto : {...(template.proto ? template.proto : {}) , ...(optionTemplate.proto ? optionTemplate.proto : {})}
+        };
+    }
 }
 
 export class Page{

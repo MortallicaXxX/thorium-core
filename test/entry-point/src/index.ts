@@ -1,4 +1,6 @@
-import Thorium , { Controller , DesignSystem , Hook } from '../../../';
+import Thorium , { Connector , DesignSystem , Hook } from '../../../';
+
+const Container = Connector({ localName : 'thorium-container' , attr : { class : 'container' }});
 
 DesignSystem()
 .register( 'thorium' , {
@@ -30,22 +32,17 @@ DesignSystem()
 
 ( async () => {
 
-    // customElements.define('app-page', App);
-
-    // document.body.appendChild(document.createElement('app-page'));
-
     document.body.appendChild(Hook({
         localName : 'page-app',
         childrens : [
-            {
-                localName : 'thorium-container',
+            Container({
                 childrens : [
                     {
                         localName : 'p',
                         attr:{text : 'hello'}
                     }
                 ]
-            }
+            })
         ]
     }))
 
