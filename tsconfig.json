@@ -1,0 +1,20 @@
+{
+  "typedocOptions": {
+    "entryPoints": ["src/core/Core.ts"],
+    "out": "docs/Documentation/",
+    "json": "docs/Api/Api.json"
+  },
+  "compilerOptions": {
+    "module": "CommonJS",
+    "target": "ES2016",
+    "declaration": true,
+    "sourceMap": true,
+    "removeComments": true,
+    "preserveConstEnums" : true,
+    "skipLibCheck": true,
+    "moduleResolution":"node",
+    "outDir": "dist"
+  },
+  "include": ["./src/**/*"],
+  "exclude": ["./src/modules"]
+}
