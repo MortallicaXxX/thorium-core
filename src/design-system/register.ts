@@ -1,12 +1,14 @@
 import * as htmlTags from 'html-tags';
+import { ConnectorTemplate } from '../'
 
-import { Controller , Hook , ElementTemplate } from "..";
+import { BuildNode , NodeTemplate } from "..";
+import { Controller } from '../controller';
 
-export interface DesignPatern{
+export interface DesignPatern extends ConnectorTemplate{
   /**  */
   baseName:string;
   attr?:Record<string,string>;
-  childrens?:ElementTemplate[];
+  childrens?:NodeTemplate[];
   content?:string;
   proto?:Record<string,any>;
   styles?:string[];
@@ -39,7 +41,7 @@ export const register = ( type : 'page' | 'thorium' , patern:DesignPatern) => {
               if(patern.childrens){
                   const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
                   Array.from( patern.childrens , (childTemplate) => {
-                      shadow.appendChild(Hook(childTemplate));
+                      shadow.appendChild(BuildNode(childTemplate));
                   })
               }
   
@@ -66,7 +68,7 @@ export const register = ( type : 'page' | 'thorium' , patern:DesignPatern) => {
               if(patern.childrens){
                   const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
                   Array.from( patern.childrens , (children) => {
-                      shadow.appendChild(Hook(children))
+                      shadow.appendChild(BuildNode(children))
                   } )
               }
   
@@ -78,8 +80,8 @@ export const register = ( type : 'page' | 'thorium' , patern:DesignPatern) => {
 
           connectedCallback(){
               let slot = this.querySelectorAll('slot')[0];
-              if(patern.childrens)Array.from( patern.childrens , (children) => {
-                  slot.appendChild(Hook(children))
+              if(patern.childrens && slot)Array.from( patern.childrens , (children) => {
+                  slot.appendChild(BuildNode(children))
               } )
           }
 

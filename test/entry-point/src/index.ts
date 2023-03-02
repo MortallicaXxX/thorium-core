@@ -1,6 +1,6 @@
-import Thorium , { Connector , DesignSystem , Hook } from '../../../';
+import Thorium , { Connector , DesignSystem , BuildNode } from '../../../';
 
-const Container = Connector({ localName : 'thorium-container' , attr : { class : 'container' }});
+const Container = Connector('thorium-container');
 
 DesignSystem()
 .register( 'thorium' , {
@@ -32,10 +32,11 @@ DesignSystem()
 
 ( async () => {
 
-    document.body.appendChild(Hook({
+    document.body.appendChild(BuildNode({
         localName : 'page-app',
         childrens : [
             Container({
+                attr : { class : 'container' },
                 childrens : [
                     {
                         localName : 'p',

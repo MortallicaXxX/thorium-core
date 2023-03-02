@@ -1,35 +1,28 @@
 import RouteRecognizer from 'route-recognizer';
 // import 'redefine-custom-elements';
 
+import { Connector , ConnectorTemplate } from './connector';
 import DesignSystem from './design-system';
+import { Controller } from './controller';
+
 export {
-    DesignSystem
+    DesignSystem,
+    Connector,
+    ConnectorTemplate
 };
 
-export interface ElementTemplate{
+export interface NodeTemplate extends ConnectorTemplate{
     /** local name of the component */
     localName:string;
     /** extends from existing component */
     extends?:string;
-    /** component's attributes */
     attr?:Record<string,string>;
-    /** component's childrens */
-    childrens?:ElementTemplate[];
-    /** component's prototypes methods and variables */
+    childrens?:NodeTemplate[];
     proto?:Record<string,any>;
 }
 
-export interface ConnectorTemplate{
-        /** component's attributes */
-        attr?:Record<string,string>;
-        /** component's childrens */
-        childrens?:ElementTemplate[];
-        /** component's prototypes methods and variables */
-        proto?:Record<string,any>;
-}
-
 /** Allow to generate element with a template */
-export const Hook = (template:ElementTemplate) => {
+export const BuildNode = (template:NodeTemplate) => {
 
     const element = document.createElement(template.localName);
 
@@ -39,7 +32,7 @@ export const Hook = (template:ElementTemplate) => {
     })
 
     if(template.childrens)Array.from( template.childrens , (childTemplate) => {
-        element.appendChild(Hook(childTemplate));
+        element.appendChild(BuildNode(childTemplate));
     })
 
     if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
@@ -48,17 +41,6 @@ export const Hook = (template:ElementTemplate) => {
 
     return element;
 
-}
-
-export const Connector = (template:ElementTemplate) => {
-    return (optionTemplate?:ConnectorTemplate) => {
-        return {
-            localName : template.localName,
-            attr : {...(template.attr ? template.attr : {}) , ...(optionTemplate.attr ? optionTemplate.attr : {})},
-            childrens : [...(template.childrens ? template.childrens : []) , ...(optionTemplate.childrens ? optionTemplate.childrens : [])],
-            proto : {...(template.proto ? template.proto : {}) , ...(optionTemplate.proto ? optionTemplate.proto : {})}
-        };
-    }
 }
 
 export class Page{
@@ -118,11 +100,3 @@ namespace Thorium{
 }
 
 export default {Thorium};
-
-export class Controller extends HTMLElement{
-
-    constructor(){
-        super()
-    }
-
-}
