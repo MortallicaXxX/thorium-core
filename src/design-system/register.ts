@@ -1,7 +1,7 @@
 import * as htmlTags from 'html-tags';
 import { ConnectorTemplate } from '../'
 
-import { BuildNode , NodeTemplate } from "..";
+import { BuildNode , NodeTemplate } from "../node-builder";
 import { Controller } from '../controller';
 
 export interface DesignPatern extends ConnectorTemplate{
@@ -27,7 +27,7 @@ export const register = ( type : 'page' | 'thorium' , patern:DesignPatern) => {
 
       const constructor = (document.createElement(patern.baseName) as any).__proto__.constructor.name as string;
 
-      if(!customElements.get(`${patern.baseName}`))customElements.define(`${type}-${patern.baseName}`, class extends window[constructor]{
+      if(!customElements.get(`${patern.baseName}`))customElements.define(`${patern.baseName}`, class extends window[constructor]{
 
           constructor(options){
               super();

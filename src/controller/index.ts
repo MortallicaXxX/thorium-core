@@ -10,7 +10,7 @@ export class Controller extends HTMLElement{
    * @Description La méthode context retourne le premier élément parent ayant une classe "context" et, si un nom de contexte est fourni en argument, ayant un attribut "name" correspondant à ce nom. La fonction utilise une fonction interne récursive pour chercher l'élément parent.
    * @param contextNameToFind 
    * @returns 
-   */
+  */
   context(contextNameToFind?:string){
 
     const findUpperElementContext = (node:Controller) => {

@@ -1,4 +1,4 @@
-import { NodeTemplate } from "..";
+import { NodeTemplate } from "../node-builder";
 
 export interface ConnectorTemplate{
   /** component's attributes */

@@ -3,45 +3,17 @@ import RouteRecognizer from 'route-recognizer';
 
 import { Connector , ConnectorTemplate } from './connector';
 import DesignSystem from './design-system';
+import { BuildNode , NodeTemplate } from './node-builder';
 import { Controller } from './controller';
 
 export {
     DesignSystem,
     Connector,
-    ConnectorTemplate
+    ConnectorTemplate,
+    Controller,
+    BuildNode,
+    NodeTemplate
 };
-
-export interface NodeTemplate extends ConnectorTemplate{
-    /** local name of the component */
-    localName:string;
-    /** extends from existing component */
-    extends?:string;
-    attr?:Record<string,string>;
-    childrens?:NodeTemplate[];
-    proto?:Record<string,any>;
-}
-
-/** Allow to generate element with a template */
-export const BuildNode = (template:NodeTemplate) => {
-
-    const element = document.createElement(template.localName);
-
-    if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
-        if(attributeName == 'text')element.innerText = template.attr[attributeName];
-        else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
-    })
-
-    if(template.childrens)Array.from( template.childrens , (childTemplate) => {
-        element.appendChild(BuildNode(childTemplate));
-    })
-
-    if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
-        element[protoKey] = (template.proto as Record<string,any>)[protoKey];
-    })
-
-    return element;
-
-}
 
 export class Page{
 
@@ -97,6 +69,27 @@ namespace Thorium{
     // Routeur gérant les pages
     export const pages:PageHandler = new PageHandler();
 
+    export const on = (pathname:string , page) => {
+        Thorium.pages.add([{ path : pathname , handler : () => {
+            page.Show();
+        } }])
+    }
+
+    export const CreatePage = ( baseName , connectorTemplate:ConnectorTemplate ) => {
+
+        DesignSystem()
+        .register('page' , {
+            baseName : baseName,
+            childrens : [{localName : 'slot'}]
+        });
+
+        return {
+            Connector : Connector(`page-${baseName}`),
+            Show(){ document.body.appendChild(BuildNode(this.Connector(connectorTemplate))) }
+        }
+
+    }
+
 }
 
-export default {Thorium};
+export default Thorium;

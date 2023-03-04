@@ -7,44 +7,39 @@ DesignSystem()
     baseName : 'container',
     childrens : [
         {
-            localName : 'input',
-            attr : { value : 'lulu' }
+            localName : 'slot',
         }
     ]
-} )
+} );
 
-DesignSystem()
-.register('page' , {
-    baseName : 'app',
-    attr : {},
+const AppPage = Thorium.CreatePage( 'app' , {
+    attr:{},
     childrens : [
         {
             localName : 'div',
             attr:{id:'content'},
             childrens : [
-                {
-                    localName:'slot'
-                }
+                Container({
+                    attr : { class : 'container' },
+                    childrens : [
+                        {
+                            localName : 'p',
+                            attr:{text : 'hello'}
+                        }
+                    ]
+                })
             ]
         }
     ],
-});
+    proto:{}
+} );
 
 ( async () => {
 
-    document.body.appendChild(BuildNode({
-        localName : 'page-app',
-        childrens : [
-            Container({
-                attr : { class : 'container' },
-                childrens : [
-                    {
-                        localName : 'p',
-                        attr:{text : 'hello'}
-                    }
-                ]
-            })
-        ]
-    }))
+    Thorium.on('/' , AppPage);
+    // const handler = (Thorium.pages.recognize('/') as any)[0].handler;
+    // handler();
+
+    // AppPage.Show();
 
 })()
