@@ -37,9 +37,5 @@ const AppPage = Thorium.CreatePage( 'app' , {
 ( async () => {
 
     Thorium.on('/' , AppPage);
-    // const handler = (Thorium.pages.recognize('/') as any)[0].handler;
-    // handler();
-
-    // AppPage.Show();
-
+    
 })()
