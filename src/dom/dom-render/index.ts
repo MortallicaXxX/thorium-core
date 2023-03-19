@@ -1,4 +1,4 @@
-import { ConnectorTemplate } from "../connector";
+import { ConnectorTemplate } from "../../connector";
 
 export interface NodeTemplate extends ConnectorTemplate{
   /** local name of the component */
@@ -11,9 +11,16 @@ export interface NodeTemplate extends ConnectorTemplate{
 }
 
 /** Allow to generate element with a template */
-export const BuildNode = (template:NodeTemplate) => {
+export const DOMRender = (template:NodeTemplate) => {
 
-  const element = document.createElement(template.localName);
+  let isLocal = (template.localName.includes('local-') ? true : false);
+  const element = (() => {
+    if(!isLocal)return document.createElement( template.localName );
+    else {
+      let tag = template.localName.split('local-').filter((x) => x).join('');
+      return document.createElement( tag , { is : template.localName } );
+    }
+  })()
 
   if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
       if(attributeName == 'text')element.innerText = template.attr[attributeName];
@@ -21,7 +28,7 @@ export const BuildNode = (template:NodeTemplate) => {
   })
 
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
-      element.appendChild(BuildNode(childTemplate));
+      element.appendChild(DOMRender(childTemplate));
   })
 
   if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {

@@ -1,4 +1,4 @@
-import { NodeTemplate } from "../node-builder";
+import { NodeTemplate } from "../dom/dom-render";
 
 export interface ConnectorTemplate{
   /** component's attributes */
@@ -13,9 +13,9 @@ export const Connector = (localName:NodeTemplate["localName"]) => {
   return (connectorTemplate?:ConnectorTemplate) => {
       return {
           localName : localName,
-          attr : (connectorTemplate.attr ? connectorTemplate.attr : {}),
-          childrens : (connectorTemplate.childrens ? connectorTemplate.childrens : []),
-          proto : (connectorTemplate.proto ? connectorTemplate.proto : {})
+          attr : (connectorTemplate && connectorTemplate.attr ? connectorTemplate.attr : {}),
+          childrens : (connectorTemplate && connectorTemplate.childrens ? connectorTemplate.childrens : []),
+          proto : (connectorTemplate && connectorTemplate.proto ? connectorTemplate.proto : {})
       };
   }
 }

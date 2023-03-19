@@ -3,15 +3,22 @@ import RouteRecognizer from 'route-recognizer';
 
 import { Connector , ConnectorTemplate } from './connector';
 import DesignSystem from './design-system';
-import { BuildNode , NodeTemplate } from './node-builder';
-import { Controller } from './controller';
+// import { DOMRender , NodeTemplate } from './dom/dom-render';
+import { DOM , NodeTemplate } from './dom';
+import { ThoriumController } from './controller';
+
+// export declare var DOMwindow: Window ; // vous pouvez spécifier le type de votre variable ici
+// export declare var DOMdocument: Document // vous pouvez spécifier le type de votre variable ici
+
+// DOMwindow = ( window ? window : (new JSDOM()).dom );
+// DOMdocument = DOMwindow.document;
 
 export {
     DesignSystem,
     Connector,
     ConnectorTemplate,
-    Controller,
-    BuildNode,
+    ThoriumController,
+    DOM,
     NodeTemplate
 };
 
@@ -85,7 +92,7 @@ namespace Thorium{
 
         return {
             Connector : Connector(`page-${baseName}`),
-            Show(){ document.body.appendChild(BuildNode(this.Connector(connectorTemplate))) }
+            Show(){ document.body.appendChild(DOM.render(this.Connector(connectorTemplate))) }
         }
 
     }
