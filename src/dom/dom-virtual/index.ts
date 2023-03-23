@@ -62,4 +62,8 @@ export const DOMVirtual = {
   },
   get head():VirtualElement{return this.html.head},
   get body():VirtualElement{return this.html.body},
+  // html : {
+    // head : (new DocumentFragment()).append(document.head),
+    // body : (new DocumentFragment()).append(document.body),
+  // }
 }

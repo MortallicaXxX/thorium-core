@@ -54,12 +54,24 @@ export function ThoriumController(T):any{
     }
 
     connectedCallback(){
-        let slot = this.querySelectorAll('slot')[0];
-        let patern = this.patern;
-        if(slot && patern && patern.childrens && slot)Array.from( patern.childrens , (children:any) => {
-            slot.appendChild(DOMRender(children))
-        } )
-    }
+
+      let {transactions , transactions_onload} = this.$Thorium;
+
+      Array.from([...transactions_onload.values()] , (transaction) => {
+        let template = transaction.template;
+
+        if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+            if(attributeName == 'class')this.classList.add(template.attr[attributeName]);
+            else if(attributeName == 'text') this.innerText = template.attr[attributeName];
+            else this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+        })
+
+        if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+            this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+        })
+      })
+
+  }
 
     disconnectedCallback(){
       if(this.onunmount)this.onunmount();
@@ -68,6 +80,53 @@ export function ThoriumController(T):any{
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       if(this.onmutation)this.onmutation({name,oldValue,newValue})
       if(this.oncontextchange)this.oncontextchange(newValue)
+    }
+
+    useTransaction = (transactionName:string) => {
+      let thorium_controller = this.$Thorium;
+      Array.from([...thorium_controller.transactions.values()] , (transaction) => {
+        if(transaction.name == transactionName){
+
+          let template = transaction.template;
+
+          if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+            this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+          })
+
+          if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+              this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+          })
+
+
+        }
+      })
+    }
+
+    addTransaction = (transaction) => {
+      let transactionId = crypto.randomUUID();
+      this.$Thorium.transactions.set(transactionId , { id : transactionId , ...transaction});
+      return transactionId;
+    }
+
+    removeTransaction = (transactionId:string) => {
+      return ( this.$Thorium.transactions.has(transactionId) ? this.$Thorium.transactions.delete(transactionId) : null );
+    }
+
+    useEffect = (operationName:string,...options) => {
+      let thorium_controller = this.$Thorium;
+      Array.from([...thorium_controller.effects.values()] , (effect) => {
+        if(effect.name == operationName)effect.callback(this,options)
+      })
+    }
+
+    addEffect = (effect) => {
+      let effectId = crypto.randomUUID();
+      this.$Thorium.effects.set(effectId , { id : effectId , ...effect});
+      return effectId;
+    }
+
+    removeEffect = (effectId:string) => {
+      return ( this.$Thorium.effects.has(effectId) ? this.$Thorium.effects.delete(effectId) : null );
     }
   
   }

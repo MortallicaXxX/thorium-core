@@ -1,6 +1,9 @@
 import { DOM } from "../dom";
 import { DesignPatern } from '../design-system';
-import { NodeTemplate } from '../dom/dom-render'
+import { NodeTemplate } from '../dom/dom-render';
+import { Transactions } from "./transactions";
+import { Effects } from "./effects";
+import { CustomElementPatern } from "../design-system/register";
 
 type Views = Record<string,NodeTemplate>;
 
@@ -12,6 +15,9 @@ export interface ViewDesignPatern extends DesignPatern{
 export function ViewController(T):any{
 
   return class Controller extends T{
+
+    static transactions;
+    static effects;
 
     static get observedAttributes() {
       return ['context'];
@@ -74,14 +80,22 @@ export function ViewController(T):any{
     }
 
     connectedCallback(){
-        // let shadow = this.shadowRoot;
-        let patern = this.patern;
-        let context = this.getAttribute('context');
-        // let slot = shadow.querySelectorAll('slot')[0];
-        // if(slot && !this.slotContainer)this.slotContainer = slot;
-        // if(patern && this.views[context]){
-          // this.appendChild( DOMRender(this.views[context]) )
-        // }
+
+        let {transactions , transactions_onload} = this.$Thorium;
+
+        Array.from([...transactions_onload.values()] , (transaction) => {
+          let template = transaction.template;
+
+          if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+
+              this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+          })
+
+          if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+              this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+          })
+      })
+
     }
 
     disconnectedCallback(){
@@ -109,6 +123,53 @@ export function ViewController(T):any{
 
       }
       
+    }
+
+    useTransaction = (transactionName:string) => {
+      let thorium_controller = this.$Thorium;
+      Array.from([...thorium_controller.transactions.values()] , (transaction) => {
+        if(transaction.name == transactionName){
+
+          let template = transaction.template;
+
+          if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+            this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+          })
+
+          if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+              this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+          })
+
+
+        }
+      })
+    }
+
+    addTransaction = (transaction) => {
+      let transactionId = crypto.randomUUID();
+      this.$Thorium.transactions.set(transactionId , { id : transactionId , ...transaction});
+      return transactionId;
+    }
+
+    removeTransaction = (transactionId:string) => {
+      return ( this.$Thorium.transactions.has(transactionId) ? this.$Thorium.transactions.delete(transactionId) : null );
+    }
+
+    useEffect = (operationName:string,...options) => {
+      let thorium_controller = this.$Thorium;
+      Array.from([...thorium_controller.effects.values()] , (effect) => {
+        if(effect.name == operationName)effect.callback(this,options)
+      })
+    }
+
+    addEffect = (effect) => {
+      let effectId = crypto.randomUUID();
+      this.$Thorium.effects.set(effectId , { id : effectId , ...effect});
+      return effectId;
+    }
+
+    removeEffect = (effectId:string) => {
+      return ( this.$Thorium.effects.has(effectId) ? this.$Thorium.effects.delete(effectId) : null );
     }
   
   }

@@ -1,20 +1,26 @@
 import Thorium , { Connector , DesignSystem , DOM , ThoriumController } from '../../../';
 import useState from '/Users/guillaume/Documents/github/Types/States/src';
 
-// type t = ['test', 'test2'];
-// const array:t = ['test', 'test2'];
-// type X = typeof array[number];
-// // Erreur: Type '"lol"' is not assignable to type '"test" | "test2"'
-// const z: X = 'test2';
+import './components/app-view';
+import ThoriumInput , { areHoverEffect , areaUnHoverEffect , areaSelectEffect , areaUnSelectEffect } from './components/thorium-input';
 
-// type UnionFromArray<T extends string[]> = T[number];
+console.log({
+    areHoverEffect,
+    areaUnHoverEffect,
+    areaSelectEffect,
+    areaUnSelectEffect
+})
+
+// ViewApp.transactions.set(alertTransaction);
+
+const AppView = Connector('views-app');
 
 // const array:string[] = ['test', 'test2'];
 // type X = UnionFromArray<typeof array>;
 // let z: X = 'test'; // OK
 // let y: X = 'lol'; // Erreur: Type '"lol"' is not assignable to type '"test" | "test2"'
 
-DesignSystem()
+const ViewApp = DesignSystem()
 .register('views' , {
     baseName : 'app',
     defaultView : 'dashboard',
@@ -35,7 +41,18 @@ DesignSystem()
     }
 })
 
-const AppView = Connector('views-app');
+// ViewApp.transactions.set({
+//     name : 'test',
+//     template : {
+//         proto : {
+//             lol(){
+//                 alert('transaction lol added')
+//             }
+//         }
+//     }
+// })
+
+// console.log(ViewApp.transactions)
 
 // DesignSystem()
 // .register( 'thorium' , {
@@ -138,23 +155,33 @@ const LocalButton = Connector('local-button');
     //     }
     // }) ) )
 
-    // document.body.appendChild( DOMRender( AppView({
-    //     attr : { context : 'dashboard' }
-    // }) ) )
+    document.body.appendChild( DOM.render( AppView({
+        attr : { context : 'dashboard' }
+    }) ) )
 
-    let virtualElement = DOM.virtual.body.attatch( 
-        [
-            AppView({
-                attr : { context : 'dashboard' }
-            }),
-            AppView({
-                attr : { context : 'user' }
-            })
+    document.body.appendChild( DOM.render( ThoriumInput({
+        childrens : [
+            { localName : 'label' , attr : { text : 'lol : ' } }
         ]
-    )
+    }) ) )
 
-    console.log(virtualElement)
+    // let {render} = DOM.virtual.body.attatch( 
+    //     [
+    //         AppView({
+    //             attr : { context : 'dashboard' }
+    //         }),
+    //         AppView({
+    //             attr : { context : 'user' }
+    //         })
+    //     ]
+    // )
+
+    // // console.log(virtualElement)
+
+    // console.log(ViewApp)
 
     // render();
+
+    console.log(DOM);
 
 })()
