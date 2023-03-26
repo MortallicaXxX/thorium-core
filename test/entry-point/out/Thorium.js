@@ -106,7 +106,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
   \***************************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.DOMVirtual = void 0;\nconst dom_render_1 = __webpack_require__(/*! ../dom-render */ \"./dist/dom/dom-render/index.js\");\nconst buildReferences = (element) => {\n    const virtual = {\n        reference: element,\n        get localName() { return element.tagName; },\n        get attr() {\n            return Object.fromEntries(new Map(Array.from(Object.values(Object.assign({}, element.attributes)), (attribute) => {\n                return [attribute.name, attribute.value];\n            })));\n        },\n        get children() {\n            return Array.from(element.children, (element) => {\n                return buildReferences(element);\n            });\n        },\n        attatched: [],\n        attatch: (template) => {\n            if (Array.isArray(template))\n                Array.from(template, (t) => {\n                    virtual.attatched.push(t);\n                });\n            else\n                virtual.attatched.push(template);\n            return virtual;\n        },\n        render: () => {\n            Array.from(virtual.attatched, (template) => {\n                element.appendChild((0, dom_render_1.DOMRender)(template));\n            });\n        }\n    };\n    return virtual;\n};\nexports.DOMVirtual = {\n    html: {\n        head: buildReferences(document.head),\n        body: buildReferences(document.body)\n    },\n    get head() { return this.html.head; },\n    get body() { return this.html.body; },\n};\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack://thorium-core/./dist/dom/dom-virtual/index.js?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.useEffect = exports.DOMVirtual = exports.body = exports.head = exports.htmlDocument = void 0;\nconst dom_render_1 = __webpack_require__(/*! ../dom-render */ \"./dist/dom/dom-render/index.js\");\nconst buildReferences = (element) => {\n    const virtual = {\n        reference: element,\n        get localName() { return element.tagName; },\n        get attr() {\n            return Object.fromEntries(new Map(Array.from(Object.values(Object.assign({}, element.attributes)), (attribute) => {\n                return [attribute.name, attribute.value];\n            })));\n        },\n        get children() {\n            return Array.from(element.children, (element) => {\n                return buildReferences(element);\n            });\n        },\n        attatched: [],\n        attatch: (template) => {\n            if (Array.isArray(template))\n                Array.from(template, (t) => {\n                    virtual.attatched.push(t);\n                });\n            else\n                virtual.attatched.push(template);\n            return virtual;\n        },\n        render: () => {\n            Array.from(virtual.attatched, (template) => {\n                element.appendChild((0, dom_render_1.DOMRender)(template));\n            });\n        }\n    };\n    return virtual;\n};\nconst recursiveReferenceCloning = (node, clone) => {\n    if (node.children.length > 0)\n        Array.from(node.children, (child) => {\n            let cloneELement = clone.appendChild(child.cloneNode());\n            recursiveReferenceCloning(child, cloneELement);\n        });\n    else if (node.childNodes.length > 0)\n        Array.from(node.childNodes, (child) => {\n            if (child.nodeType === child.TEXT_NODE)\n                clone.textContent = child.textContent;\n        });\n    return clone;\n};\nexports.htmlDocument = document.implementation.createHTMLDocument();\nexports.head = recursiveReferenceCloning(document.head, exports.htmlDocument.head);\nexports.body = recursiveReferenceCloning(document.body, exports.htmlDocument.body);\nexports.DOMVirtual = { htmlDocument: exports.htmlDocument };\nconst useEffect = () => {\n    const recursiveEffect = (source, virtual) => {\n        if (!Object.is(source, virtual))\n            if (!source.isEqualNode(virtual)) {\n                source.replaceWith(virtual.cloneNode(true));\n                Array.from(virtual.children, (virtualChild) => {\n                    let childNode = source.appendChild(virtualChild.cloneNode());\n                    recursiveEffect(childNode, virtualChild);\n                });\n            }\n    };\n    recursiveEffect(document.body, exports.body);\n};\nexports.useEffect = useEffect;\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack://thorium-core/./dist/dom/dom-virtual/index.js?");
 
 /***/ }),
 
@@ -116,7 +116,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
   \***************************/
 /***/ ((__unused_webpack_module, exports, __webpack_require__) => {
 
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.DOM = void 0;\nconst dom_render_1 = __webpack_require__(/*! ./dom-render */ \"./dist/dom/dom-render/index.js\");\nconst dom_virtual_1 = __webpack_require__(/*! ./dom-virtual */ \"./dist/dom/dom-virtual/index.js\");\nexports.DOM = {\n    render: dom_render_1.DOMRender,\n    virtual: dom_virtual_1.DOMVirtual\n};\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack://thorium-core/./dist/dom/index.js?");
+eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.DOM = void 0;\nconst dom_render_1 = __webpack_require__(/*! ./dom-render */ \"./dist/dom/dom-render/index.js\");\nconst dom_virtual_1 = __webpack_require__(/*! ./dom-virtual */ \"./dist/dom/dom-virtual/index.js\");\nexports.DOM = {\n    render: dom_render_1.DOMRender,\n    virtual: dom_virtual_1.DOMVirtual,\n    document: dom_virtual_1.htmlDocument,\n    head: dom_virtual_1.head,\n    body: dom_virtual_1.body,\n    useEffect: dom_virtual_1.useEffect\n};\n//# sourceMappingURL=index.js.map\n\n//# sourceURL=webpack://thorium-core/./dist/dom/index.js?");
 
 /***/ }),
 
@@ -160,66 +160,6 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
 
 /***/ }),
 
-/***/ "./test/entry-point/src/components/effects/area-hovered.ts":
-/*!*****************************************************************!*\
-  !*** ./test/entry-point/src/components/effects/area-hovered.ts ***!
-  \*****************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.AreaHovered = void 0;\nexports.AreaHovered = {\n    name: 'area-hovered',\n    callback: (element) => {\n        element.classList.add('hover');\n        element.setAttribute('area-hovered', 'true');\n    }\n};\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/effects/area-hovered.ts?");
-
-/***/ }),
-
-/***/ "./test/entry-point/src/components/effects/area-selected.ts":
-/*!******************************************************************!*\
-  !*** ./test/entry-point/src/components/effects/area-selected.ts ***!
-  \******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.AreaSelected = void 0;\nexports.AreaSelected = {\n    name: 'area-selected',\n    callback: (element) => {\n        element.classList.add('select');\n        element.setAttribute('area-selected', 'true');\n    }\n};\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/effects/area-selected.ts?");
-
-/***/ }),
-
-/***/ "./test/entry-point/src/components/effects/area-unhovered.ts":
-/*!*******************************************************************!*\
-  !*** ./test/entry-point/src/components/effects/area-unhovered.ts ***!
-  \*******************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.AreaUnHovered = void 0;\nexports.AreaUnHovered = {\n    name: 'area-unhovered',\n    callback: (element) => {\n        element.classList.remove('hover');\n        element.setAttribute('area-hovered', 'false');\n    }\n};\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/effects/area-unhovered.ts?");
-
-/***/ }),
-
-/***/ "./test/entry-point/src/components/effects/area-unselected.ts":
-/*!********************************************************************!*\
-  !*** ./test/entry-point/src/components/effects/area-unselected.ts ***!
-  \********************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.AreaUnSelected = void 0;\nexports.AreaUnSelected = {\n    name: 'area-unselected',\n    callback: (element) => {\n        element.classList.remove('select');\n        element.setAttribute('area-selected', 'false');\n    }\n};\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/effects/area-unselected.ts?");
-
-/***/ }),
-
-/***/ "./test/entry-point/src/components/thorium-input/index.ts":
-/*!****************************************************************!*\
-  !*** ./test/entry-point/src/components/thorium-input/index.ts ***!
-  \****************************************************************/
-/***/ ((__unused_webpack_module, exports, __webpack_require__) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.areaUnSelectEffect = exports.areaSelectEffect = exports.areaUnHoverEffect = exports.areHoverEffect = exports.InitInputTransaction = void 0;\nconst dist_1 = __webpack_require__(/*! ../../../../../dist */ \"./dist/index.js\");\nconst input_transaction_1 = __webpack_require__(/*! ./transactions/input-transaction */ \"./test/entry-point/src/components/thorium-input/transactions/input-transaction.ts\");\nconst area_hovered_1 = __webpack_require__(/*! ../effects/area-hovered */ \"./test/entry-point/src/components/effects/area-hovered.ts\");\nconst area_unhovered_1 = __webpack_require__(/*! ../effects/area-unhovered */ \"./test/entry-point/src/components/effects/area-unhovered.ts\");\nconst area_selected_1 = __webpack_require__(/*! ../effects/area-selected */ \"./test/entry-point/src/components/effects/area-selected.ts\");\nconst area_unselected_1 = __webpack_require__(/*! ../effects/area-unselected */ \"./test/entry-point/src/components/effects/area-unselected.ts\");\nconst ThoriumInput = (0, dist_1.DesignSystem)()\n    .register('thorium', {\n    baseName: 'input',\n    childrens: [\n        {\n            localName: 'area',\n            childrens: [\n                { localName: 'start' },\n                { localName: 'slot' },\n                { localName: 'input' },\n                { localName: 'end' }\n            ],\n            proto: {\n                onmouseenter() { this.root.useEffect('area-hovered'); },\n                onmouseleave() { this.root.useEffect('area-unhovered'); },\n                onmousedown() { this.root.useEffect('area-selected'); },\n                onmouseup() { this.root.useEffect('area-unselected'); }\n            }\n        }\n    ],\n    __getter__: {\n        ['child-area']: function () { return this.shadowRoot.children[0]; },\n        ['child-start']: function () { return this['child-area'].children[0]; },\n        ['child-slot']: function () { return this['child-area'].children[1]; },\n        ['child-input']: function () { return this['child-area'].children[2]; },\n        ['child-end']: function () { return this['child-area'].children[3]; },\n        value: function () { return this['child-input'].value; },\n    },\n    __setter__: {\n        value: function (value) { this['child-input'].value = value; }\n    }\n});\nexports.InitInputTransaction = ThoriumInput.transactions.set(input_transaction_1.InitInput);\nexports.areHoverEffect = ThoriumInput.effects.set(area_hovered_1.AreaHovered);\nexports.areaUnHoverEffect = ThoriumInput.effects.set(area_unhovered_1.AreaUnHovered);\nexports.areaSelectEffect = ThoriumInput.effects.set(area_selected_1.AreaSelected);\nexports.areaUnSelectEffect = ThoriumInput.effects.set(area_unselected_1.AreaUnSelected);\nexports[\"default\"] = (() => { return ThoriumInput.connector(); })();\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/thorium-input/index.ts?");
-
-/***/ }),
-
-/***/ "./test/entry-point/src/components/thorium-input/transactions/input-transaction.ts":
-/*!*****************************************************************************************!*\
-  !*** ./test/entry-point/src/components/thorium-input/transactions/input-transaction.ts ***!
-  \*****************************************************************************************/
-/***/ ((__unused_webpack_module, exports) => {
-
-eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexports.InitInput = void 0;\nexports.InitInput = {\n    name: 'init-input-transaction',\n    template: {\n        attr: {\n            'area-hovered': 'false',\n            'area-selected': 'false',\n        }\n    }\n};\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/components/thorium-input/transactions/input-transaction.ts?");
-
-/***/ }),
-
 /***/ "./test/entry-point/src/effects/add-user.ts":
 /*!**************************************************!*\
   !*** ./test/entry-point/src/effects/add-user.ts ***!
@@ -246,7 +186,7 @@ eval("\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nexpo
   \***************************************/
 /***/ (function(__unused_webpack_module, exports, __webpack_require__) {
 
-eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst __1 = __webpack_require__(/*! ../../../ */ \"./dist/index.js\");\n__webpack_require__(/*! ./components/app-view */ \"./test/entry-point/src/components/app-view.ts\");\nconst thorium_input_1 = __webpack_require__(/*! ./components/thorium-input */ \"./test/entry-point/src/components/thorium-input/index.ts\");\nconsole.log({\n    areHoverEffect: thorium_input_1.areHoverEffect,\n    areaUnHoverEffect: thorium_input_1.areaUnHoverEffect,\n    areaSelectEffect: thorium_input_1.areaSelectEffect,\n    areaUnSelectEffect: thorium_input_1.areaUnSelectEffect\n});\nconst AppView = (0, __1.Connector)('views-app');\nconst ViewApp = (0, __1.DesignSystem)()\n    .register('views', {\n    baseName: 'app',\n    defaultView: 'dashboard',\n    childrens: [{ localName: 'slot' }],\n    views: {\n        'dashboard': {\n            localName: 'div',\n            attr: { name: 'dashboard', text: '/dashboard' }\n        },\n        'user': {\n            localName: 'div',\n            attr: { name: 'user', text: '/user' }\n        },\n        'test': {\n            localName: 'div',\n            attr: { name: 'user', text: '/test' }\n        }\n    }\n});\nconst Container = (0, __1.Connector)('thorium-container');\n(0, __1.DesignSystem)()\n    .register('thorium', { baseName: 'button', proto: {\n        onunmount() { alert('unmount'); },\n        onmousedown() { alert('Je suis un bouton thorium'); }\n    } });\nconst ThoriumButton = (0, __1.Connector)('thorium-button');\n(0, __1.DesignSystem)()\n    .register('local', { baseName: 'button', proto: {\n        onunmount() { alert('i will be unmount'); },\n        onmousedown() { alert('Je suis un bouton local'); }\n    } });\nconst LocalButton = (0, __1.Connector)('local-button');\n(() => __awaiter(void 0, void 0, void 0, function* () {\n    document.body.appendChild(__1.DOM.render(AppView({\n        attr: { context: 'dashboard' }\n    })));\n    document.body.appendChild(__1.DOM.render((0, thorium_input_1.default)({\n        childrens: [\n            { localName: 'label', attr: { text: 'lol : ' } }\n        ]\n    })));\n    console.log(__1.DOM);\n}))();\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/index.ts?");
+eval("\nvar __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {\n    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }\n    return new (P || (P = Promise))(function (resolve, reject) {\n        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }\n        function rejected(value) { try { step(generator[\"throw\"](value)); } catch (e) { reject(e); } }\n        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }\n        step((generator = generator.apply(thisArg, _arguments || [])).next());\n    });\n};\nObject.defineProperty(exports, \"__esModule\", ({ value: true }));\nconst __1 = __webpack_require__(/*! ../../../ */ \"./dist/index.js\");\n__webpack_require__(/*! ./components/app-view */ \"./test/entry-point/src/components/app-view.ts\");\nconst AppView = (0, __1.Connector)('views-app');\nconst ViewApp = (0, __1.DesignSystem)()\n    .register('views', {\n    baseName: 'app',\n    defaultView: 'home',\n    childrens: [{ localName: 'slot' }],\n    views: {\n        'home': {\n            localName: 'div',\n            attr: { name: 'dashboard', text: '/dashboard' }\n        }\n    }\n});\n(() => __awaiter(void 0, void 0, void 0, function* () {\n    const { document, body, head, useEffect } = __1.DOM;\n}))();\n\n\n//# sourceURL=webpack://thorium-core/./test/entry-point/src/index.ts?");
 
 /***/ }),
 

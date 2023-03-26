@@ -55,15 +55,45 @@ const buildReferences = (element:HTMLElement) => {
 
 }
 
-export const DOMVirtual = {
-  html : {
-    head : buildReferences(document.head),
-    body : buildReferences(document.body)
-  },
-  get head():VirtualElement{return this.html.head},
-  get body():VirtualElement{return this.html.body},
-  // html : {
-    // head : (new DocumentFragment()).append(document.head),
-    // body : (new DocumentFragment()).append(document.body),
-  // }
+const recursiveReferenceCloning = (node:HTMLElement , clone:HTMLElement) => {
+  // let clone = node.cloneNode() as HTMLElement;
+  // if(node.innerText)clone.innerText = node.innerText;
+  if(node.children.length > 0)Array.from( node.children , (child:HTMLElement) => {
+    let cloneELement = clone.appendChild(child.cloneNode()) as HTMLElement;
+    recursiveReferenceCloning(child , cloneELement);
+  } )
+  else if(node.childNodes.length > 0)Array.from( node.childNodes , (child) => {
+    if(child.nodeType === child.TEXT_NODE)clone.textContent = child.textContent;
+  } )
+  return clone;
+}
+
+export const htmlDocument = document.implementation.createHTMLDocument()
+export const head = recursiveReferenceCloning(document.head , htmlDocument.head);
+export const body = recursiveReferenceCloning(document.body , htmlDocument.body);
+
+export const DOMVirtual = { htmlDocument };
+
+export const useEffect = () => {
+
+  const recursiveEffect = ( source:HTMLElement , virtual:HTMLElement ) => {
+
+    if(!Object.is(source,virtual))
+    if(!source.isEqualNode(virtual)){
+
+      source.replaceWith( virtual.cloneNode(true) );
+
+      Array.from( virtual.children , (virtualChild:HTMLElement) => {
+        let childNode = source.appendChild( virtualChild.cloneNode() ) as HTMLElement;
+        recursiveEffect( childNode , virtualChild );
+      })
+
+    }
+
+
+
+  }
+
+  recursiveEffect(document.body , body);
+
 }

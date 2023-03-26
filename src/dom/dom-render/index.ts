@@ -1,3 +1,4 @@
+import { body } from "../dom-virtual";
 import { ConnectorTemplate } from "../../connector";
 
 export interface NodeTemplate extends ConnectorTemplate{
@@ -13,7 +14,8 @@ export interface NodeTemplate extends ConnectorTemplate{
 /** Allow to generate element with a template */
 export const DOMRender = (template:NodeTemplate) => {
 
-  let isLocal = (template.localName.includes('local-') ? true : false);
+  let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
+  
   const element = (() => {
     if(!isLocal)return document.createElement( template.localName );
     else {

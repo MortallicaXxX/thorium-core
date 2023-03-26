@@ -1,5 +1,5 @@
 import { DOMRender , NodeTemplate } from "./dom-render";
-import { DOMVirtual } from "./dom-virtual";
+import { DOMVirtual , htmlDocument as document , body , head , useEffect } from "./dom-virtual";
 
 export {NodeTemplate};
 
@@ -8,6 +8,10 @@ export {NodeTemplate};
  */
 export const DOM = {
   render : DOMRender,
-  virtual : DOMVirtual
+  virtual : DOMVirtual,
+  document,
+  head,
+  body,
+  useEffect
 };
 

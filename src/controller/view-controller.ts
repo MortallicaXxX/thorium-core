@@ -23,7 +23,7 @@ export function ViewController(T):any{
       return ['context'];
     }
 
-    patern:DesignPatern;
+    patern:ViewDesignPatern;
     views:Views;
     slotContainer:HTMLSlotElement;
 
@@ -95,6 +95,10 @@ export function ViewController(T):any{
               this[protoKey] = (template.proto as Record<string,any>)[protoKey];
           })
       })
+
+      if(this.patern.defaultView){
+        this.setAttribute('context' , this.patern.defaultView);
+      }
 
     }
 

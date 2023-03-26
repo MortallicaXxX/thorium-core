@@ -8,7 +8,9 @@
   },
   "scripts": {
     "test:build": "webpack --config ./test/entry-point/webpack.config.js",
-    "test:build:watch": "webpack --config ./test/entry-point/webpack.config.js --watch"
+    "test:build:watch": "webpack --config ./test/entry-point/webpack.config.js --watch",
+    "nodb:build": "webpack --config ./test/nodb/webpack.config.js",
+    "nodb:build:watch": "webpack --config ./test/nodb/webpack.config.js --watch"
   },
   "repository": {
     "type": "git",
@@ -21,7 +23,10 @@
   },
   "homepage": "https://github.com/MortallicaXxX/thorium-core#readme",
   "dependencies": {
+    "@fluentui/svg-icons": "^1.1.198",
+    "@fluentui/web-components": "^2.5.12",
     "autoprefixer": "^10.4.13",
+    "browserify-fs": "^1.0.0",
     "css-loader": "^6.7.2",
     "file-loader": "^6.2.0",
     "html-tags": "^3.2.0",
@@ -33,8 +38,10 @@
     "redefine-custom-elements": "^0.1.3",
     "route-recognizer": "^0.3.4",
     "style-loader": "^3.3.1",
+    "thorium-toolkit-ui": "^1.0.43",
     "typescript": "^5.0.2",
     "url-loader": "^4.1.1",
+    "util": "^0.12.5",
     "webpack-closure-compiler": "^2.1.6"
   },
   "devDependencies": {

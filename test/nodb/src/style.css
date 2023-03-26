@@ -1,0 +1,58 @@
+views-app{
+  position: absolute;
+  left: 0;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  display: grid;
+  grid-template-columns: minmax(0,1fr);
+  grid-template-rows: minmax(0,1fr);
+}
+
+views-app > [name=home]{
+  display: grid;
+  grid-template-columns: min-content minmax(0,1fr);
+  grid-template-rows: minmax(0,1fr);
+  height: stretch;
+  width: stretch;
+}
+
+thorium-left-menu{
+  display: grid;
+  grid-column: 1;
+  grid-template-columns: min-content min-content;
+  background-color: black;
+}
+
+thorium-left-menu thorium-sticky-menu{
+  display: grid;
+  grid-auto-rows: min-content;
+  gap: 10px;
+  padding: 10px;
+}
+
+thorium-left-menu thorium-sticky-menu fluent-card{
+  height: 50px;
+  aspect-ratio: 1/1;
+  display: grid;
+}
+
+/*  */
+
+thorium-icon[icon-type=background]{
+  background-image: var(--icon-path);
+  background-size: contain;
+  background-position: center;
+  height: stretch;
+  width: stretch;
+  background-repeat: no-repeat;
+}
+
+thorium-icon[icon-type=mask]{
+  mask-image: var(--icon-path);
+  mask-size: contain;
+  mask-position: center;
+  height: stretch;
+  width: stretch;
+  mask-repeat: no-repeat;
+}
