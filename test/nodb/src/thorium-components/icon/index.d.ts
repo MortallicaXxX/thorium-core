@@ -1,5 +1,5 @@
 import { ConnectorTemplate } from "../../../../../";
-export declare const IconPatern: import("../../../../../dist/design-system/register").CustomElementPatern;
+export declare const IconPatern: import("../../../../../dist/design-system").CustomElementPatern;
 export interface IconInitOptions extends ConnectorTemplate {
     path: string;
     type: 'mask' | 'background';

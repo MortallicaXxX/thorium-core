@@ -72,6 +72,14 @@ const MainView = DesignSystem()
               }),
             ]
         }
+    },
+    proto : {
+      beforeMounting(){
+        alert('beforeMounting')
+      },
+      afterMounting(){
+        alert('afterMounting')
+      }
     }
 });
 
