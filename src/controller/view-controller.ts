@@ -36,9 +36,11 @@ export function ViewController(paternName:string,patern:ViewDesignPatern,T):any{
         })
       })
 
-      // if(this.patern.defaultView){
-      //   this.setAttribute('context' , this.patern.defaultView);
-      // }
+      if(this.afterMounting)this.afterMounting();
+
+      if(this.patern.defaultView){
+        this.setAttribute('context' , this.patern.defaultView);
+      }
 
       // if(this.afterMounting)this.afterMounting();
 

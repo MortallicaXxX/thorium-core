@@ -1,3 +1,4 @@
+import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
 import { ViewController , ViewDesignPatern } from "./view-controller";
 import { DesignPatern , CustomElementPatern } from "../design-system";
@@ -5,12 +6,15 @@ import { DOM } from "../dom";
 import { Transactions } from "./transactions";
 import { Effects } from "./effects";
 import { ConnectorTemplate } from "../connector";
+import { PaternArea } from "./area";
 
 
 export {
+  PageController,
   ThoriumController,
   ViewController,
-  ViewDesignPatern
+  ViewDesignPatern,
+  PaternArea
 }
 
 export const Controller = (paternName:string,patern:DesignPatern,T) => {

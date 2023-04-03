@@ -1,20 +1,17 @@
-import { DesignSystem , Connector } from "../";
-import SideLeftMenu , { StickyLeftMenu } from './components/side-left-menu';
+import { DesignSystem , Connector , PaternArea } from "..";
+import SideLeftMenu , { StickyLeftMenu } from './side-left-menu';
+import { HomeView } from "./home";
 import { FluentCard } from "../fluents-component";
-import { ThoriumIcon } from '../thorium-components'
+import { ThoriumIcon } from '../thorium-components';
 
 import AddIcon from "@fluentui/svg-icons/icons/add_20_filled.svg";
 import ArchivesIcon from "@fluentui/svg-icons/icons/archive_20_filled.svg";
-
-console.log({ArchivesIcon})
-
-console.log(AddIcon);
 
 const MainView = DesignSystem()
 .register('views' , {
     baseName : 'app',
     defaultView : 'home',
-    childrens : [{localName : 'slot'}],
+    childrens : [PaternArea()],
     views : {
         'home' : {
             localName : 'div',
@@ -70,6 +67,7 @@ const MainView = DesignSystem()
                   })
                 ]
               }),
+              HomeView()
             ]
         }
     },

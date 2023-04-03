@@ -2,7 +2,7 @@ import * as htmlTags from 'html-tags';
 import { ConnectorTemplate } from '../'
 
 import { DOMRender , NodeTemplate } from "../dom/dom-render";
-import { ThoriumController , ViewController , ViewDesignPatern } from '../controller';
+import { PageController , ThoriumController , ViewController , ViewDesignPatern } from '../controller';
 import { Transactions , TransactionPatern } from '../controller/transactions';
 import { Effects , EffectPatern } from '../controller/effects';
 
@@ -75,6 +75,7 @@ export const register = ( type : 'page' | 'thorium' | 'local' | 'views' , patern
     }
     else{
 
+    if(type == 'page' && !customElements.get(paternName))customElements.define(paternName , PageController(paternName,patern as ViewDesignPatern,HTMLElement))
     if(type == 'views' && !customElements.get(paternName))customElements.define(paternName , ViewController(paternName,patern as ViewDesignPatern,HTMLElement))
     else if(type == 'thorium' && !customElements.get(paternName))customElements.define(paternName, ThoriumController(paternName , patern , HTMLElement) )
 

@@ -5,7 +5,8 @@ import { Connector , ConnectorTemplate } from './connector';
 import DesignSystem from './design-system';
 // import { DOMRender , NodeTemplate } from './dom/dom-render';
 import { DOM , NodeTemplate } from './dom';
-import { ThoriumController } from './controller';
+import { ThoriumController , PaternArea } from './controller';
+
 
 // export declare var DOMwindow: Window ; // vous pouvez spécifier le type de votre variable ici
 // export declare var DOMdocument: Document // vous pouvez spécifier le type de votre variable ici
@@ -18,6 +19,7 @@ export {
     Connector,
     ConnectorTemplate,
     ThoriumController,
+    PaternArea,
     DOM,
     NodeTemplate
 };
@@ -73,6 +75,8 @@ namespace Thorium{
 
     // Distribue un routeur
     export const router = () => {return RouteRecognizer};
+    // Active page
+    export var Page = null;
     // Routeur gérant les pages
     export const pages:PageHandler = new PageHandler();
 
@@ -82,18 +86,28 @@ namespace Thorium{
         } }])
     }
 
-    export const CreatePage = ( baseName , connectorTemplate:ConnectorTemplate ) => {
+    export const CreatePage = ( baseName ) => {
 
-        DesignSystem()
+        const page = DesignSystem()
         .register('page' , {
             baseName : baseName,
-            childrens : [{localName : 'slot'}]
+            childrens : [PaternArea()]
         });
 
-        return {
-            Connector : Connector(`page-${baseName}`),
-            Show(){ document.body.appendChild(DOM.render(this.Connector(connectorTemplate))) }
-        }
+        return page;
+
+        // return {
+        //     ...page,
+        //     Show(){ 
+        //         if(!Thorium.Page){
+        //             let connector = page.connector();
+        //             Thorium.Page = DOM.render(connector(connectorTemplate));
+        //             document.body.appendChild( Thorium.Page )
+        //         }else{
+        //             console.warn('Only one page are allowed')
+        //         }
+        //     }
+        // }
 
     }
 

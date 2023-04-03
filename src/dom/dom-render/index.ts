@@ -15,6 +15,8 @@ export interface NodeTemplate extends ConnectorTemplate{
 export const DOMRender = (template:NodeTemplate) => {
 
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
+
+  console.log(template)
   
   const element = (() => {
     if(!isLocal)return document.createElement( template.localName );
