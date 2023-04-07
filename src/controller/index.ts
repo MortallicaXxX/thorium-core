@@ -127,7 +127,7 @@ export const Controller = (paternName:string,patern:DesignPatern,T) => {
         })
       })
 
-      if(this.afterMounting)this.afterMounting();
+      if(this.afterMounting)this.afterMounting(this);
 
   }
 

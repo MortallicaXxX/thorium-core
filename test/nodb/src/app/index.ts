@@ -1,5 +1,5 @@
 import { DesignSystem , Connector , PaternArea } from "..";
-import SideLeftMenu , { StickyLeftMenu } from './side-left-menu';
+import SideLeftMenu from './side-left-menu';
 import { HomeView } from "./home";
 import { FluentCard } from "../fluents-component";
 import { ThoriumIcon } from '../thorium-components';
@@ -17,56 +17,7 @@ const MainView = DesignSystem()
             localName : 'div',
             attr : { name : 'home' },
             childrens : [
-              SideLeftMenu({
-                childrens : [
-                  StickyLeftMenu({
-                    childrens : [
-                      FluentCard({
-                        attr : { name : 'projects' },
-                        childrens : [
-                          ThoriumIcon({ path : AddIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                      FluentCard({
-                        attr : { name : 'databases' },
-                        childrens : [
-                          ThoriumIcon({ path : ArchivesIcon , type : 'background' })
-                        ]
-                      }),
-                    ]
-                  })
-                ]
-              }),
+              SideLeftMenu(),
               HomeView()
             ]
         }

@@ -12,6 +12,32 @@ module.exports = {
   module: {
     rules: [
       {
+        test: /\.css$/,
+        use : [
+          { loader: 'style-loader' }, 
+          { 
+            loader: 'css-loader',
+            options: {
+              modules: {
+                // localIdentName: '[name]__[local]--[hash:base64:5]',
+                // exportLocalsConvention: 'camelCase',
+              },
+              // exportLocalsConvention: 'camelCase',
+            } 
+          } , 
+          { 
+            loader: 'postcss-loader',
+            options: {
+              postcssOptions: {
+                plugins: [
+                  require('autoprefixer'),
+                ],
+              },
+            } 
+          } , 
+        ]
+      },
+      {
         test: /\.tsx?$/,
         use: "ts-loader",
         exclude: /node_modules/
@@ -32,14 +58,6 @@ module.exports = {
       //     }
       //   ]
       // },
-      {
-        test: /\.css$/,
-        use : [
-          { loader: 'style-loader' }, 
-          { loader: 'css-loader' } , 
-          { loader: 'postcss-loader' } , 
-        ]
-      }
     ]
   },
   resolve: {

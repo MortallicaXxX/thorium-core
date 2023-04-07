@@ -23,6 +23,8 @@
   },
   "homepage": "https://github.com/MortallicaXxX/thorium-core#readme",
   "dependencies": {
+    "@amcharts/amcharts5": "^5.3.10",
+    "@amcharts/amcharts5-fonts": "^5.0.1",
     "@fluentui/svg-icons": "^1.1.198",
     "@fluentui/web-components": "^2.5.12",
     "autoprefixer": "^10.4.13",
@@ -34,6 +36,7 @@
     "package": "^1.0.1",
     "postcss": "^8.4.19",
     "postcss-cli": "^10.0.0",
+    "postcss-import": "^15.1.0",
     "postcss-loader": "^7.0.1",
     "redefine-custom-elements": "^0.1.3",
     "route-recognizer": "^0.3.4",
