@@ -32,7 +32,10 @@ export const DOMRender = (template:NodeTemplate) => {
   })
 
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
-      element.appendChild(DOMRender(childTemplate));
+      let e = DOMRender(childTemplate);
+      (childTemplate.proto && childTemplate.proto.beforeMounting ? childTemplate.proto.beforeMounting(e) : null);
+      element.appendChild(e);
+      (childTemplate.proto && childTemplate.proto.afterMounting ? childTemplate.proto.afterMounting(e) : null);
   })
 
   if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
