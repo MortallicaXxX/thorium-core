@@ -12,14 +12,14 @@ import { NodeTemplate } from "../../dom";
 // });
 
 
-export const PaternArea = (patern?:ConnectorTemplate):NodeTemplate => {
+export const PaternArea = <T>(patern?:ConnectorTemplate<T>):NodeTemplate<T> => {
   return {
     localName : 'thorium-area',
     attr : (patern && patern.attr ? patern.attr : {}),
     childrens : [
       { localName : 'start' },
-      ...(patern && patern.childrens ? patern.childrens : []),
       { localName : 'slot' },
+      ...(patern && patern.childrens ? patern.childrens : []),
       { localName : 'end' },
     ]
   }

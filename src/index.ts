@@ -1,8 +1,8 @@
-import RouteRecognizer from 'route-recognizer';
+import RouteRecognizer, { Results } from 'route-recognizer';
 // import 'redefine-custom-elements';
 
 import { Connector , ConnectorTemplate } from './connector';
-import DesignSystem from './design-system';
+import DesignSystem , { CustomElement , CustomElementPatern } from './design-system';
 // import { DOMRender , NodeTemplate } from './dom/dom-render';
 import { DOM , NodeTemplate } from './dom';
 import { ThoriumController , PaternArea } from './controller';
@@ -21,7 +21,8 @@ export {
     ThoriumController,
     PaternArea,
     DOM,
-    NodeTemplate
+    NodeTemplate,
+    CustomElement
 };
 
 export class Page{
@@ -54,6 +55,7 @@ interface Route{
 export class PageHandler extends RouteRecognizer{
 
     #_pages:Map<string,any> = new Map();
+    recognizer = new RouteRecognizer();
     /**
      * Define the endpoint of the page
      * @param pageOption 

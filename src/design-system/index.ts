@@ -1,8 +1,9 @@
-import { register , DesignPatern , CustomElementPatern } from './register';
+import { register , DesignPatern , CustomElementPatern , CustomElement } from './register';
 
 export { 
   DesignPatern,
-  CustomElementPatern
+  CustomElementPatern,
+  CustomElement
 };
 
 const DesignSystem = ( ) => {

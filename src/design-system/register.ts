@@ -6,31 +6,33 @@ import { PageController , ThoriumController , ViewController , ViewDesignPatern 
 import { Transactions , TransactionPatern } from '../controller/transactions';
 import { Effects , EffectPatern } from '../controller/effects';
 
-export interface DesignPatern extends ConnectorTemplate{
+export interface DesignPatern<T> extends ConnectorTemplate<T>{
   /**  */
   baseName:string;
   attr?:Record<string,string>;
-  childrens?:NodeTemplate[];
+  childrens?:NodeTemplate<any>[];
   content?:string;
-  proto?:Record<string,any>;
+  proto?:T;
   styles?:string[];
-  __getter__?:Record<string,() => void>;
-  __setter__?:Record<string,(value:any) => void>;
+  __getter__?:Record<string,(target?:T) => void>;
+  __setter__?:Record<string,(value:any,target?:T) => void>;
 }
 
-export interface CustomElementPatern extends CustomElementConstructor{
+export type CustomElement<T> = T;
+
+export interface CustomElementPatern<T> extends CustomElementConstructor{
     transactions:TransactionPatern;
     transactions_onload:TransactionPatern;
     effects:EffectPatern;
-    connector:() => (connectorTemplate?:ConnectorTemplate) => {
+    connector:() => (connectorTemplate?:ConnectorTemplate<T>) => {
         localName: string;
         attr: Record<string, string>;
-        childrens: NodeTemplate[];
-        proto: Record<string, any>;
+        childrens: NodeTemplate<any>[];
+        proto:T;
     };
 }
 
-export const register = ( type : 'page' | 'thorium' | 'local' | 'views' , patern:DesignPatern|ViewDesignPatern):CustomElementPatern => {
+export const register = <T>( type : 'page' | 'thorium' | 'local' | 'views' , patern:DesignPatern<T>|ViewDesignPatern<T>):CustomElementPatern<T> => {
 
     let paternName = `${type}-${patern.baseName}`;
     
@@ -58,7 +60,7 @@ export const register = ( type : 'page' | 'thorium' | 'local' | 'views' , patern
             if(patern.childrens){
                 const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
                 Array.from( patern.childrens , (children) => {
-                    shadow.appendChild(DOMRender(children))
+                    shadow.appendChild(DOMRender<HTMLElement>(children))
                 } )
             }
 
@@ -68,18 +70,18 @@ export const register = ( type : 'page' | 'thorium' | 'local' | 'views' , patern
 
         }
 
-      } as CustomElementPatern , { extends : patern.baseName });
+      } as CustomElementPatern<T> , { extends : patern.baseName });
 
-      return customElements.get(`${type}-${patern.baseName}`) as CustomElementPatern;
+      return customElements.get(`${type}-${patern.baseName}`) as CustomElementPatern<T>;
 
     }
     else{
 
-    if(type == 'page' && !customElements.get(paternName))customElements.define(paternName , PageController(paternName,patern as ViewDesignPatern,HTMLElement))
-    if(type == 'views' && !customElements.get(paternName))customElements.define(paternName , ViewController(paternName,patern as ViewDesignPatern,HTMLElement))
-    else if(type == 'thorium' && !customElements.get(paternName))customElements.define(paternName, ThoriumController(paternName , patern , HTMLElement) )
+    if(type == 'page' && !customElements.get(paternName))customElements.define(paternName , PageController<T>(paternName,patern as ViewDesignPatern<T>,HTMLElement))
+    if(type == 'views' && !customElements.get(paternName))customElements.define(paternName , ViewController<T>(paternName,patern as ViewDesignPatern<T>,HTMLElement))
+    else if(type == 'thorium' && !customElements.get(paternName))customElements.define(paternName, ThoriumController<T>(paternName , patern , HTMLElement) )
 
-    return customElements.get(paternName) as CustomElementPatern;
+    return customElements.get(paternName) as CustomElementPatern<T>;
 
   }
   

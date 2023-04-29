@@ -2,7 +2,7 @@ import { DOMRender } from "../dom/dom-render";
 import { DesignPatern } from '../design-system';
 import { Controller } from ".";
 
-export function PageController(paternName:string,patern:DesignPatern,T):any{
+export function PageController<T>(paternName:string,patern:DesignPatern<T>,T):any{
 
   return class extends Controller(paternName,patern,T){
 

@@ -2,8 +2,8 @@ import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
 import { ViewController , ViewDesignPatern } from "./view-controller";
 import { DesignPatern , CustomElementPatern } from "../design-system";
-import { DOM } from "../dom";
-import { Transactions } from "./transactions";
+import { DOM, NodeTemplate } from "../dom";
+import { Transactions , ITransaction } from "./transactions";
 import { Effects } from "./effects";
 import { ConnectorTemplate } from "../connector";
 import { PaternArea } from "./area";
@@ -17,19 +17,19 @@ export {
   PaternArea
 }
 
-export const Controller = (paternName:string,patern:DesignPatern,T) => {
+export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
 
   return class Controller extends T{
 
     static transactions = Transactions();
     static effects = Effects();
     static connector = () => {
-        return (connectorTemplate?:ConnectorTemplate) => {
+        return (connectorTemplate?:ConnectorTemplate<T>):NodeTemplate<T> => {
             return {
                 localName : paternName,
                 attr : (connectorTemplate && connectorTemplate.attr ? connectorTemplate.attr : {}),
                 childrens : (connectorTemplate && connectorTemplate.childrens ? connectorTemplate.childrens : []),
-                proto : (connectorTemplate && connectorTemplate.proto ? connectorTemplate.proto : {})
+                proto : (connectorTemplate && connectorTemplate.proto ? connectorTemplate.proto : null)
             };
         }
     }
@@ -38,7 +38,7 @@ export const Controller = (paternName:string,patern:DesignPatern,T) => {
       return ['context'];
     }
 
-    patern:DesignPatern;
+    patern:DesignPatern<T>;
 
     constructor(){
         super();
@@ -55,11 +55,31 @@ export const Controller = (paternName:string,patern:DesignPatern,T) => {
           } )
         }
 
+        if(patern.__getter__ && Object.keys(patern.__getter__).length > 0){
+          Array.from( Object.keys( patern.__getter__ ) , (key) => {
+            let element = this;
+  
+            this.__defineGetter__( key , () => {
+              return patern.__getter__[key](element as any)
+            } )
+          } )
+        }
+  
+        if(patern.__setter__ && Object.keys(patern.__setter__).length > 0){
+          Array.from( Object.keys( patern.__setter__ ) , (key) => {
+            let element = this;
+  
+            this.__defineSetter__( key , (value) => {
+              return patern.__setter__[key](value , element as any)
+            } )
+          } )
+        }
+
         if(patern.proto)Array.from( Object.keys(patern.proto) , (protoKey) => {
           this[protoKey] = (patern.proto as Record<string,any>)[protoKey];
         })
 
-        let c = (customElements.get(paternName) as CustomElementPatern);
+        let c = (customElements.get(paternName) as CustomElementPatern<typeof T>);
         let {transactions , transactions_onload} = c.transactions;
         let { effects } = c.effects;
                 

@@ -6,18 +6,18 @@ import { Effects } from "./effects";
 import { CustomElementPatern } from "../design-system/register";
 import { Controller } from ".";
 
-type Views = Record<string,NodeTemplate>;
+type Views = Record<string,NodeTemplate<any>>;
 
-export interface ViewDesignPatern extends DesignPatern{
+export interface ViewDesignPatern<T> extends DesignPatern<T>{
   defaultView:string;
-  views:Record<string,NodeTemplate>;
+  views:Record<string,NodeTemplate<any>>;
 }
 
-export function ViewController(paternName:string,patern:ViewDesignPatern,T):any{
+export function ViewController<T>(paternName:string,patern:ViewDesignPatern<T>,T):any{
 
   return class extends Controller(paternName,patern,T){
 
-    patern:ViewDesignPatern;
+    patern:ViewDesignPatern<T>;
 
     connectedCallback(){
 

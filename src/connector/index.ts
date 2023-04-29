@@ -1,16 +1,16 @@
 import { NodeTemplate } from "../dom/dom-render";
 
-export interface ConnectorTemplate{
+export interface ConnectorTemplate<T>{
   /** component's attributes */
   attr?:Record<string,string>;
   /** component's childrens */
-  childrens?:NodeTemplate[];
+  childrens?:NodeTemplate<any>[];
   /** component's prototypes methods and variables */
-  proto?:Record<string,any>;
+  proto?:Partial<T>;
 }
 
-export const Connector = (localName:NodeTemplate["localName"]) => {
-  return (connectorTemplate?:ConnectorTemplate) => {
+export const Connector = <T>(localName:NodeTemplate<T>["localName"]) => {
+  return (connectorTemplate?:ConnectorTemplate<T>) => {
       return {
           localName : localName,
           attr : (connectorTemplate && connectorTemplate.attr ? connectorTemplate.attr : {}),

@@ -1,18 +1,19 @@
 import { body } from "../dom-virtual";
 import { ConnectorTemplate } from "../../connector";
+import { CustomElement } from "../../design-system";
 
-export interface NodeTemplate extends ConnectorTemplate{
+export interface NodeTemplate<T> extends ConnectorTemplate<T>{
   /** local name of the component */
   localName:string;
   /** extends from existing component */
   extends?:string;
   attr?:Record<string,string>;
-  childrens?:NodeTemplate[];
-  proto?:Record<string,any>;
+  childrens?:NodeTemplate<any>[];
+  proto?:T;
 }
 
 /** Allow to generate element with a template */
-export const DOMRender = (template:NodeTemplate) => {
+export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T> => {
 
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
 
@@ -32,7 +33,7 @@ export const DOMRender = (template:NodeTemplate) => {
   })
 
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
-      let e = DOMRender(childTemplate);
+      let e = DOMRender<HTMLElement>(childTemplate);
       (childTemplate.proto && childTemplate.proto.beforeMounting ? childTemplate.proto.beforeMounting(e) : null);
       element.appendChild(e);
       (childTemplate.proto && childTemplate.proto.afterMounting ? childTemplate.proto.afterMounting(e) : null);
@@ -42,6 +43,6 @@ export const DOMRender = (template:NodeTemplate) => {
       element[protoKey] = (template.proto as Record<string,any>)[protoKey];
   })
 
-  return element;
+  return element as CustomElement<T>;
 
 }
