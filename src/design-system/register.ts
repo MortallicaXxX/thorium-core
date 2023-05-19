@@ -2,13 +2,14 @@ import * as htmlTags from 'html-tags';
 import { ConnectorTemplate } from '../'
 
 import { DOMRender , NodeTemplate } from "../dom/dom-render";
-import { PageController , ThoriumController , ViewController , ViewDesignPatern } from '../controller';
+import { Observer , Observers , Mutation, PageController , ThoriumController , ViewController , ViewDesignPatern } from '../controller';
 import { Transactions , TransactionPatern } from '../controller/transactions';
 import { Effects , EffectPatern } from '../controller/effects';
 
 export interface DesignPatern<T> extends ConnectorTemplate<T>{
   /**  */
   baseName:string;
+  observedAttibutes?:string[];
   attr?:Record<string,string>;
   childrens?:NodeTemplate<any>[];
   content?:string;
@@ -18,7 +19,27 @@ export interface DesignPatern<T> extends ConnectorTemplate<T>{
   __setter__?:Record<string,(value:any,target?:T) => void>;
 }
 
-export type CustomElement<T> = T;
+// export type CustomElement<T> = T;
+export type CustomElement<T,X> = T & X & {
+    context(contextName?:string):Element;
+    onmutation(mutation:Mutation):void;
+    beforeMounting(target:CustomElement<T,X>):void;
+    afterMounting(target:CustomElement<T,X>):void;
+    onunmount():void;
+    oncontextchange():void;
+    useTransaction():void;
+    addTransaction():void;
+    removeTransaction():void;
+    useEffect():void;
+    addEffect():void;
+    removeEffect():void;
+    oberservers:Observers;
+    getObserver(observerId:string):Observer;
+    removeObserver(observerId:string):void;
+    delegateObservedMutation(mutation:Mutation):void;
+    addComponentObserver(sourceElement:CustomElement<Element,{}> | Element , event:string , callback:(mutation:Mutation)=>void):Observer;
+    on( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ):Observer;
+};
 
 export interface CustomElementPatern<T> extends CustomElementConstructor{
     transactions:TransactionPatern;

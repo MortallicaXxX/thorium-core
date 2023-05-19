@@ -4,6 +4,6 @@ import { Controller } from ".";
 
 export function ThoriumController<T>(paternName:string,patern:DesignPatern<T>,T):any{
 
-  return class extends Controller(paternName,patern,T){}
+  return class extends Controller<T>(paternName,patern,T){}
 
 }

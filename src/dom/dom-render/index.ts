@@ -13,7 +13,7 @@ export interface NodeTemplate<T> extends ConnectorTemplate<T>{
 }
 
 /** Allow to generate element with a template */
-export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T> => {
+export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,{}> => {
 
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
 
@@ -27,11 +27,6 @@ export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T> => {
     }
   })()
 
-  if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
-      if(attributeName == 'text')element.innerText = template.attr[attributeName];
-      else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
-  })
-
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
       let e = DOMRender<HTMLElement>(childTemplate);
       (childTemplate.proto && childTemplate.proto.beforeMounting ? childTemplate.proto.beforeMounting(e) : null);
@@ -42,6 +37,11 @@ export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T> => {
   if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
       element[protoKey] = (template.proto as Record<string,any>)[protoKey];
   })
+
+  if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+    if(attributeName == 'text')element.innerText = template.attr[attributeName];
+    else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+})
 
   return element as CustomElement<T>;
 

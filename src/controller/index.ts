@@ -1,7 +1,7 @@
 import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
 import { ViewController , ViewDesignPatern } from "./view-controller";
-import { DesignPatern , CustomElementPatern } from "../design-system";
+import { DesignPatern , CustomElementPatern, CustomElement } from "../design-system";
 import { DOM, NodeTemplate } from "../dom";
 import { Transactions , ITransaction } from "./transactions";
 import { Effects } from "./effects";
@@ -17,9 +17,9 @@ export {
   PaternArea
 }
 
-export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
+export const Controller = <T>(paternName:string,patern:DesignPatern<T>,sourceClass) => {
 
-  return class Controller extends T{
+  return class Controller extends sourceClass{
 
     static transactions = Transactions();
     static effects = Effects();
@@ -29,29 +29,26 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
                 localName : paternName,
                 attr : (connectorTemplate && connectorTemplate.attr ? connectorTemplate.attr : {}),
                 childrens : (connectorTemplate && connectorTemplate.childrens ? connectorTemplate.childrens : []),
-                proto : (connectorTemplate && connectorTemplate.proto ? connectorTemplate.proto : null)
+                proto : (connectorTemplate && connectorTemplate.proto ? connectorTemplate.proto : {}) as T
             };
         }
     }
 
     static get observedAttributes() {
-      return ['context'];
+      return [ ...( patern.observedAttibutes ? patern.observedAttibutes : [] ) , 'context'];
     }
 
     patern:DesignPatern<T>;
+    isMounted:boolean = false;
 
     constructor(){
         super();
         this.patern = patern;
 
-        if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
-          this.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
-        })
-
         if(patern.childrens){
           const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
           Array.from( patern.childrens , (children) => {
-              shadow.appendChild(DOM.render(children))
+              shadow.appendChild(DOM.render<HTMLElement>(children) )
           } )
         }
 
@@ -79,7 +76,7 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
           this[protoKey] = (patern.proto as Record<string,any>)[protoKey];
         })
 
-        let c = (customElements.get(paternName) as CustomElementPatern<typeof T>);
+        let c = (customElements.get(paternName) as CustomElementPatern<T>);
         let {transactions , transactions_onload} = c.transactions;
         let { effects } = c.effects;
                 
@@ -147,17 +144,24 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
         })
       })
 
-      if(this.afterMounting)this.afterMounting(this);
+      if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
+        this.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
+      })
 
-  }
+      if(this.afterMounting && !this.isMounted)this.afterMounting(this);
+      if(!this.isMounted)this.isMounted = true;
+
+    }
 
     disconnectedCallback(){
       if(this.onunmount)this.onunmount();
     }
 
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-      if(this.onmutation)this.onmutation({name,oldValue,newValue})
-      if(this.oncontextchange)this.oncontextchange(newValue)
+      let mutation = {attributeName:name,oldValue,newValue};
+      if(this.onmutation)this.onmutation(mutation);
+      if(this.oncontextchange)this.oncontextchange(newValue);
+      this.delegateObservedMutation(mutation)
     }
 
     useTransaction = (transactionName:string) => {
@@ -206,8 +210,95 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,T) => {
     removeEffect = (effectId:string) => {
       return ( this.$Thorium.effects.has(effectId) ? this.$Thorium.effects.delete(effectId) : null );
     }
+
+    oberservers:Observers = new Map();
+    getObserver = (observerId:string) => {
+
+      return Array.from( this.oberservers.values() , (stack) => {
+        return Array.from( stack.values() , (observerInfo) => {
+          if(observerInfo._id == observerId)return observerInfo;
+        } )
+      } ).flat().filter((x) => x)[0];
+
+    }
+    removeObserver = (observerId:string) => {
+      console.warn('remove observer' , this.oberservers.values())
+
+      return Array.from( this.oberservers.values() , (stack) => {
+        return (stack.has(observerId) ? stack.delete(observerId) : null)
+      } ).flat().filter((x) => x)[0];
+
+    }
+    delegateObservedMutation = (mutation:Mutation) => {
+
+      let {attributeName,oldValue,newValue} = mutation;
+      let stack = ( this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : null );
+
+      if(stack)Array.from( stack.values() , (observer) => {
+        if(observer.sourceElement && document.body.contains(observer.sourceElement))observer.callback(mutation);
+        else if(!observer.sourceElement)observer.callback(mutation);
+        else stack.delete(observer._id);
+      } )
+
+    }
+
+    /** Observer les modification d'attributs d'un components tiers */
+    addComponentObserver = (sourceElement:CustomElement<Element,{}> | Element , event:string , callback:(mutation:Mutation)=>void):Observer => {
+
+      let patern = ( 'patern' in sourceElement ? sourceElement.patern : null) as NodeTemplate<any> | DesignPatern<any>;
+      console.warn('sourceElement : ',sourceElement);
+      console.warn('patern : ',patern);
+
+      if(patern){
+        let observedAttibutes = ( 'observedAttibutes' in patern ? (patern as DesignPatern<any>).observedAttibutes : null);
+        console.warn('observedAttibutes : ',observedAttibutes , event );
+        if(observedAttibutes.includes(event)){
+          return (sourceElement as CustomElement<Element,{}>).on( event , callback , this as unknown as CustomElement<Element,{}>);
+        }
+      }
+      else console.error("Seems that this sourceElement ins't a thorium-component");
+
+    }
+
+    on = ( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ):Observer => {
+
+      let stack = (this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : (() => {
+        this.oberservers.set(attributeName , new Map());
+        return this.oberservers.get(attributeName);
+      })() );
+
+      let oberserverId = crypto.randomUUID();
+      stack.set(oberserverId , {
+        _id : oberserverId,
+        attributeName : attributeName,
+        target : this as unknown as CustomElement<Element,{}>,
+        sourceElement : sourceElement,
+        callback : callback
+      });
+
+      return stack.get(oberserverId);
+
+    }
   
   }
 
+}
+
+export interface Mutation{
+  attributeName:string;
+  oldValue:string;
+  newValue:string
+}
+
+export type Observers = Map<string,ObserversStack>;
+
+export type ObserversStack = Map<string,Observer>
+
+export interface Observer{
+  _id : string;
+  attributeName : string,
+  target?:CustomElement<Element,{}>;
+  sourceElement?:CustomElement<Element,{}> | Element;
+  callback : (mutation:Mutation) => void;
 }
 
