@@ -5,7 +5,11 @@ import { Connector , ConnectorTemplate } from './connector';
 import DesignSystem , { CustomElement , CustomElementPatern } from './design-system';
 // import { DOMRender , NodeTemplate } from './dom/dom-render';
 import { DOM , NodeTemplate } from './dom';
-import { ThoriumController , PaternArea } from './controller';
+import { 
+    ThoriumController , 
+    IViewController , 
+    PaternArea 
+} from './controller';
 
 
 // export declare var DOMwindow: Window ; // vous pouvez spécifier le type de votre variable ici
@@ -19,6 +23,7 @@ export {
     Connector,
     ConnectorTemplate,
     ThoriumController,
+    IViewController,
     PaternArea,
     DOM,
     NodeTemplate,

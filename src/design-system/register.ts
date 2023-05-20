@@ -21,7 +21,7 @@ export interface DesignPatern<T> extends ConnectorTemplate<T>{
 
 // export type CustomElement<T> = T;
 export type CustomElement<T,X> = T & X & {
-    context(contextName?:string):Element;
+    context<Y>(contextName?:string):CustomElement<Y,Element>;
     onmutation(mutation:Mutation):void;
     beforeMounting(target:CustomElement<T,X>):void;
     afterMounting(target:CustomElement<T,X>):void;

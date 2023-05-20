@@ -25,7 +25,9 @@ export function PageController<T>(paternName:string,patern:DesignPatern<T>,T):an
           })
         })
   
-        if(this.afterMounting)this.afterMounting();
+        if(this.afterMounting && !this.isMounted)this.afterMounting(this);
+        if(!this.isMounted)this.isMounted = true;
+        
       }
       else {
         alert('Page component have to be mounted on body');

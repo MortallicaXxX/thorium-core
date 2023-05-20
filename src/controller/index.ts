@@ -1,6 +1,6 @@
 import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
-import { ViewController , ViewDesignPatern } from "./view-controller";
+import { ViewController , IViewController , ViewDesignPatern } from "./view-controller";
 import { DesignPatern , CustomElementPatern, CustomElement } from "../design-system";
 import { DOM, NodeTemplate } from "../dom";
 import { Transactions , ITransaction } from "./transactions";
@@ -13,6 +13,7 @@ export {
   PageController,
   ThoriumController,
   ViewController,
+  IViewController,
   ViewDesignPatern,
   PaternArea
 }
@@ -96,7 +97,7 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,sourceCla
      * @param contextNameToFind 
      * @returns 
     */
-    context(contextNameToFind?:string){
+    context<T>(contextNameToFind?:string){
   
       const findUpperElementContext = (node:Controller) => {
   
@@ -122,7 +123,7 @@ export const Controller = <T>(paternName:string,patern:DesignPatern<T>,sourceCla
   
       }
   
-      return findUpperElementContext(this)
+      return findUpperElementContext(this) as T
   
     }
 

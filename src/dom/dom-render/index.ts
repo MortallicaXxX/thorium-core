@@ -13,7 +13,7 @@ export interface NodeTemplate<T> extends ConnectorTemplate<T>{
 }
 
 /** Allow to generate element with a template */
-export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,{}> => {
+export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,any> => {
 
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
 
@@ -29,9 +29,15 @@ export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,{}> => {
 
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
       let e = DOMRender<HTMLElement>(childTemplate);
-      (childTemplate.proto && childTemplate.proto.beforeMounting ? childTemplate.proto.beforeMounting(e) : null);
-      element.appendChild(e);
-      (childTemplate.proto && childTemplate.proto.afterMounting ? childTemplate.proto.afterMounting(e) : null);
+
+      // Design patern
+      if('connectedCallback' in e)element.appendChild(e);
+      // Not Design patern
+      else {
+        (childTemplate.proto && childTemplate.proto.beforeMounting ? childTemplate.proto.beforeMounting(e) : null);
+        element.appendChild(e);
+        (childTemplate.proto && childTemplate.proto.afterMounting ? childTemplate.proto.afterMounting(e) : null);
+      }
   })
 
   if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
@@ -43,6 +49,6 @@ export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,{}> => {
     else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
 })
 
-  return element as CustomElement<T>;
+  return element as CustomElement<T,any>;
 
 }

@@ -1,8 +1,8 @@
 import { NodeTemplate } from "../../dom";
 
-export interface NodeTransaction extends Partial<NodeTemplate>{
+export interface NodeTransaction extends Partial<NodeTemplate<any>>{
   attr?:Record<string,string>;
-  childrens?:NodeTemplate[];
+  childrens?:NodeTemplate<any>[];
   proto?:Record<string,any>;
 }
 

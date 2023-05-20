@@ -13,6 +13,15 @@ export interface ViewDesignPatern<T> extends DesignPatern<T>{
   views:Record<string,NodeTemplate<any>>;
 }
 
+export interface IViewController{
+  /** get view context */
+  getContext():string;
+  /** get view's context list */
+  getContextList():string[];
+  /** set view context */
+  setContext(context:string):void;
+}
+
 export function ViewController<T>(paternName:string,patern:ViewDesignPatern<T>,T):any{
 
   return class extends Controller(paternName,patern,T){
@@ -36,13 +45,12 @@ export function ViewController<T>(paternName:string,patern:ViewDesignPatern<T>,T
         })
       })
 
-      if(this.afterMounting)this.afterMounting();
+      if(this.afterMounting && !this.isMounted)this.afterMounting(this);
+      if(!this.isMounted)this.isMounted = true;
 
       if(this.patern.defaultView){
         this.setAttribute('context' , this.patern.defaultView);
       }
-
-      // if(this.afterMounting)this.afterMounting();
 
     }
 
