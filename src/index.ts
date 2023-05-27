@@ -2,10 +2,11 @@ import RouteRecognizer, { Results } from 'route-recognizer';
 // import 'redefine-custom-elements';
 
 import { Connector , ConnectorTemplate } from './connector';
-import DesignSystem , { CustomElement , CustomElementPatern } from './design-system';
+import DesignSystem , { DesignPatern , CustomElement , CustomElementPatern } from './design-system';
 // import { DOMRender , NodeTemplate } from './dom/dom-render';
 import { DOM , NodeTemplate } from './dom';
 import { 
+    Controller,
     ThoriumController , 
     IViewController , 
     PaternArea 
@@ -18,17 +19,11 @@ import {
 // DOMwindow = ( window ? window : (new JSDOM()).dom );
 // DOMdocument = DOMwindow.document;
 
-export {
-    DesignSystem,
-    Connector,
-    ConnectorTemplate,
-    ThoriumController,
-    IViewController,
-    PaternArea,
-    DOM,
-    NodeTemplate,
-    CustomElement
-};
+export * from './connector';
+export * from './design-system';
+export * from './dom';
+export * from './controller';
+export { DesignSystem };
 
 export class Page{
 
@@ -52,7 +47,7 @@ export class Page{
 
 }
 
-interface Route{
+export interface Route{
     path:string;
     component:any;
 }

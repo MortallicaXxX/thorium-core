@@ -18,6 +18,13 @@ export {
   PaternArea
 }
 
+export * from "./page-controller";
+export * from "./thorium-controller";
+export * from "./view-controller";
+export * from "./transactions";
+export * from "./effects";
+export * from "./area";
+
 /**
  * Fonction générique permettant de créer un contrôleur personnalisé pour un composant web.
  * 

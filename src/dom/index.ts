@@ -1,7 +1,8 @@
 import { DOMRender , NodeTemplate } from "./dom-render";
 import { DOMVirtual , htmlDocument as document , body , head , useEffect } from "./dom-virtual";
 
-export {NodeTemplate};
+export * from "./dom-render";
+export * from "./dom-virtual";
 
 /**
  * # DOM
