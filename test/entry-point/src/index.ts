@@ -1,27 +1,57 @@
-import Thorium , { Connector , DesignSystem , DOM , ThoriumController } from '../../../';
+import Thorium , { Connector , DesignSystem , DOM , ThoriumController , PaternArea } from '../../../';
 import useState from '/Users/guillaume/Documents/github/Types/States/src';
 
 import './components/app-view';
-import ThoriumInput , { areHoverEffect , areaUnHoverEffect , areaSelectEffect , areaUnSelectEffect } from './components/thorium-input';
+import ThoriumInput , { IThoriumInput , areHoverEffect , areaUnHoverEffect , areaSelectEffect , areaUnSelectEffect } from './components/thorium-input';
 
-const AppView = Connector('views-app');
+// const ViewApp = DesignSystem()
+// .register('views' , {
+//     baseName : 'app',
+//     defaultView : 'home',
+//     childrens : [{localName : 'slot'}],
+//     views : {
+//         'home' : {
+//             localName : 'div',
+//             attr : { name : 'dashboard' , text : '/dashboard' }
+//         }
+//     }
+// });
 
-const ViewApp = DesignSystem()
-.register('views' , {
-    baseName : 'app',
-    defaultView : 'home',
-    childrens : [{localName : 'slot'}],
-    views : {
-        'home' : {
-            localName : 'div',
-            attr : { name : 'dashboard' , text : '/dashboard' }
+// const AppView = Connector('views-app');
+
+/**
+ * Description : Comment créer un Custom Element ?
+ ```typescript
+    // SANS TRANSACTION &/OU EFFECTS
+    type MyElement = CustomElement<HTMLElement , {...}>
+    // AVEC TRANSACTION &/OU EFFECTS
+    type MyElement = CustomElement<HTMLElement , {...} , Transactions , Effects>
+ ``` 
+*/
+
+( () => {
+
+    // const { document , body , head , useEffect } = DOM;
+
+    window.onload = () => {
+
+        let element = DOM.render<IThoriumInput>( ThoriumInput({
+            attr : { loading : 'false' },
+            childrens : [
+                { localName : 'label' , attr : { text : 'lol : ' } }
+            ]
+        }));
+
+        element.afterMounting = (target) => {
+            // alert('hello');
         }
+    
+        document.body.appendChild( element );
+    
+        console.log(document.body , element);
+        console.log(document.body.appendChild( element ));
+
     }
-});
-
-( async () => {
-
-    const { document , body , head , useEffect } = DOM;
 
     // Thorium.on('/' , AppPage);
 
@@ -43,12 +73,6 @@ const ViewApp = DesignSystem()
 
     // document.body.appendChild( DOM.render( AppView({
     //     attr : { context : 'dashboard' }
-    // }) ) )
-
-    // body.appendChild( DOM.render( ThoriumInput({
-    //     childrens : [
-    //         { localName : 'label' , attr : { text : 'lol : ' } }
-    //     ]
     // }) ) )
 
     // useEffect();

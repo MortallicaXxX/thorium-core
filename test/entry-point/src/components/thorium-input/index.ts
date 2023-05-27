@@ -1,4 +1,4 @@
-import Thorium , { Connector , DesignSystem , DOM , ThoriumController } from '../../../../../dist';
+import Thorium , { Connector , DesignSystem , DOM , ThoriumController , CustomElement, PaternArea } from '../../../../../dist';
 
 import { InitInput } from './transactions/input-transaction';
 import { AreaHovered } from '../effects/area-hovered';
@@ -6,26 +6,24 @@ import { AreaUnHovered } from '../effects/area-unhovered';
 import { AreaSelected } from '../effects/area-selected';
 import { AreaUnSelected } from '../effects/area-unselected';
 
+export type IThoriumInput = CustomElement<HTMLInputElement , {
+    'child-area': CustomElement<Element,{}>;
+    'child-start': CustomElement<Element,{}>;
+    'child-slot': CustomElement<HTMLSlotElement,{}>;
+    'child-input': CustomElement<HTMLInputElement,{}>;
+    'child-end': CustomElement<Element,{}>;
+    value:string;
+} , IThoriumInputTransactions , IThoriumInputEffects>;
+
+export type IThoriumInputTransactions = 'init-input-transaction';
+
+export type IThoriumInputEffects = 'area-hovered' | 'area-selected' | 'area-unhovered' | 'area-unselected';
+
 const ThoriumInput = DesignSystem()
-.register('thorium' , {
+.register<IThoriumInput , IThoriumInputTransactions , IThoriumInputEffects>('thorium' , {
     baseName : 'input',
-    childrens : [
-        {
-            localName : 'area',
-            childrens : [
-                { localName : 'start' },
-                { localName : 'slot' },
-                { localName : 'input' },
-                { localName : 'end' }
-            ],
-            proto : {
-                onmouseenter(){ this.root.useEffect('area-hovered'); },
-                onmouseleave(){ this.root.useEffect('area-unhovered'); },
-                onmousedown(){ this.root.useEffect('area-selected'); },
-                onmouseup(){ this.root.useEffect('area-unselected'); }
-            }
-        }
-    ],
+    observedAttibutes : ['loading'],
+    childrens : [PaternArea({ childrens : [ { localName : 'input' } ] })],
     // Ajout de getters au component
     __getter__ : {
         ['child-area'] : function(){ return this.shadowRoot.children[0] },
@@ -53,4 +51,4 @@ export const areaSelectEffect = ThoriumInput.effects.set(AreaSelected);
 /** Effect qui retire l'attribut area-selected et la class select */
 export const areaUnSelectEffect = ThoriumInput.effects.set(AreaUnSelected);
 
-export default (() => {return ThoriumInput.connector()})();
+export default (() => {return ThoriumInput.connector<IThoriumInput>()})();

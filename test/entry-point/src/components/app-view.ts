@@ -14,22 +14,25 @@ import { removeUser } from '../effects/remove-user';
 const ViewApp = DesignSystem()
 .register('views' , {
     baseName : 'app',
-    defaultView : 'dashboard',
+    // defaultView : 'dashboard',
     childrens : [{localName : 'slot'}],
-    views : {
-        'dashboard' : {
-            localName : 'div',
-            attr : { name : 'dashboard' , text : '/dashboard' }
-        },
-        'user' : {
-            localName : 'div',
-            attr : { name : 'user' , text : '/user' }
-        },
-        'test' : {
-            localName : 'div',
-            attr : { name : 'user' , text : '/test' }
-        }
-    }
+    // views : {
+    //     'dashboard' : {
+    //         localName : 'div',
+    //         attr : { name : 'dashboard' , text : '/dashboard' }
+    //     },
+    //     'user' : {
+    //         localName : 'div',
+    //         attr : { name : 'user' , text : '/user' }
+    //     },
+    //     'test' : {
+    //         localName : 'div',
+    //         attr : { name : 'user' , text : '/test' }
+    //     }
+    // }
+    // 'view-element' : {
+
+    // }
 })
 
 // ViewApp.transactions.add(alertTransaction);

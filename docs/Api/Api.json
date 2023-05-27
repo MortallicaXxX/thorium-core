@@ -1,0 +1,4582 @@
+{
+	"id": 0,
+	"name": "thorium-core",
+	"kind": 1,
+	"kindString": "Project",
+	"flags": {},
+	"originalName": "",
+	"children": [
+		{
+			"id": 69,
+			"name": "default",
+			"kind": 4,
+			"kindString": "Namespace",
+			"flags": {},
+			"children": [
+				{
+					"id": 72,
+					"name": "Page",
+					"kind": 32,
+					"kindString": "Variable",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 86,
+							"character": 15,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L86"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					},
+					"defaultValue": "null"
+				},
+				{
+					"id": 73,
+					"name": "pages",
+					"kind": 32,
+					"kindString": "Variable",
+					"flags": {
+						"isConst": true
+					},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 88,
+							"character": 17,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L88"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 10,
+						"name": "PageHandler"
+					},
+					"defaultValue": "..."
+				},
+				{
+					"id": 78,
+					"name": "CreatePage",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 96,
+							"character": 17,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L96"
+						}
+					],
+					"signatures": [
+						{
+							"id": 79,
+							"name": "CreatePage",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 80,
+									"name": "baseName",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "intrinsic",
+										"name": "unknown"
+									},
+									{
+										"type": "intrinsic",
+										"name": "unknown"
+									}
+								],
+								"name": "CustomElementPatern"
+							}
+						}
+					]
+				},
+				{
+					"id": 74,
+					"name": "on",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 90,
+							"character": 17,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L90"
+						}
+					],
+					"signatures": [
+						{
+							"id": 75,
+							"name": "on",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 76,
+									"name": "pathname",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 77,
+									"name": "page",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				},
+				{
+					"id": 70,
+					"name": "router",
+					"kind": 64,
+					"kindString": "Function",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 84,
+							"character": 17,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L84"
+						}
+					],
+					"signatures": [
+						{
+							"id": 71,
+							"name": "router",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"type": {
+								"type": "query",
+								"queryType": {
+									"type": "reference",
+									"name": "RouteRecognizer",
+									"qualifiedName": "RouteRecognizer",
+									"package": "route-recognizer"
+								}
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Variables",
+					"children": [
+						72,
+						73
+					]
+				},
+				{
+					"title": "Functions",
+					"children": [
+						78,
+						74,
+						70
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/index.ts",
+					"line": 81,
+					"character": 10,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L81"
+				}
+			]
+		},
+		{
+			"id": 1,
+			"name": "Page",
+			"kind": 128,
+			"kindString": "Class",
+			"flags": {},
+			"children": [
+				{
+					"id": 2,
+					"name": "constructor",
+					"kind": 512,
+					"kindString": "Constructor",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 37,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L37"
+						}
+					],
+					"signatures": [
+						{
+							"id": 3,
+							"name": "new Page",
+							"kind": 16384,
+							"kindString": "Constructor signature",
+							"flags": {},
+							"parameters": [
+								{
+									"id": 4,
+									"name": "component",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "any"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 1,
+								"name": "Page"
+							}
+						}
+					]
+				},
+				{
+					"id": 5,
+					"name": "#_component",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isPrivate": true
+					},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 35,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L35"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					}
+				},
+				{
+					"id": 6,
+					"name": "#_render",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isPrivate": true
+					},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 44,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L44"
+						}
+					],
+					"signatures": [
+						{
+							"id": 7,
+							"name": "#_render",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Rendering process"
+									}
+								]
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				},
+				{
+					"id": 8,
+					"name": "show",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 51,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L51"
+						}
+					],
+					"signatures": [
+						{
+							"id": 9,
+							"name": "show",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Build the page"
+									}
+								]
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"children": [
+						2
+					]
+				},
+				{
+					"title": "Properties",
+					"children": [
+						5
+					]
+				},
+				{
+					"title": "Methods",
+					"children": [
+						6,
+						8
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/index.ts",
+					"line": 33,
+					"character": 13,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L33"
+				}
+			]
+		},
+		{
+			"id": 10,
+			"name": "PageHandler",
+			"kind": 128,
+			"kindString": "Class",
+			"flags": {},
+			"children": [
+				{
+					"id": 27,
+					"name": "constructor",
+					"kind": 512,
+					"kindString": "Constructor",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 28,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 28,
+							"name": "new PageHandler",
+							"kind": 16384,
+							"kindString": "Constructor signature",
+							"flags": {
+								"isExternal": true
+							},
+							"type": {
+								"type": "reference",
+								"id": 10,
+								"name": "PageHandler"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.constructor"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.constructor"
+					}
+				},
+				{
+					"id": 29,
+					"name": "#_pages",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isPrivate": true
+					},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 62,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L62"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "intrinsic",
+								"name": "any"
+							}
+						],
+						"name": "Map",
+						"qualifiedName": "Map",
+						"package": "typescript"
+					},
+					"defaultValue": "..."
+				},
+				{
+					"id": 43,
+					"name": "delegate",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 27,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "Delegate",
+						"qualifiedName": "Delegate",
+						"package": "route-recognizer"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.delegate"
+					}
+				},
+				{
+					"id": 34,
+					"name": "map",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 26,
+							"character": 4
+						}
+					],
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 35,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {
+								"isExternal": true
+							},
+							"sources": [
+								{
+									"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+									"line": 26,
+									"character": 9
+								}
+							],
+							"signatures": [
+								{
+									"id": 36,
+									"name": "__type",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {
+										"isExternal": true
+									},
+									"parameters": [
+										{
+											"id": 37,
+											"name": "context",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isExternal": true
+											},
+											"type": {
+												"type": "reference",
+												"name": "MatchCallback",
+												"qualifiedName": "MatchCallback",
+												"package": "route-recognizer"
+											}
+										},
+										{
+											"id": 38,
+											"name": "addCallback",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isExternal": true,
+												"isOptional": true
+											},
+											"type": {
+												"type": "reflection",
+												"declaration": {
+													"id": 39,
+													"name": "__type",
+													"kind": 65536,
+													"kindString": "Type literal",
+													"flags": {
+														"isExternal": true
+													},
+													"sources": [
+														{
+															"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+															"line": 26,
+															"character": 48
+														}
+													],
+													"signatures": [
+														{
+															"id": 40,
+															"name": "__type",
+															"kind": 4096,
+															"kindString": "Call signature",
+															"flags": {
+																"isExternal": true
+															},
+															"parameters": [
+																{
+																	"id": 41,
+																	"name": "router",
+																	"kind": 32768,
+																	"kindString": "Parameter",
+																	"flags": {
+																		"isExternal": true
+																	},
+																	"type": {
+																		"type": "reference",
+																		"id": 10,
+																		"name": "PageHandler"
+																	}
+																},
+																{
+																	"id": 42,
+																	"name": "routes",
+																	"kind": 32768,
+																	"kindString": "Parameter",
+																	"flags": {
+																		"isExternal": true
+																	},
+																	"type": {
+																		"type": "array",
+																		"elementType": {
+																			"type": "reference",
+																			"name": "Route",
+																			"qualifiedName": "Route",
+																			"package": "route-recognizer"
+																		}
+																	}
+																}
+															],
+															"type": {
+																"type": "intrinsic",
+																"name": "void"
+															}
+														}
+													]
+												}
+											}
+										}
+									],
+									"type": {
+										"type": "intrinsic",
+										"name": "void"
+									}
+								}
+							]
+						}
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.map"
+					}
+				},
+				{
+					"id": 30,
+					"name": "recognizer",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 63,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L63"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"name": "RouteRecognizer",
+						"qualifiedName": "RouteRecognizer",
+						"package": "route-recognizer"
+					},
+					"defaultValue": "..."
+				},
+				{
+					"id": 12,
+					"name": "ENCODE_AND_DECODE_PATH_SEGMENTS",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isStatic": true,
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 30,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "boolean"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.ENCODE_AND_DECODE_PATH_SEGMENTS"
+					}
+				},
+				{
+					"id": 13,
+					"name": "Normalizer",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isStatic": true,
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 31,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 14,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {
+								"isExternal": true
+							},
+							"children": [
+								{
+									"id": 23,
+									"name": "encodePathSegment",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isExternal": true
+									},
+									"sources": [
+										{
+											"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+											"line": 34,
+											"character": 8
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 24,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {
+												"isExternal": true
+											},
+											"sources": [
+												{
+													"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+													"line": 34,
+													"character": 27
+												}
+											],
+											"signatures": [
+												{
+													"id": 25,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {
+														"isExternal": true
+													},
+													"parameters": [
+														{
+															"id": 26,
+															"name": "str",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {
+																"isExternal": true
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 19,
+									"name": "normalizePath",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isExternal": true
+									},
+									"sources": [
+										{
+											"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+											"line": 33,
+											"character": 8
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 20,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {
+												"isExternal": true
+											},
+											"sources": [
+												{
+													"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+													"line": 33,
+													"character": 23
+												}
+											],
+											"signatures": [
+												{
+													"id": 21,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {
+														"isExternal": true
+													},
+													"parameters": [
+														{
+															"id": 22,
+															"name": "path",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {
+																"isExternal": true
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								},
+								{
+									"id": 15,
+									"name": "normalizeSegment",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {
+										"isExternal": true
+									},
+									"sources": [
+										{
+											"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+											"line": 32,
+											"character": 8
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 16,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {
+												"isExternal": true
+											},
+											"sources": [
+												{
+													"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+													"line": 32,
+													"character": 26
+												}
+											],
+											"signatures": [
+												{
+													"id": 17,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {
+														"isExternal": true
+													},
+													"parameters": [
+														{
+															"id": 18,
+															"name": "segment",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {
+																"isExternal": true
+															},
+															"type": {
+																"type": "intrinsic",
+																"name": "string"
+															}
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											]
+										}
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										23,
+										19,
+										15
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+									"line": 31,
+									"character": 23
+								}
+							]
+						}
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.Normalizer"
+					}
+				},
+				{
+					"id": 11,
+					"name": "VERSION",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isStatic": true,
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 29,
+							"character": 11
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					},
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.VERSION"
+					}
+				},
+				{
+					"id": 44,
+					"name": "add",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 36,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 45,
+							"name": "add",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 46,
+									"name": "routes",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "array",
+										"elementType": {
+											"type": "reference",
+											"name": "Route",
+											"qualifiedName": "Route",
+											"package": "route-recognizer"
+										}
+									}
+								},
+								{
+									"id": 47,
+									"name": "options",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 48,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {
+												"isExternal": true
+											},
+											"children": [
+												{
+													"id": 49,
+													"name": "as",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {
+														"isExternal": true
+													},
+													"sources": [
+														{
+															"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+															"line": 37,
+															"character": 8
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"groups": [
+												{
+													"title": "Properties",
+													"children": [
+														49
+													]
+												}
+											],
+											"sources": [
+												{
+													"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+													"line": 36,
+													"character": 35
+												}
+											]
+										}
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.add"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.add"
+					}
+				},
+				{
+					"id": 56,
+					"name": "generate",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 41,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 57,
+							"name": "generate",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 58,
+									"name": "name",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								},
+								{
+									"id": 59,
+									"name": "params",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true,
+										"isOptional": true
+									},
+									"type": {
+										"type": "reference",
+										"name": "Params",
+										"qualifiedName": "Params",
+										"package": "route-recognizer"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.generate"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.generate"
+					}
+				},
+				{
+					"id": 60,
+					"name": "generateQueryString",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 42,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 61,
+							"name": "generateQueryString",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 62,
+									"name": "params",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "reference",
+										"name": "QueryParams",
+										"qualifiedName": "QueryParams",
+										"package": "route-recognizer"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.generateQueryString"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.generateQueryString"
+					}
+				},
+				{
+					"id": 50,
+					"name": "handlersFor",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 39,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 51,
+							"name": "handlersFor",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 52,
+									"name": "name",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "any"
+								}
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.handlersFor"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.handlersFor"
+					}
+				},
+				{
+					"id": 53,
+					"name": "hasRoute",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 40,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 54,
+							"name": "hasRoute",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 55,
+									"name": "name",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "boolean"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.hasRoute"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.hasRoute"
+					}
+				},
+				{
+					"id": 63,
+					"name": "parseQueryString",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 43,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 64,
+							"name": "parseQueryString",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 65,
+									"name": "queryString",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "QueryParams",
+								"qualifiedName": "QueryParams",
+								"package": "route-recognizer"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.parseQueryString"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.parseQueryString"
+					}
+				},
+				{
+					"id": 66,
+					"name": "recognize",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {
+						"isExternal": true
+					},
+					"sources": [
+						{
+							"fileName": "node_modules/route-recognizer/dist/route-recognizer.d.ts",
+							"line": 44,
+							"character": 4
+						}
+					],
+					"signatures": [
+						{
+							"id": 67,
+							"name": "recognize",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {
+								"isExternal": true
+							},
+							"parameters": [
+								{
+									"id": 68,
+									"name": "path",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {
+										"isExternal": true
+									},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Results",
+								"qualifiedName": "Results",
+								"package": "route-recognizer"
+							},
+							"inheritedFrom": {
+								"type": "reference",
+								"name": "RouteRecognizer.recognize"
+							}
+						}
+					],
+					"inheritedFrom": {
+						"type": "reference",
+						"name": "RouteRecognizer.recognize"
+					}
+				},
+				{
+					"id": 31,
+					"name": "set",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/index.ts",
+							"line": 69,
+							"character": 4,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L69"
+						}
+					],
+					"signatures": [
+						{
+							"id": 32,
+							"name": "set",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "Define the endpoint of the page"
+									}
+								],
+								"blockTags": [
+									{
+										"tag": "@returns",
+										"content": []
+									}
+								]
+							},
+							"parameters": [
+								{
+									"id": 33,
+									"name": "pageOption",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "reference",
+										"name": "Route"
+									}
+								}
+							],
+							"type": {
+								"type": "reference",
+								"id": 1,
+								"name": "Page"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Constructors",
+					"children": [
+						27
+					]
+				},
+				{
+					"title": "Properties",
+					"children": [
+						29,
+						43,
+						34,
+						30,
+						12,
+						13,
+						11
+					]
+				},
+				{
+					"title": "Methods",
+					"children": [
+						44,
+						56,
+						60,
+						50,
+						53,
+						63,
+						66,
+						31
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/index.ts",
+					"line": 60,
+					"character": 13,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L60"
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"name": "RouteRecognizer",
+					"qualifiedName": "RouteRecognizer",
+					"package": "route-recognizer"
+				}
+			]
+		},
+		{
+			"id": 105,
+			"name": "ConnectorTemplate",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 106,
+					"name": "attr",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's attributes"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/connector/index.ts",
+							"line": 5,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L5"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						],
+						"name": "Record",
+						"qualifiedName": "Record",
+						"package": "typescript"
+					}
+				},
+				{
+					"id": 107,
+					"name": "childrens",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's childrens"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/connector/index.ts",
+							"line": 7,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L7"
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"id": 146,
+							"typeArguments": [
+								{
+									"type": "intrinsic",
+									"name": "any"
+								}
+							],
+							"name": "NodeTemplate"
+						}
+					}
+				},
+				{
+					"id": 108,
+					"name": "proto",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's prototypes methods and variables"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/connector/index.ts",
+							"line": 9,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L9"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 109,
+								"name": "T"
+							}
+						],
+						"name": "Partial",
+						"qualifiedName": "Partial",
+						"package": "typescript"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						106,
+						107,
+						108
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/connector/index.ts",
+					"line": 3,
+					"character": 17,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L3"
+				}
+			],
+			"typeParameters": [
+				{
+					"id": 109,
+					"name": "T",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {}
+				}
+			],
+			"extendedBy": [
+				{
+					"type": "reference",
+					"id": 146,
+					"name": "NodeTemplate"
+				}
+			]
+		},
+		{
+			"id": 118,
+			"name": "IViewController",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 119,
+					"name": "getContext",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/controller/view-controller.ts",
+							"line": 19,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/view-controller.ts#L19"
+						}
+					],
+					"signatures": [
+						{
+							"id": 120,
+							"name": "getContext",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "get view context"
+									}
+								]
+							},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					]
+				},
+				{
+					"id": 121,
+					"name": "getContextList",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/controller/view-controller.ts",
+							"line": 21,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/view-controller.ts#L21"
+						}
+					],
+					"signatures": [
+						{
+							"id": 122,
+							"name": "getContextList",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "get view's context list"
+									}
+								]
+							},
+							"type": {
+								"type": "array",
+								"elementType": {
+									"type": "intrinsic",
+									"name": "string"
+								}
+							}
+						}
+					]
+				},
+				{
+					"id": 123,
+					"name": "setContext",
+					"kind": 2048,
+					"kindString": "Method",
+					"flags": {},
+					"sources": [
+						{
+							"fileName": "src/controller/view-controller.ts",
+							"line": 23,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/view-controller.ts#L23"
+						}
+					],
+					"signatures": [
+						{
+							"id": 124,
+							"name": "setContext",
+							"kind": 4096,
+							"kindString": "Call signature",
+							"flags": {},
+							"comment": {
+								"summary": [
+									{
+										"kind": "text",
+										"text": "set view context"
+									}
+								]
+							},
+							"parameters": [
+								{
+									"id": 125,
+									"name": "context",
+									"kind": 32768,
+									"kindString": "Parameter",
+									"flags": {},
+									"type": {
+										"type": "intrinsic",
+										"name": "string"
+									}
+								}
+							],
+							"type": {
+								"type": "intrinsic",
+								"name": "void"
+							}
+						}
+					]
+				}
+			],
+			"groups": [
+				{
+					"title": "Methods",
+					"children": [
+						119,
+						121,
+						123
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/controller/view-controller.ts",
+					"line": 17,
+					"character": 17,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/view-controller.ts#L17"
+				}
+			]
+		},
+		{
+			"id": 146,
+			"name": "NodeTemplate",
+			"kind": 256,
+			"kindString": "Interface",
+			"flags": {},
+			"children": [
+				{
+					"id": 149,
+					"name": "attr",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's attributes"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/dom/dom-render/index.ts",
+							"line": 10,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L10"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"typeArguments": [
+							{
+								"type": "intrinsic",
+								"name": "string"
+							},
+							{
+								"type": "intrinsic",
+								"name": "string"
+							}
+						],
+						"name": "Record",
+						"qualifiedName": "Record",
+						"package": "typescript"
+					},
+					"overwrites": {
+						"type": "reference",
+						"id": 106,
+						"name": "ConnectorTemplate.attr"
+					}
+				},
+				{
+					"id": 150,
+					"name": "childrens",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's childrens"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/dom/dom-render/index.ts",
+							"line": 11,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L11"
+						}
+					],
+					"type": {
+						"type": "array",
+						"elementType": {
+							"type": "reference",
+							"id": 146,
+							"typeArguments": [
+								{
+									"type": "intrinsic",
+									"name": "any"
+								}
+							],
+							"name": "NodeTemplate"
+						}
+					},
+					"overwrites": {
+						"type": "reference",
+						"id": 107,
+						"name": "ConnectorTemplate.childrens"
+					}
+				},
+				{
+					"id": 148,
+					"name": "extends",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "extends from existing component"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/dom/dom-render/index.ts",
+							"line": 9,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L9"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 147,
+					"name": "localName",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "local name of the component"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/dom/dom-render/index.ts",
+							"line": 7,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L7"
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "string"
+					}
+				},
+				{
+					"id": 151,
+					"name": "proto",
+					"kind": 1024,
+					"kindString": "Property",
+					"flags": {
+						"isOptional": true
+					},
+					"comment": {
+						"summary": [
+							{
+								"kind": "text",
+								"text": "component's prototypes methods and variables"
+							}
+						]
+					},
+					"sources": [
+						{
+							"fileName": "src/dom/dom-render/index.ts",
+							"line": 12,
+							"character": 2,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L12"
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 152,
+						"name": "T"
+					},
+					"overwrites": {
+						"type": "reference",
+						"id": 108,
+						"name": "ConnectorTemplate.proto"
+					}
+				}
+			],
+			"groups": [
+				{
+					"title": "Properties",
+					"children": [
+						149,
+						150,
+						148,
+						147,
+						151
+					]
+				}
+			],
+			"sources": [
+				{
+					"fileName": "src/dom/dom-render/index.ts",
+					"line": 5,
+					"character": 17,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L5"
+				}
+			],
+			"typeParameters": [
+				{
+					"id": 152,
+					"name": "T",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {}
+				}
+			],
+			"extendedTypes": [
+				{
+					"type": "reference",
+					"id": 105,
+					"typeArguments": [
+						{
+							"type": "reference",
+							"id": 152,
+							"name": "T"
+						}
+					],
+					"name": "ConnectorTemplate"
+				}
+			]
+		},
+		{
+			"id": 153,
+			"name": "CustomElement",
+			"kind": 4194304,
+			"kindString": "Type alias",
+			"flags": {},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "Représente un élément personnalisé qui combine les fonctionnalités d'un HTMLElement existant et des méthodes personnalisées."
+					}
+				],
+				"blockTags": [
+					{
+						"tag": "@typeparam",
+						"content": [
+							{
+								"kind": "text",
+								"text": "T - L'interface de l'HTMLElement existant."
+							}
+						]
+					},
+					{
+						"tag": "@typeparam",
+						"content": [
+							{
+								"kind": "text",
+								"text": "X - L'interface personnalisée définie par le développeur pour étendre l'HTMLElement existant."
+							}
+						]
+					},
+					{
+						"tag": "@typeparam",
+						"content": [
+							{
+								"kind": "text",
+								"text": "ITransaction - Le type des transactions utilisées par l'élément personnalisé (optionnel)."
+							}
+						]
+					},
+					{
+						"tag": "@typeparam",
+						"content": [
+							{
+								"kind": "text",
+								"text": "IEffect - Le type des effets utilisés par l'élément personnalisé (optionnel)."
+							}
+						]
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "src/design-system/register.ts",
+					"line": 29,
+					"character": 12,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L29"
+				}
+			],
+			"typeParameters": [
+				{
+					"id": 214,
+					"name": "T",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {}
+				},
+				{
+					"id": 215,
+					"name": "X",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {}
+				},
+				{
+					"id": 216,
+					"name": "ITransaction",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {},
+					"default": {
+						"type": "literal",
+						"value": null
+					}
+				},
+				{
+					"id": 217,
+					"name": "IEffect",
+					"kind": 131072,
+					"kindString": "Type parameter",
+					"flags": {},
+					"default": {
+						"type": "literal",
+						"value": null
+					}
+				}
+			],
+			"type": {
+				"type": "intersection",
+				"types": [
+					{
+						"type": "reference",
+						"id": 214,
+						"name": "T"
+					},
+					{
+						"type": "reference",
+						"id": 215,
+						"name": "X"
+					},
+					{
+						"type": "reflection",
+						"declaration": {
+							"id": 154,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {},
+							"children": [
+								{
+									"id": 186,
+									"name": "oberservers",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"comment": {
+										"summary": [
+											{
+												"kind": "text",
+												"text": "Map contenant les observateurs pour chaque attribut.\nChaque clé de la map correspond à un nom d'attribut,\net chaque valeur est un map contenant les observateurs\nassociés à cet attribut."
+											}
+										]
+									},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 97,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L97"
+										}
+									],
+									"type": {
+										"type": "reference",
+										"name": "Observers"
+									}
+								},
+								{
+									"id": 196,
+									"name": "addComponentObserver",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 126,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L126"
+										}
+									],
+									"signatures": [
+										{
+											"id": 197,
+											"name": "addComponentObserver",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Ajoute un observateur pour surveiller les modifications d'attributs d'un composant tiers."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'observateur créé pour la surveillance des modifications d'attributs."
+															}
+														]
+													},
+													{
+														"tag": "@throws",
+														"content": [
+															{
+																"kind": "text",
+																"text": "Une erreur si "
+															},
+															{
+																"kind": "code",
+																"text": "`sourceElement`"
+															},
+															{
+																"kind": "text",
+																"text": " n'est pas un composant Thorium valide."
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 198,
+													"name": "sourceElement",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "L'élément personnalisé ou l'élément HTML correspondant au composant tiers."
+															}
+														]
+													},
+													"type": {
+														"type": "union",
+														"types": [
+															{
+																"type": "reference",
+																"name": "Element",
+																"qualifiedName": "Element",
+																"package": "typescript"
+															},
+															{
+																"type": "reference",
+																"id": 153,
+																"typeArguments": [
+																	{
+																		"type": "reference",
+																		"name": "Element",
+																		"qualifiedName": "Element",
+																		"package": "typescript"
+																	},
+																	{
+																		"type": "reflection",
+																		"declaration": {
+																			"id": 199,
+																			"name": "__type",
+																			"kind": 65536,
+																			"kindString": "Type literal",
+																			"flags": {}
+																		}
+																	},
+																	{
+																		"type": "intrinsic",
+																		"name": "any"
+																	},
+																	{
+																		"type": "intrinsic",
+																		"name": "any"
+																	}
+																],
+																"name": "CustomElement"
+															}
+														]
+													}
+												},
+												{
+													"id": 200,
+													"name": "event",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "L'événement correspondant à la modification d'attribut à observer."
+															}
+														]
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												},
+												{
+													"id": 201,
+													"name": "callback",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "La fonction de rappel à appeler lorsque la modification d'attribut est détectée."
+															}
+														]
+													},
+													"type": {
+														"type": "reflection",
+														"declaration": {
+															"id": 202,
+															"name": "__type",
+															"kind": 65536,
+															"kindString": "Type literal",
+															"flags": {},
+															"sources": [
+																{
+																	"fileName": "src/design-system/register.ts",
+																	"line": 126,
+																	"character": 109,
+																	"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L126"
+																}
+															],
+															"signatures": [
+																{
+																	"id": 203,
+																	"name": "__type",
+																	"kind": 4096,
+																	"kindString": "Call signature",
+																	"flags": {},
+																	"parameters": [
+																		{
+																			"id": 204,
+																			"name": "mutation",
+																			"kind": 32768,
+																			"kindString": "Parameter",
+																			"flags": {},
+																			"type": {
+																				"type": "reference",
+																				"name": "Mutation"
+																			}
+																		}
+																	],
+																	"type": {
+																		"type": "intrinsic",
+																		"name": "void"
+																	}
+																}
+															]
+														}
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Observer"
+											}
+										}
+									]
+								},
+								{
+									"id": 182,
+									"name": "addEffect",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 82,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L82"
+										}
+									],
+									"signatures": [
+										{
+											"id": 183,
+											"name": "addEffect",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Ajoute un nouvel effet au contrôleur Thorium."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "addEffect"
+															}
+														]
+													},
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'ID de l'effet ajouté."
+															}
+														]
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 175,
+									"name": "addTransaction",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 58,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L58"
+										}
+									],
+									"signatures": [
+										{
+											"id": 176,
+											"name": "addTransaction",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Ajoute une transaction au contrôleur Thorium."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "addTransaction"
+															}
+														]
+													},
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'ID de la transaction ajoutée."
+															}
+														]
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 165,
+									"name": "afterMounting",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 41,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L41"
+										}
+									],
+									"signatures": [
+										{
+											"id": 166,
+											"name": "afterMounting",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"parameters": [
+												{
+													"id": 167,
+													"name": "target",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"id": 153,
+														"typeArguments": [
+															{
+																"type": "reference",
+																"id": 214,
+																"name": "T"
+															},
+															{
+																"type": "reference",
+																"id": 215,
+																"name": "X"
+															},
+															{
+																"type": "reference",
+																"id": 216,
+																"name": "ITransaction"
+															},
+															{
+																"type": "reference",
+																"id": 217,
+																"name": "IEffect"
+															}
+														],
+														"name": "CustomElement"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 162,
+									"name": "beforeMounting",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 40,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L40"
+										}
+									],
+									"signatures": [
+										{
+											"id": 163,
+											"name": "beforeMounting",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"parameters": [
+												{
+													"id": 164,
+													"name": "target",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"id": 153,
+														"typeArguments": [
+															{
+																"type": "reference",
+																"id": 214,
+																"name": "T"
+															},
+															{
+																"type": "reference",
+																"id": 215,
+																"name": "X"
+															},
+															{
+																"type": "reference",
+																"id": 216,
+																"name": "ITransaction"
+															},
+															{
+																"type": "reference",
+																"id": 217,
+																"name": "IEffect"
+															}
+														],
+														"name": "CustomElement"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 155,
+									"name": "context",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 38,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L38"
+										}
+									],
+									"signatures": [
+										{
+											"id": 156,
+											"name": "context",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Récupère le contexte de l'élément personnalisé."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "context"
+															}
+														]
+													},
+													{
+														"tag": "@typeparam",
+														"content": [
+															{
+																"kind": "text",
+																"text": "T - Le type de l'élément contextuel recherché."
+															}
+														]
+													},
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'élément contextuel correspondant ou "
+															},
+															{
+																"kind": "code",
+																"text": "`undefined`"
+															},
+															{
+																"kind": "text",
+																"text": " si aucun contexte n'est trouvé."
+															}
+														]
+													}
+												]
+											},
+											"typeParameter": [
+												{
+													"id": 157,
+													"name": "Y",
+													"kind": 131072,
+													"kindString": "Type parameter",
+													"flags": {}
+												}
+											],
+											"parameters": [
+												{
+													"id": 158,
+													"name": "contextName",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {
+														"isOptional": true
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"id": 153,
+												"typeArguments": [
+													{
+														"type": "reference",
+														"id": 157,
+														"name": "Y"
+													},
+													{
+														"type": "reference",
+														"name": "Element",
+														"qualifiedName": "Element",
+														"package": "typescript"
+													},
+													{
+														"type": "intrinsic",
+														"name": "any"
+													},
+													{
+														"type": "intrinsic",
+														"name": "any"
+													}
+												],
+												"name": "CustomElement"
+											}
+										}
+									]
+								},
+								{
+									"id": 193,
+									"name": "delegateObservedMutation",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 117,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L117"
+										}
+									],
+									"signatures": [
+										{
+											"id": 194,
+											"name": "delegateObservedMutation",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Déclenche les rappels des observateurs en réponse à une mutation observée."
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 195,
+													"name": "mutation",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "La mutation observée."
+															}
+														]
+													},
+													"type": {
+														"type": "reference",
+														"name": "Mutation"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 187,
+									"name": "getObserver",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 104,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L104"
+										}
+									],
+									"signatures": [
+										{
+											"id": 188,
+											"name": "getObserver",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Récupère l'observateur correspondant à l'ID spécifié."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'observateur correspondant à l'ID spécifié, s'il existe ; sinon, null."
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 189,
+													"name": "observerId",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "L'ID de l'observateur à récupérer."
+															}
+														]
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Observer"
+											}
+										}
+									]
+								},
+								{
+									"id": 205,
+									"name": "on",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 138,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L138"
+										}
+									],
+									"signatures": [
+										{
+											"id": 206,
+											"name": "on",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Attache un observateur à un attribut spécifique d'un élément personnalisé ou d'un élément DOM.\nL'observateur sera déclenché lorsqu'un changement est détecté sur l'attribut spécifié."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "L'observateur créé, qui peut être utilisé pour le détacher ultérieurement."
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 207,
+													"name": "attributeName",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "Le nom de l'attribut à observer."
+															}
+														]
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												},
+												{
+													"id": 208,
+													"name": "callback",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "La fonction de rappel qui sera exécutée lorsque le changement est détecté.\n                  La fonction de rappel reçoit un argument contenant des informations sur la mutation."
+															}
+														]
+													},
+													"type": {
+														"type": "reflection",
+														"declaration": {
+															"id": 209,
+															"name": "__type",
+															"kind": 65536,
+															"kindString": "Type literal",
+															"flags": {},
+															"sources": [
+																{
+																	"fileName": "src/design-system/register.ts",
+																	"line": 138,
+																	"character": 40,
+																	"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L138"
+																}
+															],
+															"signatures": [
+																{
+																	"id": 210,
+																	"name": "__type",
+																	"kind": 4096,
+																	"kindString": "Call signature",
+																	"flags": {},
+																	"parameters": [
+																		{
+																			"id": 211,
+																			"name": "mutation",
+																			"kind": 32768,
+																			"kindString": "Parameter",
+																			"flags": {},
+																			"type": {
+																				"type": "reference",
+																				"name": "Mutation"
+																			}
+																		}
+																	],
+																	"type": {
+																		"type": "intrinsic",
+																		"name": "void"
+																	}
+																}
+															]
+														}
+													}
+												},
+												{
+													"id": 212,
+													"name": "sourceElement",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {
+														"isOptional": true
+													},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "(Facultatif) L'élément personnalisé ou l'élément DOM à observer.\n                      Si non spécifié, l'observateur sera attaché à l'élément courant."
+															}
+														]
+													},
+													"type": {
+														"type": "union",
+														"types": [
+															{
+																"type": "reference",
+																"name": "Element",
+																"qualifiedName": "Element",
+																"package": "typescript"
+															},
+															{
+																"type": "reference",
+																"id": 153,
+																"typeArguments": [
+																	{
+																		"type": "reference",
+																		"name": "Element",
+																		"qualifiedName": "Element",
+																		"package": "typescript"
+																	},
+																	{
+																		"type": "reflection",
+																		"declaration": {
+																			"id": 213,
+																			"name": "__type",
+																			"kind": 65536,
+																			"kindString": "Type literal",
+																			"flags": {}
+																		}
+																	},
+																	{
+																		"type": "reference",
+																		"id": 216,
+																		"name": "ITransaction"
+																	},
+																	{
+																		"type": "reference",
+																		"id": 217,
+																		"name": "IEffect"
+																	}
+																],
+																"name": "CustomElement"
+															}
+														]
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Observer"
+											}
+										}
+									]
+								},
+								{
+									"id": 170,
+									"name": "oncontextchange",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 43,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L43"
+										}
+									],
+									"signatures": [
+										{
+											"id": 171,
+											"name": "oncontextchange",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 159,
+									"name": "onmutation",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 39,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L39"
+										}
+									],
+									"signatures": [
+										{
+											"id": 160,
+											"name": "onmutation",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"parameters": [
+												{
+													"id": 161,
+													"name": "mutation",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"name": "Mutation"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 168,
+									"name": "onunmount",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 42,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L42"
+										}
+									],
+									"signatures": [
+										{
+											"id": 169,
+											"name": "onunmount",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 184,
+									"name": "removeEffect",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 90,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L90"
+										}
+									],
+									"signatures": [
+										{
+											"id": 185,
+											"name": "removeEffect",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Supprime un effet du contrôleur Thorium."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "removeEffect"
+															}
+														]
+													},
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "code",
+																"text": "`true`"
+															},
+															{
+																"kind": "text",
+																"text": " si l'effet a été supprimé avec succès, sinon "
+															},
+															{
+																"kind": "code",
+																"text": "`false`"
+															},
+															{
+																"kind": "text",
+																"text": "."
+															}
+														]
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 190,
+									"name": "removeObserver",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 111,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L111"
+										}
+									],
+									"signatures": [
+										{
+											"id": 191,
+											"name": "removeObserver",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Supprime l'observateur correspondant à l'ID spécifié."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "True si l'observateur a été supprimé avec succès ; sinon, false."
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 192,
+													"name": "observerId",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "L'ID de l'observateur à supprimer."
+															}
+														]
+													},
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 177,
+									"name": "removeTransaction",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 66,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L66"
+										}
+									],
+									"signatures": [
+										{
+											"id": 178,
+											"name": "removeTransaction",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Supprime une transaction au contrôleur Thorium."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "removeTransaction"
+															}
+														]
+													},
+													{
+														"tag": "@returns",
+														"content": [
+															{
+																"kind": "text",
+																"text": "True si la transaction a été supprimée avec succès, sinon null."
+															}
+														]
+													}
+												]
+											},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 179,
+									"name": "useEffect",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 74,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L74"
+										}
+									],
+									"signatures": [
+										{
+											"id": 180,
+											"name": "useEffect",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Active un effet spécifique du contrôleur Thorium."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "useEffect"
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 181,
+													"name": "effectName",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"id": 217,
+														"name": "IEffect"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								},
+								{
+									"id": 172,
+									"name": "useTransaction",
+									"kind": 2048,
+									"kindString": "Method",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/register.ts",
+											"line": 50,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L50"
+										}
+									],
+									"signatures": [
+										{
+											"id": 173,
+											"name": "useTransaction",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Active une transaction spécifique sur le composant."
+													}
+												],
+												"blockTags": [
+													{
+														"tag": "@method",
+														"content": [
+															{
+																"kind": "text",
+																"text": "useTransaction"
+															}
+														]
+													}
+												]
+											},
+											"parameters": [
+												{
+													"id": 174,
+													"name": "transactionName",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "Le nom de la transaction à activer."
+															}
+														]
+													},
+													"type": {
+														"type": "reference",
+														"id": 216,
+														"name": "ITransaction"
+													}
+												}
+											],
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										186
+									]
+								},
+								{
+									"title": "Methods",
+									"children": [
+										196,
+										182,
+										175,
+										165,
+										162,
+										155,
+										193,
+										187,
+										205,
+										170,
+										159,
+										168,
+										184,
+										190,
+										177,
+										179,
+										172
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "src/design-system/register.ts",
+									"line": 29,
+									"character": 76,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L29"
+								}
+							]
+						}
+					}
+				]
+			}
+		},
+		{
+			"id": 130,
+			"name": "DOM",
+			"kind": 32,
+			"kindString": "Variable",
+			"flags": {
+				"isConst": true
+			},
+			"comment": {
+				"summary": [
+					{
+						"kind": "text",
+						"text": "# DOM"
+					}
+				]
+			},
+			"sources": [
+				{
+					"fileName": "src/dom/index.ts",
+					"line": 9,
+					"character": 13,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L9"
+				}
+			],
+			"type": {
+				"type": "reflection",
+				"declaration": {
+					"id": 131,
+					"name": "__type",
+					"kind": 65536,
+					"kindString": "Type literal",
+					"flags": {},
+					"children": [
+						{
+							"id": 142,
+							"name": "body",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 14,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L14"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "HTMLElement",
+								"qualifiedName": "HTMLElement",
+								"package": "typescript"
+							}
+						},
+						{
+							"id": 140,
+							"name": "document",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 12,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L12"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "Document",
+								"qualifiedName": "Document",
+								"package": "typescript"
+							}
+						},
+						{
+							"id": 141,
+							"name": "head",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 13,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L13"
+								}
+							],
+							"type": {
+								"type": "reference",
+								"name": "HTMLElement",
+								"qualifiedName": "HTMLElement",
+								"package": "typescript"
+							}
+						},
+						{
+							"id": 132,
+							"name": "render",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 10,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L10"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 133,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/dom/dom-render/index.ts",
+											"line": 16,
+											"character": 25,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-render/index.ts#L16"
+										}
+									],
+									"signatures": [
+										{
+											"id": 134,
+											"name": "__type",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"comment": {
+												"summary": [
+													{
+														"kind": "text",
+														"text": "Allow to generate element with a template"
+													}
+												]
+											},
+											"typeParameter": [
+												{
+													"id": 135,
+													"name": "T",
+													"kind": 131072,
+													"kindString": "Type parameter",
+													"flags": {}
+												}
+											],
+											"parameters": [
+												{
+													"id": 136,
+													"name": "template",
+													"kind": 32768,
+													"kindString": "Parameter",
+													"flags": {},
+													"type": {
+														"type": "reference",
+														"id": 146,
+														"typeArguments": [
+															{
+																"type": "reference",
+																"id": 135,
+																"name": "T"
+															}
+														],
+														"name": "NodeTemplate"
+													}
+												}
+											],
+											"type": {
+												"type": "reference",
+												"id": 135,
+												"name": "T"
+											}
+										}
+									]
+								}
+							},
+							"defaultValue": "DOMRender"
+						},
+						{
+							"id": 143,
+							"name": "useEffect",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 15,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L15"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 144,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/dom/dom-virtual/index.ts",
+											"line": 77,
+											"character": 25,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-virtual/index.ts#L77"
+										}
+									],
+									"signatures": [
+										{
+											"id": 145,
+											"name": "__type",
+											"kind": 4096,
+											"kindString": "Call signature",
+											"flags": {},
+											"type": {
+												"type": "intrinsic",
+												"name": "void"
+											}
+										}
+									]
+								}
+							}
+						},
+						{
+							"id": 137,
+							"name": "virtual",
+							"kind": 1024,
+							"kindString": "Property",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/dom/index.ts",
+									"line": 11,
+									"character": 2,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L11"
+								}
+							],
+							"type": {
+								"type": "reflection",
+								"declaration": {
+									"id": 138,
+									"name": "__type",
+									"kind": 65536,
+									"kindString": "Type literal",
+									"flags": {},
+									"children": [
+										{
+											"id": 139,
+											"name": "htmlDocument",
+											"kind": 1024,
+											"kindString": "Property",
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "src/dom/dom-virtual/index.ts",
+													"line": 75,
+													"character": 28,
+													"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-virtual/index.ts#L75"
+												}
+											],
+											"type": {
+												"type": "reference",
+												"name": "Document",
+												"qualifiedName": "Document",
+												"package": "typescript"
+											}
+										}
+									],
+									"groups": [
+										{
+											"title": "Properties",
+											"children": [
+												139
+											]
+										}
+									],
+									"sources": [
+										{
+											"fileName": "src/dom/dom-virtual/index.ts",
+											"line": 75,
+											"character": 26,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/dom-virtual/index.ts#L75"
+										}
+									]
+								}
+							},
+							"defaultValue": "DOMVirtual"
+						}
+					],
+					"groups": [
+						{
+							"title": "Properties",
+							"children": [
+								142,
+								140,
+								141,
+								132,
+								143,
+								137
+							]
+						}
+					],
+					"sources": [
+						{
+							"fileName": "src/dom/index.ts",
+							"line": 9,
+							"character": 19,
+							"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/dom/index.ts#L9"
+						}
+					]
+				}
+			},
+			"defaultValue": "..."
+		},
+		{
+			"id": 92,
+			"name": "Connector",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "src/connector/index.ts",
+					"line": 12,
+					"character": 13,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L12"
+				}
+			],
+			"signatures": [
+				{
+					"id": 93,
+					"name": "Connector",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {},
+					"typeParameter": [
+						{
+							"id": 94,
+							"name": "T",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						}
+					],
+					"parameters": [
+						{
+							"id": 95,
+							"name": "localName",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						}
+					],
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 96,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {},
+							"sources": [
+								{
+									"fileName": "src/connector/index.ts",
+									"line": 13,
+									"character": 9,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L13"
+								}
+							],
+							"signatures": [
+								{
+									"id": 97,
+									"name": "__type",
+									"kind": 4096,
+									"kindString": "Call signature",
+									"flags": {},
+									"parameters": [
+										{
+											"id": 98,
+											"name": "connectorTemplate",
+											"kind": 32768,
+											"kindString": "Parameter",
+											"flags": {
+												"isOptional": true
+											},
+											"type": {
+												"type": "reference",
+												"id": 105,
+												"typeArguments": [
+													{
+														"type": "reference",
+														"id": 94,
+														"name": "T"
+													}
+												],
+												"name": "ConnectorTemplate"
+											}
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 99,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"children": [
+												{
+													"id": 101,
+													"name": "attr",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "src/connector/index.ts",
+															"line": 16,
+															"character": 10,
+															"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L16"
+														}
+													],
+													"type": {
+														"type": "reference",
+														"typeArguments": [
+															{
+																"type": "intrinsic",
+																"name": "string"
+															},
+															{
+																"type": "intrinsic",
+																"name": "string"
+															}
+														],
+														"name": "Record",
+														"qualifiedName": "Record",
+														"package": "typescript"
+													},
+													"defaultValue": "..."
+												},
+												{
+													"id": 102,
+													"name": "childrens",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "src/connector/index.ts",
+															"line": 17,
+															"character": 10,
+															"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L17"
+														}
+													],
+													"type": {
+														"type": "array",
+														"elementType": {
+															"type": "reference",
+															"id": 146,
+															"typeArguments": [
+																{
+																	"type": "intrinsic",
+																	"name": "any"
+																}
+															],
+															"name": "NodeTemplate"
+														}
+													},
+													"defaultValue": "..."
+												},
+												{
+													"id": 100,
+													"name": "localName",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "src/connector/index.ts",
+															"line": 15,
+															"character": 10,
+															"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L15"
+														}
+													],
+													"type": {
+														"type": "intrinsic",
+														"name": "string"
+													},
+													"defaultValue": "localName"
+												},
+												{
+													"id": 103,
+													"name": "proto",
+													"kind": 1024,
+													"kindString": "Property",
+													"flags": {},
+													"sources": [
+														{
+															"fileName": "src/connector/index.ts",
+															"line": 18,
+															"character": 10,
+															"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L18"
+														}
+													],
+													"type": {
+														"type": "reflection",
+														"declaration": {
+															"id": 104,
+															"name": "__type",
+															"kind": 65536,
+															"kindString": "Type literal",
+															"flags": {},
+															"sources": [
+																{
+																	"fileName": "src/connector/index.ts",
+																	"line": 18,
+																	"character": 92,
+																	"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L18"
+																}
+															]
+														}
+													},
+													"defaultValue": "..."
+												}
+											],
+											"groups": [
+												{
+													"title": "Properties",
+													"children": [
+														101,
+														102,
+														100,
+														103
+													]
+												}
+											],
+											"sources": [
+												{
+													"fileName": "src/connector/index.ts",
+													"line": 14,
+													"character": 13,
+													"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/connector/index.ts#L14"
+												}
+											]
+										}
+									}
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"id": 81,
+			"name": "DesignSystem",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "src/design-system/index.ts",
+					"line": 9,
+					"character": 6,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/index.ts#L9"
+				}
+			],
+			"signatures": [
+				{
+					"id": 82,
+					"name": "DesignSystem",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {},
+					"type": {
+						"type": "reflection",
+						"declaration": {
+							"id": 83,
+							"name": "__type",
+							"kind": 65536,
+							"kindString": "Type literal",
+							"flags": {},
+							"children": [
+								{
+									"id": 84,
+									"name": "register",
+									"kind": 1024,
+									"kindString": "Property",
+									"flags": {},
+									"sources": [
+										{
+											"fileName": "src/design-system/index.ts",
+											"line": 13,
+											"character": 4,
+											"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/index.ts#L13"
+										}
+									],
+									"type": {
+										"type": "reflection",
+										"declaration": {
+											"id": 85,
+											"name": "__type",
+											"kind": 65536,
+											"kindString": "Type literal",
+											"flags": {},
+											"sources": [
+												{
+													"fileName": "src/design-system/register.ts",
+													"line": 161,
+													"character": 24,
+													"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/register.ts#L161"
+												}
+											],
+											"signatures": [
+												{
+													"id": 86,
+													"name": "__type",
+													"kind": 4096,
+													"kindString": "Call signature",
+													"flags": {},
+													"comment": {
+														"summary": [
+															{
+																"kind": "text",
+																"text": "Enregistre un composant personnalisé dans le registre des composants."
+															}
+														],
+														"blockTags": [
+															{
+																"tag": "@returns",
+																"content": [
+																	{
+																		"kind": "text",
+																		"text": "Le constructeur de l'élément personnalisé enregistré."
+																	}
+																]
+															}
+														]
+													},
+													"typeParameter": [
+														{
+															"id": 87,
+															"name": "T",
+															"kind": 131072,
+															"kindString": "Type parameter",
+															"flags": {}
+														},
+														{
+															"id": 88,
+															"name": "X",
+															"kind": 131072,
+															"kindString": "Type parameter",
+															"flags": {}
+														},
+														{
+															"id": 89,
+															"name": "Z",
+															"kind": 131072,
+															"kindString": "Type parameter",
+															"flags": {}
+														}
+													],
+													"parameters": [
+														{
+															"id": 90,
+															"name": "type",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Le type du composant personnalisé. Peut être \"page\", \"thorium\", \"local\" ou \"views\"."
+																	}
+																]
+															},
+															"type": {
+																"type": "union",
+																"types": [
+																	{
+																		"type": "literal",
+																		"value": "views"
+																	},
+																	{
+																		"type": "literal",
+																		"value": "page"
+																	},
+																	{
+																		"type": "literal",
+																		"value": "thorium"
+																	},
+																	{
+																		"type": "literal",
+																		"value": "local"
+																	}
+																]
+															}
+														},
+														{
+															"id": 91,
+															"name": "patern",
+															"kind": 32768,
+															"kindString": "Parameter",
+															"flags": {},
+															"comment": {
+																"summary": [
+																	{
+																		"kind": "text",
+																		"text": "Le modèle de conception du composant personnalisé à enregistrer."
+																	}
+																]
+															},
+															"type": {
+																"type": "union",
+																"types": [
+																	{
+																		"type": "reference",
+																		"typeArguments": [
+																			{
+																				"type": "reference",
+																				"id": 87,
+																				"name": "T"
+																			}
+																		],
+																		"name": "DesignPatern"
+																	},
+																	{
+																		"type": "reference",
+																		"typeArguments": [
+																			{
+																				"type": "reference",
+																				"id": 87,
+																				"name": "T"
+																			}
+																		],
+																		"name": "ViewDesignPatern"
+																	}
+																]
+															}
+														}
+													],
+													"type": {
+														"type": "reference",
+														"typeArguments": [
+															{
+																"type": "reference",
+																"id": 88,
+																"name": "X"
+															},
+															{
+																"type": "reference",
+																"id": 89,
+																"name": "Z"
+															}
+														],
+														"name": "CustomElementPatern"
+													}
+												}
+											]
+										}
+									}
+								}
+							],
+							"groups": [
+								{
+									"title": "Properties",
+									"children": [
+										84
+									]
+								}
+							],
+							"sources": [
+								{
+									"fileName": "src/design-system/index.ts",
+									"line": 12,
+									"character": 7,
+									"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/design-system/index.ts#L12"
+								}
+							]
+						}
+					}
+				}
+			]
+		},
+		{
+			"id": 126,
+			"name": "PaternArea",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "src/controller/area/index.ts",
+					"line": 15,
+					"character": 13,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/area/index.ts#L15"
+				}
+			],
+			"signatures": [
+				{
+					"id": 127,
+					"name": "PaternArea",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {},
+					"typeParameter": [
+						{
+							"id": 128,
+							"name": "T",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						}
+					],
+					"parameters": [
+						{
+							"id": 129,
+							"name": "patern",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {
+								"isOptional": true
+							},
+							"type": {
+								"type": "reference",
+								"id": 105,
+								"typeArguments": [
+									{
+										"type": "reference",
+										"id": 128,
+										"name": "T"
+									}
+								],
+								"name": "ConnectorTemplate"
+							}
+						}
+					],
+					"type": {
+						"type": "reference",
+						"id": 146,
+						"typeArguments": [
+							{
+								"type": "reference",
+								"id": 128,
+								"name": "T"
+							}
+						],
+						"name": "NodeTemplate"
+					}
+				}
+			]
+		},
+		{
+			"id": 110,
+			"name": "ThoriumController",
+			"kind": 64,
+			"kindString": "Function",
+			"flags": {},
+			"sources": [
+				{
+					"fileName": "src/controller/thorium-controller.ts",
+					"line": 5,
+					"character": 16,
+					"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/controller/thorium-controller.ts#L5"
+				}
+			],
+			"signatures": [
+				{
+					"id": 111,
+					"name": "ThoriumController",
+					"kind": 4096,
+					"kindString": "Call signature",
+					"flags": {},
+					"typeParameter": [
+						{
+							"id": 112,
+							"name": "T",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						},
+						{
+							"id": 113,
+							"name": "X",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						},
+						{
+							"id": 114,
+							"name": "Z",
+							"kind": 131072,
+							"kindString": "Type parameter",
+							"flags": {}
+						}
+					],
+					"parameters": [
+						{
+							"id": 115,
+							"name": "paternName",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "string"
+							}
+						},
+						{
+							"id": 116,
+							"name": "patern",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {},
+							"type": {
+								"type": "reference",
+								"typeArguments": [
+									{
+										"type": "reference",
+										"id": 112,
+										"name": "T"
+									}
+								],
+								"name": "DesignPatern"
+							}
+						},
+						{
+							"id": 117,
+							"name": "T",
+							"kind": 32768,
+							"kindString": "Parameter",
+							"flags": {},
+							"type": {
+								"type": "intrinsic",
+								"name": "any"
+							}
+						}
+					],
+					"type": {
+						"type": "intrinsic",
+						"name": "any"
+					}
+				}
+			]
+		}
+	],
+	"groups": [
+		{
+			"title": "Namespaces",
+			"children": [
+				69
+			]
+		},
+		{
+			"title": "Classes",
+			"children": [
+				1,
+				10
+			]
+		},
+		{
+			"title": "Interfaces",
+			"children": [
+				105,
+				118,
+				146
+			]
+		},
+		{
+			"title": "Type Aliases",
+			"children": [
+				153
+			]
+		},
+		{
+			"title": "Variables",
+			"children": [
+				130
+			]
+		},
+		{
+			"title": "Functions",
+			"children": [
+				92,
+				81,
+				126,
+				110
+			]
+		}
+	],
+	"sources": [
+		{
+			"fileName": "src/index.ts",
+			"line": 1,
+			"character": 0,
+			"url": "https://github.com/MortallicaXxX/thorium-core/blob/9905408/src/index.ts#L1"
+		}
+	]
+}

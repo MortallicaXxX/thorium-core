@@ -9,6 +9,8 @@ export {
 const DesignSystem = ( ) => {
   return {
     register
+  } as {
+    register:typeof register
   }
 }
 

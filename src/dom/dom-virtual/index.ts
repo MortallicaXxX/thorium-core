@@ -46,7 +46,7 @@ const buildReferences = (element:HTMLElement) => {
     },
     render : () => {
       Array.from(virtual.attatched , (template) => {
-        element.appendChild( DOMRender(template as any) );
+        element.appendChild( DOMRender<any>(template as any) );
       })
     }
   }

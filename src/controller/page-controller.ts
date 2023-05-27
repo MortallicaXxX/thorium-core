@@ -2,9 +2,9 @@ import { DOMRender } from "../dom/dom-render";
 import { DesignPatern } from '../design-system';
 import { Controller } from ".";
 
-export function PageController<T>(paternName:string,patern:DesignPatern<T>,T):any{
+export function PageController<T,X,Z>(paternName:string,patern:DesignPatern<T>,T):any{
 
-  return class extends Controller(paternName,patern,T){
+  return class extends Controller<T,X,Z>(paternName,patern,T){
 
     connectedCallback(): void {
 

@@ -13,7 +13,7 @@ export interface NodeTemplate<T> extends ConnectorTemplate<T>{
 }
 
 /** Allow to generate element with a template */
-export const DOMRender = <T>(template:NodeTemplate<T>):CustomElement<T,any> => {
+export const DOMRender = <T>(template:NodeTemplate<T>):T => {
 
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
 
