@@ -8,6 +8,13 @@ Un Controller dans le framework Thorium est une classe qui encapsule la logique 
 
 Les Controllers dans Thorium suivent le modèle de conception du **Design Pattern**. Ils permettent de découpler la logique métier de l'interface utilisateur, favorisant ainsi la modularité, la réutilisabilité et la facilité de maintenance du code.
 
+```mermaid
+graph LR;
+    A[Controllers] -->|utilise| B[Components]
+    A -->|utilise| C[Effects]
+    A -->|utilise| D[Transactions]
+```
+
 ## **Types de Controllers**
 
 Le framework Thorium propose plusieurs types de Controllers, chacun adapté à un cas d'utilisation spécifique. Voici une présentation des principaux types de Controllers disponibles :
@@ -37,6 +44,11 @@ Le ThoriumController offre les fonctionnalités suivantes :
 ### **3. ViewController**
 
 Le **ViewController** est un type spécial de Controller dans le framework Thorium qui permet de créer des pivots, également appelés "views". Un pivot est un élément qui représente un contexte spécifique dans une interface utilisateur. Les ViewController facilitent la gestion de ces pivots en fournissant des fonctionnalités avancées pour la coordination et la gestion des transitions entre les différentes vues.
+
+```mermaid
+graph LR;
+    A[Controllers] -->|utilise| B[Views]
+```
 
 Les fonctionnalités offertes par le ViewController sont les suivantes :
 

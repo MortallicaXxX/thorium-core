@@ -2,6 +2,15 @@
 
 Le **`DesignSystem`** de Thorium permet l'enregistrement et la gestion des composants personnalisés. Il offre des fonctionnalités avancées pour la création, la manipulation et la gestion des éléments personnalisés dans une application web.
 
+```mermaid
+graph LR;
+    A[DesignSystem] -->|utilise| B[register]
+    B --> C[DOMRender]
+    B --> D[Transactions]
+    B --> E[Effects]
+    B --> F[Observers]
+```
+
 ## **Fonctionnalités principales**
 
 Le **`DesignSystem`** propose les fonctionnalités suivantes :
