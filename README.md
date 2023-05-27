@@ -18,6 +18,16 @@ import Thorium from 'thorium-core';
 
 ## **Utilisation**
 
+```mermaid
+graph LR;
+    subgraph Framework Thorium
+    A[Router] --> B[Controllers]
+    B --> C[Components]
+    B --> D[Effects]
+    B --> E[Transactions]
+    end
+```
+
 ### **Enregistrer un système de design**
 
 Avant de pouvoir créer des composants avec Thorium, vous devez enregistrer un système de design. Un système de design définit les propriétés de base des composants que vous allez créer, comme leur nom, leurs attributs et leur structure.
