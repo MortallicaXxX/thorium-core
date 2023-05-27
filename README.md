@@ -1,7 +1,5 @@
 # thorium-core
 
- - [Documentation](https://raw.githack.com/MortallicaXxX/thorium-core/jsdom-core/docs/Documentation/index.html)
-
 Thorium-core est une librairie JavaScript permettant de créer des composants Web avec un système de templates.
 
 ## **Installation**
