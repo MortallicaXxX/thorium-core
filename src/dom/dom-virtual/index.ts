@@ -74,7 +74,7 @@ export const body = recursiveReferenceCloning(document.body , htmlDocument.body)
 
 export const DOMVirtual = { htmlDocument };
 
-export const useEffect = () => {
+export const applyDOMChanges = () => {
 
   const recursiveEffect = ( source:HTMLElement , virtual:HTMLElement ) => {
 

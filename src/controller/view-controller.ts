@@ -8,27 +8,45 @@ import { Controller } from ".";
 
 type Views = Record<string,NodeTemplate<any>>;
 
+/**
+ * Interface décrivant le patron de conception pour une vue.
+*/
 export interface ViewDesignPatern<T> extends DesignPatern<T>{
   defaultView:string;
   views:Record<string,NodeTemplate<any>>;
   'views-elements'?:Record<string,HTMLElement>;
 }
 
+/**
+ * Interface décrivant les fonctionnalités d'un contrôleur de vue.
+*/
 export interface IViewController{
-  /** get view context */
+  /** Récupère le contexte de la vue courante */
   getContext():string;
-  /** get view's context list */
+  /** Récupère la liste des contextes de vue disponibles */
   getContextList():string[];
-  /** set view context */
+  /** Définit le contexte de la vue */
   setContext(context:string):void;
 }
 
+/**
+ * Fonction qui génère un contrôleur de vue.
+ *
+ * @param paternName - Nom du modèle de conception du contrôleur.
+ * @param patern - Modèle de conception de la vue.
+ * @param T - Type générique pour les données du contrôleur.
+ * @returns Une classe qui étend le contrôleur de base avec le modèle de conception de la vue.
+*/
 export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<T>,T):any{
 
   return class extends Controller<T,X,Z>(paternName,patern,T){
 
     patern:ViewDesignPatern<T>;
 
+    /**
+     * Méthode appelée lorsque l'élément est rattaché au DOM.
+     * Effectue les opérations d'initialisation et de montage de la vue.
+    */
     connectedCallback(){
 
       let {transactions , transactions_onload} = this.$Thorium;
@@ -67,10 +85,22 @@ export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<
 
     }
 
+    /**
+     * Méthode appelée lorsque l'élément est détaché du DOM.
+     * Effectue les opérations de démontage de la vue.
+    */
     disconnectedCallback(){
       if(this.onunmount)this.onunmount();
     }
 
+    /**
+     * Méthode appelée lorsqu'un attribut de l'élément est modifié.
+     * Gère les changements de contexte et met à jour la vue en conséquence.
+     *
+     * @param name - Nom de l'attribut modifié.
+     * @param oldValue - Ancienne valeur de l'attribut.
+     * @param newValue - Nouvelle valeur de l'attribut.
+    */
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       // let slot = this.slotContainer;
       let views = this.patern.views;
@@ -104,13 +134,28 @@ export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<
       
     }
 
+    /**
+     * Méthode permettant de récupérer le contexte de la vue courante.
+     *
+     * @returns Le contexte de la vue courante.
+    */
     getContext(){ return this.getAttribute('context') }
 
+    /**
+     * Méthode permettant de récupérer la liste des contextes de vue disponibles.
+     *
+     * @returns La liste des contextes de vue disponibles.
+    */
     getContextList(){ return [...new Set([
       ...('views' in this.patern ? Object.keys(this.patern.views) : []),
       ...('views-elements' in this.patern ? Object.keys(this.patern['views-elements']) : []),
     ])]; }
 
+    /**
+     * Méthode permettant de définir le contexte de la vue.
+     *
+     * @param newContext - Le nouveau contexte de la vue.
+    */
     setContext(newContext){ 
       if(this.getContextList().includes(newContext))this.setAttribute('context' , newContext);
       else console.error(`context ${newContext} is not existing`);

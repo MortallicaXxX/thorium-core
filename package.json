@@ -22,6 +22,7 @@
     "url": "https://github.com/MortallicaXxX/thorium-core/issues"
   },
   "homepage": "https://github.com/MortallicaXxX/thorium-core#readme",
+  "documentation" : "https://raw.githack.com/MortallicaXxX/thorium-core/jsdom-core/docs/Documentation/index.html",
   "dependencies": {
     "@amcharts/amcharts5": "^5.3.10",
     "@amcharts/amcharts5-fonts": "^5.0.1",
