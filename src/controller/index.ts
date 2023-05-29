@@ -1,13 +1,381 @@
 import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
 import { ViewController , IViewController , ViewDesignPatern } from "./view-controller";
-import { DesignPatern , CustomElementPatern, CustomElement } from "../design-system";
+import DesignSystem, { DesignPatern , CustomElementPatern, CustomElement, CssObject } from "../design-system";
 import { DOM, NodeTemplate } from "../dom";
 import { Transactions , ITransaction } from "./transactions";
 import { Effects } from "./effects";
 import { ConnectorTemplate } from "../connector";
 import { PaternArea } from "./area";
 
+import * as DOMCSSOM from 'dom-cssom';
+
+export interface CustomElementController{
+  /**
+    * Récupère le contexte de l'élément personnalisé.
+    *
+    * @method context
+    * @typeparam T - Le type de l'élément contextuel recherché.
+    * @param contextNameToFind - Le nom optionnel du contexte à rechercher.
+    * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
+  */
+  context<T>(contextNameToFind?:string):T;
+  contextPage<T>():T;
+  /** Gestionnaire de cycle de vie : connectedCallback */
+  connectedCallback():void;
+  /** Gestionnaire de cycle de vie : disconnectedCallback */
+  disconnectedCallback():void;
+  /** Gestionnaire de changement d'attribut observé */
+  attributeChangedCallback(name: string, oldValue: string, newValue: string):void;
+  /**
+     * Active une transaction spécifique sur le composant.
+     *
+     * @method useTransaction
+     * @param transactionName - Le nom de la transaction à activer.
+    */
+  useTransaction:(transactionName:string) => void;
+  /**
+     * Ajoute une transaction au contrôleur Thorium.
+     *
+     * @method addTransaction
+     * @param transaction - La transaction à ajouter.
+     * @returns L'ID de la transaction ajoutée.
+    */
+  addTransaction:(transaction) => string;
+  /**
+    * Supprime une transaction au contrôleur Thorium.
+    *
+    * @method removeTransaction
+    * @param transactionId - L'ID de la transaction à supprimer.
+    * @returns True si la transaction a été supprimée avec succès, sinon null.
+  */
+  removeTransaction:(transactionId:string) => boolean;
+  /**
+    * Active un effet spécifique du contrôleur Thorium.
+    *
+    * @method useEffect
+    * @param operationName - Le nom de l'effet à activer.
+    * @param options - Options supplémentaires à transmettre à l'effet.
+  */
+  useEffect : (operationName:string,...options) => void;
+  /**
+    * Ajoute un nouvel effet au contrôleur Thorium.
+    *
+    * @method addEffect
+    * @param effect - L'effet à ajouter, représenté par un objet contenant les propriétés `name` (nom de l'effet) et `callback` (fonction callback de l'effet).
+    * @returns L'ID de l'effet ajouté.
+  */
+  addEffect:(effect) => string;
+  /**
+    * Supprime un effet du contrôleur Thorium.
+    *
+    * @method removeEffect
+    * @param effectId - L'ID de l'effet à supprimer.
+    * @returns `true` si l'effet a été supprimé avec succès, sinon `false`.
+  */
+  removeEffect:(effectId:string) => boolean;
+  /**
+    * Map contenant les observateurs pour chaque attribut.
+    * Chaque clé de la map correspond à un nom d'attribut,
+    * et chaque valeur est un map contenant les observateurs
+    * associés à cet attribut.
+  */
+  oberservers:Observers;
+  /**
+    * Récupère l'observateur correspondant à l'ID spécifié.
+    * 
+    * @param observerId L'ID de l'observateur à récupérer.
+    * @returns L'observateur correspondant à l'ID spécifié, s'il existe ; sinon, null.
+  */
+  getObserver:(observerId:string) => Observer;
+  /**
+    * Supprime l'observateur correspondant à l'ID spécifié.
+    * 
+    * @param observerId L'ID de l'observateur à supprimer.
+    * @returns True si l'observateur a été supprimé avec succès ; sinon, false.
+  */
+  removeObserver:(observerId:string) => boolean;
+  /**
+    * Déclenche les rappels des observateurs en réponse à une mutation observée.
+    * 
+    * @param mutation La mutation observée.
+  */
+  delegateObservedMutation:(mutation:Mutation) => void;
+  /**
+    * Ajoute un observateur pour surveiller les modifications d'attributs d'un composant tiers.
+    * @param sourceElement L'élément personnalisé ou l'élément HTML correspondant au composant tiers.
+    * @param event L'événement correspondant à la modification d'attribut à observer.
+    * @param callback La fonction de rappel à appeler lorsque la modification d'attribut est détectée.
+    * @returns L'observateur créé pour la surveillance des modifications d'attributs.
+    * @throws Une erreur si `sourceElement` n'est pas un composant Thorium valide.
+  */
+  addComponentObserver:(sourceElement:CustomElement<Element,{}> | Element , event:string , callback:(mutation:Mutation)=>void) => Observer;
+  /**
+    * Attache un observateur à un attribut spécifique d'un élément personnalisé ou d'un élément DOM.
+    * L'observateur sera déclenché lorsqu'un changement est détecté sur l'attribut spécifié.
+    *
+    * @param attributeName - Le nom de l'attribut à observer.
+    * @param callback - La fonction de rappel qui sera exécutée lorsque le changement est détecté.
+    *                   La fonction de rappel reçoit un argument contenant des informations sur la mutation.
+    * @param sourceElement - (Facultatif) L'élément personnalisé ou l'élément DOM à observer.
+    *                       Si non spécifié, l'observateur sera attaché à l'élément courant.
+    * @returns L'observateur créé, qui peut être utilisé pour le détacher ultérieurement.
+  */
+  on:( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ) => Observer;
+  isStyleSheetAttached:boolean;
+  styleSheetId:string;
+  attachStyleSheet : () => any;
+  styleSheet : () => DOMCSSOM;
+};
+
+export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTMLElement,X,Y,Z>):CustomElementController => {
+  const controller = {
+    context<T>(contextNameToFind?:string){
+
+      alert('get context');
+      console.log(target)
+              
+      /**
+       * Fonction récursive pour rechercher le contexte dans les éléments parents.
+       *
+       * @function findUpperElementContext
+       * @param node - L'élément en cours d'examen.
+       * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
+      */
+      const findUpperElementContext = (node:CustomElement<HTMLElement,X,Y,Z>) => {
+  
+        // Si le parentNode est body, retourner l'élément actuel
+        if(node.parentNode == document.body)return node;
+        if(!node.parentNode)return node;
+  
+        // Si l'élément est un contexte
+        if(node.attributes['context']){
+          // Si nous cherchons le contexte par son nom, nous comparons node.name avec contextNameToFind
+          if(contextNameToFind){
+            // Si le nom correspond, retourner l'élément
+            if(node.attributes['context'].value == contextNameToFind)return node;
+            // Sinon, essayer de chercher dans les niveaux supérieurs
+            else return findUpperElementContext(node.parentNode as CustomElement<HTMLElement,X,Y,Z>);
+          }
+          // Si le contexte est trouvé et que l'élément est différent de celui recherché pour son contexte, retourner l'élément
+          else if(node != target){ return node }
+          // Sinon, essayer de chercher dans les niveaux supérieurs
+          else return findUpperElementContext(node.parentNode as CustomElement<HTMLElement,X,Y,Z>)
+  
+        }
+        // Sinon, essayer de chercher dans les niveaux supérieurs
+        else return findUpperElementContext(node.parentNode as CustomElement<HTMLElement,X,Y,Z>);
+  
+      }
+  
+      // Appeler la fonction de recherche en commençant par l'élément actuel et la convertir en type T
+      return findUpperElementContext(target) as T
+  
+    },
+    contextPage<T>(){
+
+    },
+    // connectedCallback(){
+
+    //   console.log(target,'connectedCallback');
+  
+    //   let { patern } = target;
+    //   let {transactions , transactions_onload} = target.$Thorium;
+  
+    //   // Parcours des transactions et transactions_onload définies dans le modèle du composant
+    //   Array.from([...transactions_onload.values()] , (transaction) => {
+    //     let template = transaction.template;
+  
+    //     // Application des attributs correspondant au template de la transaction
+    //     if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+    //         if(attributeName == 'class')target.classList.add(template.attr[attributeName]);
+    //         else if(attributeName == 'text') target.innerText = template.attr[attributeName];
+    //         else if(attributeName == 'stylesheet'){
+    //           console.warn('add style sheet')
+    //           let context = target.context<CustomElement<HTMLElement , {}>>();
+    //           if(context.isStyleSheetAttached){
+    //             let {stylesheet} = template.attr;
+    //             DesignSystem().style(stylesheet)
+    //             .then((result) => {
+    //               console.log(result);
+    //             })
+    //           }
+    //         }
+    //         else target.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+    //     })
+  
+    //     // Application des variables et méthodes prototypes correspondant au template de la transaction
+    //     if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+    //         target[protoKey] = (template.proto as Record<string,any>)[protoKey];
+    //     })
+    //   })
+  
+    //   // Application des attributs déclaré dans le patern à l'élément custom
+    //   if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
+    //     if(attributeName == 'class')target.classList.add(patern.attr[attributeName] as string);
+    //     else if(attributeName == 'text') target.innerText = patern.attr[attributeName] as string;
+    //     else if(attributeName == 'stylesheet'){
+    //       console.warn('add style sheet')
+    //       let context = target.context<CustomElement<HTMLElement , {}>>();
+    //       if(!context.isStyleSheetAttached)target.attachStyleSheet();
+    //       let { styleSheet } = patern.attr;
+    //       DesignSystem().style( styleSheet as CssObject )
+    //       .then((result) => {
+    //         console.log(result);
+    //       })
+    //     }
+    //     else target.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
+    //   })
+  
+    //   if(target.afterMounting && !target.isMounted)target.afterMounting(target);
+    //   if(!target.isMounted)target.isMounted = true;
+  
+    // },
+    // disconnectedCallback(){
+    //   if(target.onunmount)target.onunmount();
+    // },
+    // attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    //   let mutation = {attributeName:name,oldValue,newValue};
+    //   if(target.onmutation)target.onmutation(mutation);
+    //   if(target.oncontextchange)target.oncontextchange(newValue);
+    //   target.delegateObservedMutation(mutation);
+    // },
+    useTransaction : (transactionName:string) => {
+      // Récupérer le contrôleur Thorium associé au composant
+      let thorium_controller = target.$Thorium;
+      // Parcourir toutes les transactions du contrôleur
+      Array.from([...thorium_controller.transactions.values()] , (transaction) => {
+        // Si le nom de la transaction correspond
+        if(transaction.name == transactionName){
+  
+          let template = transaction.template;
+  
+          // Appliquer les attributs de modèle à l'élément
+          if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+            target.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+          })
+  
+          // Appliquer les variables et méthodes de modèle à l'élément
+          if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+            target[protoKey] = (template.proto as Record<string,any>)[protoKey];
+          })
+  
+  
+        }
+      })
+    },
+    addTransaction : (transaction) => {
+      // Générer un ID unique pour la transaction
+      let transactionId = crypto.randomUUID();
+      // Ajouter la transaction au contrôleur Thorium en utilisant l'ID généré
+      target.$Thorium.transactions.set(transactionId , { id : transactionId , ...transaction});
+      // Retourner l'ID de la transaction ajoutée
+      return transactionId;
+    },
+    removeTransaction : (transactionId:string) => {
+      return ( target.$Thorium.transactions.has(transactionId) ? target.$Thorium.transactions.delete(transactionId) : null );
+    },
+    useEffect : (operationName:string,...options) => {
+      let thorium_controller = target.$Thorium;
+      // Parcours de tous les effets du contrôleur Thorium
+      Array.from([...thorium_controller.effects.values()] , (effect) => {
+        if(effect.name == operationName)effect.callback(target,options)
+      })
+    },
+    addEffect : (effect) => {
+      let effectId = crypto.randomUUID();
+      target.$Thorium.effects.set(effectId , { id : effectId , ...effect});
+      return effectId;
+    },
+    removeEffect : (effectId:string) => {
+      return ( target.$Thorium.effects.has(effectId) ? target.$Thorium.effects.delete(effectId) : null );
+    },
+    oberservers : new Map(),
+    getObserver : (observerId:string) => {
+  
+      return Array.from( target.oberservers.values() , (stack) => {
+        return Array.from( stack.values() , (observerInfo) => {
+          if(observerInfo._id == observerId)return observerInfo;
+        } )
+      } ).flat().filter((x) => x)[0];
+  
+    },
+    removeObserver : (observerId:string) => {
+  
+      return Array.from( target.oberservers.values() , (stack) => {
+        return (stack.has(observerId) ? stack.delete(observerId) : null)
+      } ).flat().filter((x) => x)[0];
+  
+    },
+    delegateObservedMutation : (mutation:Mutation) => {
+  
+      let {attributeName,oldValue,newValue} = mutation;
+      // Récupération de la pile d'observateurs correspondant à l'attribut modifié
+      let stack = ( target.oberservers.has(attributeName) ? target.oberservers.get(attributeName) : null );
+  
+      if(stack)Array.from( stack.values() , (observer) => {
+         // Vérification si l'observateur a un élément source et si cet élément est toujours présent dans le document
+        if(observer.sourceElement && document.body.contains(observer.sourceElement))observer.callback(mutation);
+        // Si l'observateur n'a pas d'élément source, le rappel du callback est effectué
+        else if(!observer.sourceElement)observer.callback(mutation);
+        // Si l'observateur a un élément source mais il n'est plus présent dans le document,
+        // il est supprimé de la pile d'observateurs
+        else stack.delete(observer._id);
+      } )
+  
+    },
+    addComponentObserver : (sourceElement:CustomElement<HTMLElement,{}> | HTMLElement , event:string , callback:(mutation:Mutation)=>void):Observer => {
+  
+      let patern = ( 'patern' in sourceElement ? sourceElement.patern : null) as NodeTemplate<any> | DesignPatern<any>;
+      console.warn('sourceElement : ',sourceElement);
+      console.warn('patern : ',patern);
+  
+      if(patern){
+        let observedAttibutes = ( 'observedAttibutes' in patern ? (patern as DesignPatern<any>).observedAttibutes : null);
+        console.warn('observedAttibutes : ',observedAttibutes , event );
+        if(observedAttibutes.includes(event)){
+          return (sourceElement as CustomElement<HTMLElement,{}>).on( event , callback , target as unknown as CustomElement<HTMLElement,{}>);
+        }
+      }
+      else console.error("Seems that target sourceElement ins't a thorium-component");
+  
+    },
+    on : ( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<HTMLElement,{}> | HTMLElement ):Observer => {
+  
+      let stack = (target.oberservers.has(attributeName) ? target.oberservers.get(attributeName) : (() => {
+        target.oberservers.set(attributeName , new Map());
+        return target.oberservers.get(attributeName);
+      })() );
+  
+      let oberserverId = crypto.randomUUID();
+      stack.set(oberserverId , {
+        _id : oberserverId,
+        attributeName : attributeName,
+        target : target,
+        sourceElement : sourceElement,
+        callback : callback
+      });
+  
+      return stack.get(oberserverId);
+  
+    },
+    isStyleSheetAttached : false,
+    styleSheetId : null,
+    attachStyleSheet : () => {
+      if(target.isStyleSheetAttached)return ;
+      target.isStyleSheetAttached = true;
+      let styleSheet = document.createElement('style');
+      target.styleSheetId = "test";
+      styleSheet.setAttribute('id'  , target.styleSheetId);
+      target.appendChild(styleSheet);
+    },
+    styleSheet : () => {
+      return DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
+    }
+  } as CustomElementController;
+
+  return controller;
+}
 
 export {
   PageController,
@@ -65,7 +433,7 @@ export const Controller = <T,X,Z>(paternName:string,patern:DesignPatern<T>,sourc
         if(patern.childrens){
           const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
           Array.from( patern.childrens , (children) => {
-              shadow.appendChild(DOM.render<HTMLElement>(children) )
+              DOM.render<HTMLElement>(children , shadow)
           } )
         }
 
@@ -121,312 +489,383 @@ export const Controller = <T,X,Z>(paternName:string,patern:DesignPatern<T>,sourc
 
         if(this.beforeMounting)this.beforeMounting();
     }
-    
-    /**
-     * Récupère le contexte de l'élément personnalisé.
-     *
-     * @method context
-     * @typeparam T - Le type de l'élément contextuel recherché.
-     * @param contextNameToFind - Le nom optionnel du contexte à rechercher.
-     * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
-    */
-    context<T>(contextNameToFind?:string){
-  
-      /**
-       * Fonction récursive pour rechercher le contexte dans les éléments parents.
-       *
-       * @function findUpperElementContext
-       * @param node - L'élément en cours d'examen.
-       * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
-      */
-      const findUpperElementContext = (node:Controller) => {
-  
-        // Si le parentNode est body, retourner l'élément actuel
-        if(node.parentNode == document.body)return node;
-  
-        // Si l'élément est un contexte
-        if(node.attributes['context']){
-          // Si nous cherchons le contexte par son nom, nous comparons node.name avec contextNameToFind
-          if(contextNameToFind){
-            // Si le nom correspond, retourner l'élément
-            if(node.attributes['context'].value == contextNameToFind)return node;
-            // Sinon, essayer de chercher dans les niveaux supérieurs
-            else return findUpperElementContext(node.parentNode as Controller);
-          }
-          // Si le contexte est trouvé et que l'élément est différent de celui recherché pour son contexte, retourner l'élément
-          else if(node != this){ return node }
-          // Sinon, essayer de chercher dans les niveaux supérieurs
-          else return findUpperElementContext(node.parentNode as Controller)
-  
-        }
-        // Sinon, essayer de chercher dans les niveaux supérieurs
-        else return findUpperElementContext(node.parentNode as Controller);
-  
-      }
-  
-      // Appeler la fonction de recherche en commençant par l'élément actuel et la convertir en type T
-      return findUpperElementContext(this) as T
-  
-    }
 
-    /** Gestionnaire de cycle de vie : connectedCallback */
     connectedCallback(){
 
-      let {transactions , transactions_onload} = this.$Thorium;
+      console.log(this.parentNode,'connectedCallback');
 
+      // Object.assign(this , ElementController(this as any));
+  
+      let { patern , $Thorium } = this;
+      let {transactions , transactions_onload} = $Thorium;
+  
       // Parcours des transactions et transactions_onload définies dans le modèle du composant
       Array.from([...transactions_onload.values()] , (transaction) => {
         let template = transaction.template;
-
+  
         // Application des attributs correspondant au template de la transaction
         if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
             if(attributeName == 'class')this.classList.add(template.attr[attributeName]);
             else if(attributeName == 'text') this.innerText = template.attr[attributeName];
+            else if(attributeName == 'stylesheet'){
+              console.warn('add style sheet')
+              let context = this.context();
+              if(context.isStyleSheetAttached){
+                let {stylesheet} = template.attr;
+                DesignSystem().style(stylesheet)
+                .then((result) => {
+                  console.log(result);
+                })
+              }
+            }
             else this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
         })
-
+  
         // Application des variables et méthodes prototypes correspondant au template de la transaction
         if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
             this[protoKey] = (template.proto as Record<string,any>)[protoKey];
         })
-      })
+      });
 
+      console.log(patern.attr);
+  
       // Application des attributs déclaré dans le patern à l'élément custom
-      if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
-        this.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
-      })
-
+      // if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
+      //   alert(attributeName)
+      //   if(attributeName == 'class')this.classList.add(patern.attr[attributeName] as string);
+      //   else if(attributeName == 'text') this.innerText = patern.attr[attributeName] as string;
+      //   else if(attributeName == 'stylesheet'){
+      //     console.warn('add style sheet')
+      //     let context = this.context();
+      //     if(!context.isStyleSheetAttached)this.attachStyleSheet();
+      //     let { styleSheet } = patern.attr;
+      //     DesignSystem().style( styleSheet as CssObject )
+      //     .then((result) => {
+      //       console.log(result);
+      //     })
+      //   }
+      //   else this.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
+      // })
+  
       if(this.afterMounting && !this.isMounted)this.afterMounting(this);
       if(!this.isMounted)this.isMounted = true;
-
-    }
-
-    /** Gestionnaire de cycle de vie : disconnectedCallback */
+  
+    };
     disconnectedCallback(){
       if(this.onunmount)this.onunmount();
-    }
-
-    /** Gestionnaire de changement d'attribut observé */
+    };
     attributeChangedCallback(name: string, oldValue: string, newValue: string) {
       let mutation = {attributeName:name,oldValue,newValue};
       if(this.onmutation)this.onmutation(mutation);
       if(this.oncontextchange)this.oncontextchange(newValue);
-      this.delegateObservedMutation(mutation)
-    }
-
-    /**
-     * Active une transaction spécifique sur le composant.
-     *
-     * @method useTransaction
-     * @param transactionName - Le nom de la transaction à activer.
-    */
-    useTransaction = (transactionName:string) => {
-      // Récupérer le contrôleur Thorium associé au composant
-      let thorium_controller = this.$Thorium;
-      // Parcourir toutes les transactions du contrôleur
-      Array.from([...thorium_controller.transactions.values()] , (transaction) => {
-        // Si le nom de la transaction correspond
-        if(transaction.name == transactionName){
-
-          let template = transaction.template;
-
-          // Appliquer les attributs de modèle à l'élément
-          if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
-            this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
-          })
-
-          // Appliquer les variables et méthodes de modèle à l'élément
-          if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
-              this[protoKey] = (template.proto as Record<string,any>)[protoKey];
-          })
-
-
-        }
-      })
-    }
-
-    /**
-     * Ajoute une transaction au contrôleur Thorium.
-     *
-     * @method addTransaction
-     * @param transaction - La transaction à ajouter.
-     * @returns L'ID de la transaction ajoutée.
-    */
-    addTransaction = (transaction) => {
-      // Générer un ID unique pour la transaction
-      let transactionId = crypto.randomUUID();
-      // Ajouter la transaction au contrôleur Thorium en utilisant l'ID généré
-      this.$Thorium.transactions.set(transactionId , { id : transactionId , ...transaction});
-      // Retourner l'ID de la transaction ajoutée
-      return transactionId;
-    }
-
-    /**
-     * Supprime une transaction au contrôleur Thorium.
-     *
-     * @method removeTransaction
-     * @param transactionId - L'ID de la transaction à supprimer.
-     * @returns True si la transaction a été supprimée avec succès, sinon null.
-    */
-    removeTransaction = (transactionId:string) => {
-      return ( this.$Thorium.transactions.has(transactionId) ? this.$Thorium.transactions.delete(transactionId) : null );
-    }
-
-    /**
-     * Active un effet spécifique du contrôleur Thorium.
-     *
-     * @method useEffect
-     * @param operationName - Le nom de l'effet à activer.
-     * @param options - Options supplémentaires à transmettre à l'effet.
-    */
-    useEffect = (operationName:string,...options) => {
-      let thorium_controller = this.$Thorium;
-      // Parcours de tous les effets du contrôleur Thorium
-      Array.from([...thorium_controller.effects.values()] , (effect) => {
-        if(effect.name == operationName)effect.callback(this,options)
-      })
-    }
-
-    /**
-     * Ajoute un nouvel effet au contrôleur Thorium.
-     *
-     * @method addEffect
-     * @param effect - L'effet à ajouter, représenté par un objet contenant les propriétés `name` (nom de l'effet) et `callback` (fonction callback de l'effet).
-     * @returns L'ID de l'effet ajouté.
-    */
-    addEffect = (effect) => {
-      let effectId = crypto.randomUUID();
-      this.$Thorium.effects.set(effectId , { id : effectId , ...effect});
-      return effectId;
-    }
-
-    /**
-     * Supprime un effet du contrôleur Thorium.
-     *
-     * @method removeEffect
-     * @param effectId - L'ID de l'effet à supprimer.
-     * @returns `true` si l'effet a été supprimé avec succès, sinon `false`.
-    */
-    removeEffect = (effectId:string) => {
-      return ( this.$Thorium.effects.has(effectId) ? this.$Thorium.effects.delete(effectId) : null );
-    }
-
-    /**
-     * Map contenant les observateurs pour chaque attribut.
-     * Chaque clé de la map correspond à un nom d'attribut,
-     * et chaque valeur est un map contenant les observateurs
-     * associés à cet attribut.
-    */
-    oberservers:Observers = new Map();
+      if(this.delegateObservedMutation)this.delegateObservedMutation(mutation);
+    };
     
-    /**
-     * Récupère l'observateur correspondant à l'ID spécifié.
-     * 
-     * @param observerId L'ID de l'observateur à récupérer.
-     * @returns L'observateur correspondant à l'ID spécifié, s'il existe ; sinon, null.
-    */
-    getObserver = (observerId:string) => {
+    // /**
+    //  * Récupère le contexte de l'élément personnalisé.
+    //  *
+    //  * @method context
+    //  * @typeparam T - Le type de l'élément contextuel recherché.
+    //  * @param contextNameToFind - Le nom optionnel du contexte à rechercher.
+    //  * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
+    // */
+    // context<T>(contextNameToFind?:string){
+  
+    //   /**
+    //    * Fonction récursive pour rechercher le contexte dans les éléments parents.
+    //    *
+    //    * @function findUpperElementContext
+    //    * @param node - L'élément en cours d'examen.
+    //    * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
+    //   */
+    //   const findUpperElementContext = (node:Controller) => {
+  
+    //     // Si le parentNode est body, retourner l'élément actuel
+    //     if(node.parentNode == document.body)return node;
+  
+    //     // Si l'élément est un contexte
+    //     if(node.attributes['context']){
+    //       // Si nous cherchons le contexte par son nom, nous comparons node.name avec contextNameToFind
+    //       if(contextNameToFind){
+    //         // Si le nom correspond, retourner l'élément
+    //         if(node.attributes['context'].value == contextNameToFind)return node;
+    //         // Sinon, essayer de chercher dans les niveaux supérieurs
+    //         else return findUpperElementContext(node.parentNode as Controller);
+    //       }
+    //       // Si le contexte est trouvé et que l'élément est différent de celui recherché pour son contexte, retourner l'élément
+    //       else if(node != this){ return node }
+    //       // Sinon, essayer de chercher dans les niveaux supérieurs
+    //       else return findUpperElementContext(node.parentNode as Controller)
+  
+    //     }
+    //     // Sinon, essayer de chercher dans les niveaux supérieurs
+    //     else return findUpperElementContext(node.parentNode as Controller);
+  
+    //   }
+  
+    //   // Appeler la fonction de recherche en commençant par l'élément actuel et la convertir en type T
+    //   return findUpperElementContext(this) as T
+  
+    // }
 
-      return Array.from( this.oberservers.values() , (stack) => {
-        return Array.from( stack.values() , (observerInfo) => {
-          if(observerInfo._id == observerId)return observerInfo;
-        } )
-      } ).flat().filter((x) => x)[0];
+    // /** Gestionnaire de cycle de vie : connectedCallback */
+    // connectedCallback(){
 
-    }
+    //   let {transactions , transactions_onload} = this.$Thorium;
 
-    /**
-     * Supprime l'observateur correspondant à l'ID spécifié.
-     * 
-     * @param observerId L'ID de l'observateur à supprimer.
-     * @returns True si l'observateur a été supprimé avec succès ; sinon, false.
-    */
-    removeObserver = (observerId:string) => {
+    //   // Parcours des transactions et transactions_onload définies dans le modèle du composant
+    //   Array.from([...transactions_onload.values()] , (transaction) => {
+    //     let template = transaction.template;
 
-      return Array.from( this.oberservers.values() , (stack) => {
-        return (stack.has(observerId) ? stack.delete(observerId) : null)
-      } ).flat().filter((x) => x)[0];
+    //     // Application des attributs correspondant au template de la transaction
+    //     if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+    //         if(attributeName == 'class')this.classList.add(template.attr[attributeName]);
+    //         else if(attributeName == 'text') this.innerText = template.attr[attributeName];
+    //         else this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+    //     })
 
-    }
+    //     // Application des variables et méthodes prototypes correspondant au template de la transaction
+    //     if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+    //         this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+    //     })
+    //   })
 
-    /**
-     * Déclenche les rappels des observateurs en réponse à une mutation observée.
-     * 
-     * @param mutation La mutation observée.
-    */
-    delegateObservedMutation = (mutation:Mutation) => {
+    //   // Application des attributs déclaré dans le patern à l'élément custom
+    //   if(patern.attr)Array.from( Object.keys(patern.attr) , (attributeName) => {
+    //     this.setAttribute(attributeName , (patern.attr as Record<string,any>)[attributeName]);
+    //   })
 
-      let {attributeName,oldValue,newValue} = mutation;
-      // Récupération de la pile d'observateurs correspondant à l'attribut modifié
-      let stack = ( this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : null );
+    //   if(this.afterMounting && !this.isMounted)this.afterMounting(this);
+    //   if(!this.isMounted)this.isMounted = true;
 
-      if(stack)Array.from( stack.values() , (observer) => {
-         // Vérification si l'observateur a un élément source et si cet élément est toujours présent dans le document
-        if(observer.sourceElement && document.body.contains(observer.sourceElement))observer.callback(mutation);
-        // Si l'observateur n'a pas d'élément source, le rappel du callback est effectué
-        else if(!observer.sourceElement)observer.callback(mutation);
-        // Si l'observateur a un élément source mais il n'est plus présent dans le document,
-        // il est supprimé de la pile d'observateurs
-        else stack.delete(observer._id);
-      } )
+    // }
 
-    }
+    // /** Gestionnaire de cycle de vie : disconnectedCallback */
+    // disconnectedCallback(){
+    //   if(this.onunmount)this.onunmount();
+    // }
 
-    /**
-     * Ajoute un observateur pour surveiller les modifications d'attributs d'un composant tiers.
-     * @param sourceElement L'élément personnalisé ou l'élément HTML correspondant au composant tiers.
-     * @param event L'événement correspondant à la modification d'attribut à observer.
-     * @param callback La fonction de rappel à appeler lorsque la modification d'attribut est détectée.
-     * @returns L'observateur créé pour la surveillance des modifications d'attributs.
-     * @throws Une erreur si `sourceElement` n'est pas un composant Thorium valide.
-    */
-    addComponentObserver = (sourceElement:CustomElement<Element,{}> | Element , event:string , callback:(mutation:Mutation)=>void):Observer => {
+    // /** Gestionnaire de changement d'attribut observé */
+    // attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    //   let mutation = {attributeName:name,oldValue,newValue};
+    //   if(this.onmutation)this.onmutation(mutation);
+    //   if(this.oncontextchange)this.oncontextchange(newValue);
+    //   this.delegateObservedMutation(mutation)
+    // }
 
-      let patern = ( 'patern' in sourceElement ? sourceElement.patern : null) as NodeTemplate<any> | DesignPatern<any>;
-      console.warn('sourceElement : ',sourceElement);
-      console.warn('patern : ',patern);
+    // /**
+    //  * Active une transaction spécifique sur le composant.
+    //  *
+    //  * @method useTransaction
+    //  * @param transactionName - Le nom de la transaction à activer.
+    // */
+    // useTransaction = (transactionName:string) => {
+    //   // Récupérer le contrôleur Thorium associé au composant
+    //   let thorium_controller = this.$Thorium;
+    //   // Parcourir toutes les transactions du contrôleur
+    //   Array.from([...thorium_controller.transactions.values()] , (transaction) => {
+    //     // Si le nom de la transaction correspond
+    //     if(transaction.name == transactionName){
 
-      if(patern){
-        let observedAttibutes = ( 'observedAttibutes' in patern ? (patern as DesignPatern<any>).observedAttibutes : null);
-        console.warn('observedAttibutes : ',observedAttibutes , event );
-        if(observedAttibutes.includes(event)){
-          return (sourceElement as CustomElement<Element,{}>).on( event , callback , this as unknown as CustomElement<Element,{}>);
-        }
-      }
-      else console.error("Seems that this sourceElement ins't a thorium-component");
+    //       let template = transaction.template;
 
-    }
+    //       // Appliquer les attributs de modèle à l'élément
+    //       if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
+    //         this.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
+    //       })
 
-    /**
-     * Attache un observateur à un attribut spécifique d'un élément personnalisé ou d'un élément DOM.
-     * L'observateur sera déclenché lorsqu'un changement est détecté sur l'attribut spécifié.
-     *
-     * @param attributeName - Le nom de l'attribut à observer.
-     * @param callback - La fonction de rappel qui sera exécutée lorsque le changement est détecté.
-     *                   La fonction de rappel reçoit un argument contenant des informations sur la mutation.
-     * @param sourceElement - (Facultatif) L'élément personnalisé ou l'élément DOM à observer.
-     *                       Si non spécifié, l'observateur sera attaché à l'élément courant.
-     * @returns L'observateur créé, qui peut être utilisé pour le détacher ultérieurement.
-    */
-    on = ( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ):Observer => {
+    //       // Appliquer les variables et méthodes de modèle à l'élément
+    //       if(template.proto)Array.from( Object.keys(template.proto) , (protoKey) => {
+    //           this[protoKey] = (template.proto as Record<string,any>)[protoKey];
+    //       })
 
-      let stack = (this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : (() => {
-        this.oberservers.set(attributeName , new Map());
-        return this.oberservers.get(attributeName);
-      })() );
 
-      let oberserverId = crypto.randomUUID();
-      stack.set(oberserverId , {
-        _id : oberserverId,
-        attributeName : attributeName,
-        target : this as unknown as CustomElement<Element,{}>,
-        sourceElement : sourceElement,
-        callback : callback
-      });
+    //     }
+    //   })
+    // }
 
-      return stack.get(oberserverId);
+    // /**
+    //  * Ajoute une transaction au contrôleur Thorium.
+    //  *
+    //  * @method addTransaction
+    //  * @param transaction - La transaction à ajouter.
+    //  * @returns L'ID de la transaction ajoutée.
+    // */
+    // addTransaction = (transaction) => {
+    //   // Générer un ID unique pour la transaction
+    //   let transactionId = crypto.randomUUID();
+    //   // Ajouter la transaction au contrôleur Thorium en utilisant l'ID généré
+    //   this.$Thorium.transactions.set(transactionId , { id : transactionId , ...transaction});
+    //   // Retourner l'ID de la transaction ajoutée
+    //   return transactionId;
+    // }
 
-    }
+    // /**
+    //  * Supprime une transaction au contrôleur Thorium.
+    //  *
+    //  * @method removeTransaction
+    //  * @param transactionId - L'ID de la transaction à supprimer.
+    //  * @returns True si la transaction a été supprimée avec succès, sinon null.
+    // */
+    // removeTransaction = (transactionId:string) => {
+    //   return ( this.$Thorium.transactions.has(transactionId) ? this.$Thorium.transactions.delete(transactionId) : null );
+    // }
+
+    // /**
+    //  * Active un effet spécifique du contrôleur Thorium.
+    //  *
+    //  * @method useEffect
+    //  * @param operationName - Le nom de l'effet à activer.
+    //  * @param options - Options supplémentaires à transmettre à l'effet.
+    // */
+    // useEffect = (operationName:string,...options) => {
+    //   let thorium_controller = this.$Thorium;
+    //   // Parcours de tous les effets du contrôleur Thorium
+    //   Array.from([...thorium_controller.effects.values()] , (effect) => {
+    //     if(effect.name == operationName)effect.callback(this,options)
+    //   })
+    // }
+
+    // /**
+    //  * Ajoute un nouvel effet au contrôleur Thorium.
+    //  *
+    //  * @method addEffect
+    //  * @param effect - L'effet à ajouter, représenté par un objet contenant les propriétés `name` (nom de l'effet) et `callback` (fonction callback de l'effet).
+    //  * @returns L'ID de l'effet ajouté.
+    // */
+    // addEffect = (effect) => {
+    //   let effectId = crypto.randomUUID();
+    //   this.$Thorium.effects.set(effectId , { id : effectId , ...effect});
+    //   return effectId;
+    // }
+
+    // /**
+    //  * Supprime un effet du contrôleur Thorium.
+    //  *
+    //  * @method removeEffect
+    //  * @param effectId - L'ID de l'effet à supprimer.
+    //  * @returns `true` si l'effet a été supprimé avec succès, sinon `false`.
+    // */
+    // removeEffect = (effectId:string) => {
+    //   return ( this.$Thorium.effects.has(effectId) ? this.$Thorium.effects.delete(effectId) : null );
+    // }
+
+    // /**
+    //  * Map contenant les observateurs pour chaque attribut.
+    //  * Chaque clé de la map correspond à un nom d'attribut,
+    //  * et chaque valeur est un map contenant les observateurs
+    //  * associés à cet attribut.
+    // */
+    // oberservers:Observers = new Map();
+    
+    // /**
+    //  * Récupère l'observateur correspondant à l'ID spécifié.
+    //  * 
+    //  * @param observerId L'ID de l'observateur à récupérer.
+    //  * @returns L'observateur correspondant à l'ID spécifié, s'il existe ; sinon, null.
+    // */
+    // getObserver = (observerId:string) => {
+
+    //   return Array.from( this.oberservers.values() , (stack) => {
+    //     return Array.from( stack.values() , (observerInfo) => {
+    //       if(observerInfo._id == observerId)return observerInfo;
+    //     } )
+    //   } ).flat().filter((x) => x)[0];
+
+    // }
+
+    // /**
+    //  * Supprime l'observateur correspondant à l'ID spécifié.
+    //  * 
+    //  * @param observerId L'ID de l'observateur à supprimer.
+    //  * @returns True si l'observateur a été supprimé avec succès ; sinon, false.
+    // */
+    // removeObserver = (observerId:string) => {
+
+    //   return Array.from( this.oberservers.values() , (stack) => {
+    //     return (stack.has(observerId) ? stack.delete(observerId) : null)
+    //   } ).flat().filter((x) => x)[0];
+
+    // }
+
+    // /**
+    //  * Déclenche les rappels des observateurs en réponse à une mutation observée.
+    //  * 
+    //  * @param mutation La mutation observée.
+    // */
+    // delegateObservedMutation = (mutation:Mutation) => {
+
+    //   let {attributeName,oldValue,newValue} = mutation;
+    //   // Récupération de la pile d'observateurs correspondant à l'attribut modifié
+    //   let stack = ( this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : null );
+
+    //   if(stack)Array.from( stack.values() , (observer) => {
+    //      // Vérification si l'observateur a un élément source et si cet élément est toujours présent dans le document
+    //     if(observer.sourceElement && document.body.contains(observer.sourceElement))observer.callback(mutation);
+    //     // Si l'observateur n'a pas d'élément source, le rappel du callback est effectué
+    //     else if(!observer.sourceElement)observer.callback(mutation);
+    //     // Si l'observateur a un élément source mais il n'est plus présent dans le document,
+    //     // il est supprimé de la pile d'observateurs
+    //     else stack.delete(observer._id);
+    //   } )
+
+    // }
+
+    // /**
+    //  * Ajoute un observateur pour surveiller les modifications d'attributs d'un composant tiers.
+    //  * @param sourceElement L'élément personnalisé ou l'élément HTML correspondant au composant tiers.
+    //  * @param event L'événement correspondant à la modification d'attribut à observer.
+    //  * @param callback La fonction de rappel à appeler lorsque la modification d'attribut est détectée.
+    //  * @returns L'observateur créé pour la surveillance des modifications d'attributs.
+    //  * @throws Une erreur si `sourceElement` n'est pas un composant Thorium valide.
+    // */
+    // addComponentObserver = (sourceElement:CustomElement<HTMLElement,{}> | HTMLElement , event:string , callback:(mutation:Mutation)=>void):Observer => {
+
+    //   let patern = ( 'patern' in sourceElement ? sourceElement.patern : null) as NodeTemplate<any> | DesignPatern<any>;
+    //   console.warn('sourceElement : ',sourceElement);
+    //   console.warn('patern : ',patern);
+
+    //   if(patern){
+    //     let observedAttibutes = ( 'observedAttibutes' in patern ? (patern as DesignPatern<any>).observedAttibutes : null);
+    //     console.warn('observedAttibutes : ',observedAttibutes , event );
+    //     if(observedAttibutes.includes(event)){
+    //       return (sourceElement as CustomElement<HTMLElement,{}>).on( event , callback , this as unknown as CustomElement<HTMLElement,{}>);
+    //     }
+    //   }
+    //   else console.error("Seems that this sourceElement ins't a thorium-component");
+
+    // }
+
+    // /**
+    //  * Attache un observateur à un attribut spécifique d'un élément personnalisé ou d'un élément DOM.
+    //  * L'observateur sera déclenché lorsqu'un changement est détecté sur l'attribut spécifié.
+    //  *
+    //  * @param attributeName - Le nom de l'attribut à observer.
+    //  * @param callback - La fonction de rappel qui sera exécutée lorsque le changement est détecté.
+    //  *                   La fonction de rappel reçoit un argument contenant des informations sur la mutation.
+    //  * @param sourceElement - (Facultatif) L'élément personnalisé ou l'élément DOM à observer.
+    //  *                       Si non spécifié, l'observateur sera attaché à l'élément courant.
+    //  * @returns L'observateur créé, qui peut être utilisé pour le détacher ultérieurement.
+    // */
+    // on = ( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<HTMLElement,{}> | HTMLElement ):Observer => {
+
+    //   let stack = (this.oberservers.has(attributeName) ? this.oberservers.get(attributeName) : (() => {
+    //     this.oberservers.set(attributeName , new Map());
+    //     return this.oberservers.get(attributeName);
+    //   })() );
+
+    //   let oberserverId = crypto.randomUUID();
+    //   stack.set(oberserverId , {
+    //     _id : oberserverId,
+    //     attributeName : attributeName,
+    //     target : this as unknown as CustomElement<HTMLElement,{}>,
+    //     sourceElement : sourceElement,
+    //     callback : callback
+    //   });
+
+    //   return stack.get(oberserverId);
+
+    // }
   
   }
 

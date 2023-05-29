@@ -8,8 +8,7 @@
     "preserveConstEnums" : true,
     "skipLibCheck": true,
     "moduleResolution":"node",
-    "outDir": "dist"
   },
-  "include": ["./src/**/*"],
+  "include": ["./src/**/*", "Thorium@Animation"],
   "exclude": ["./src/modules"]
 }

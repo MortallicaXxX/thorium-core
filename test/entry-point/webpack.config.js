@@ -1,10 +1,11 @@
 const path = require("path");
 const { CleanWebpackPlugin } = require("clean-webpack-plugin");
+const webpack = require("webpack");
 
 module.exports = {
   mode: process.NODE_ENV || "development",
   entry: path.resolve(__dirname, "src"),
-  target: "node",
+  target: "web",
   output: {
     path: path.resolve(__dirname, "out"),
     filename: "Thorium.js"
@@ -33,13 +34,36 @@ module.exports = {
             options: { name: "[name]-[hash].[ext]" }
           }
         ]
-      }
+      },
+      {
+        test: /\.css$/i,
+        use: ["style-loader", "css-loader"],
+      },
     ]
   },
   resolve: {
-    extensions: [".tsx", ".ts", ".js", ".jsx"]
+    extensions: [".tsx", ".ts", ".js", ".jsx"],
+    alias: {
+      process: "process/browser"
+    },
+    fallback: { 
+      "path": require.resolve("path-browserify"),
+      "fs": require.resolve("browserify-fs"),
+      "stream": require.resolve("stream-browserify"),
+      "buffer": require.resolve("buffer"),
+    }
   },
-  plugins: [new CleanWebpackPlugin({
-    dangerouslyAllowCleanPatternsOutsideProject: true
-  })]
+  plugins: [
+    new CleanWebpackPlugin({
+      dangerouslyAllowCleanPatternsOutsideProject: true
+    }),
+    new webpack.ProvidePlugin({
+      process: path.resolve(__dirname , 'node_modules/process/browser.js'),
+      // buffer: path.resolve(__dirname , 'node_modules/buffer/index.js'),
+      Buffer: [path.resolve(__dirname , 'node_modules/buffer/index.js'), 'Buffer'],
+    }),
+    // new webpack.ProvidePlugin({
+    //   Buffer: path.resolve(__dirname , 'node_modules/buffer/index.js'),
+    // }),
+  ]
 };

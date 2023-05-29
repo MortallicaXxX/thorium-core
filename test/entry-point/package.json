@@ -1,0 +1,31 @@
+{
+  "name": "entry-point",
+  "version": "1.0.0",
+  "description": "",
+  "main": "webpack.config.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/node": "^20.2.5",
+    "autoprefixer": "^10.4.14",
+    "browserify-fs": "^1.0.0",
+    "buffer": "^6.0.3",
+    "clean-webpack-plugin": "^4.0.0",
+    "css-loader": "^6.8.1",
+    "dom-cssom": "^1.1.1",
+    "path-browserify": "^1.0.1",
+    "postcss": "^8.4.23",
+    "source-map-js": "^1.0.2",
+    "stream-browserify": "^3.0.0",
+    "style-loader": "^3.3.3",
+    "typescript": "^5.0.4",
+    "webpack": "^5.84.1",
+    "webpack-cli": "^5.1.1"
+  },
+  "devDependencies": {
+    "process": "^0.11.10"
+  }
+}

@@ -1,12 +1,16 @@
 import { register , DesignPatern , CustomElementPatern , CustomElement } from './register';
+import { style } from './style';
 
 export * from './register';
+export * from './style';
 
 const DesignSystem = ( ) => {
   return {
-    register
+    register,
+    style
   } as {
-    register:typeof register
+    register:typeof register,
+    style: typeof style
   }
 }
 

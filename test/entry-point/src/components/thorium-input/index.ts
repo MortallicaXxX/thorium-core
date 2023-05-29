@@ -17,7 +17,7 @@ export type IThoriumInput = CustomElement<HTMLInputElement , {
 
 export type IThoriumInputTransactions = 'init-input-transaction';
 
-export type IThoriumInputEffects = 'area-hovered' | 'area-selected' | 'area-unhovered' | 'area-unselected';
+export type IThoriumInputEffects = 'area-hovered' | 'area-selected' | 'area-unhovered' | 'area-unselected' | 'magic';
 
 const ThoriumInput = DesignSystem()
 .register<IThoriumInput , IThoriumInputTransactions , IThoriumInputEffects>('thorium' , {

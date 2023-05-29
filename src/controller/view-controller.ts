@@ -116,7 +116,7 @@ export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<
         Array.from([...this.children].reverse() , (element:HTMLElement) => {
           element.remove();
         })
-        this.appendChild(DOM.render(views[newValue]))
+        DOM.render(views[newValue] , this as any)
       }
       else if(viewsElemens && viewsElemens[newValue]){
         Array.from([...this.children].reverse() , (element:HTMLElement) => {

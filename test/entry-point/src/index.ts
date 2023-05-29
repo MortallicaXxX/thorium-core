@@ -1,8 +1,10 @@
 import Thorium , { Connector , DesignSystem , DOM , ThoriumController , PaternArea } from '../../../';
-import useState from '/Users/guillaume/Documents/github/Types/States/src';
+// import useState from '/Users/guillaume/Documents/github/Types/States/src';
 
 import './components/app-view';
 import ThoriumInput , { IThoriumInput , areHoverEffect , areaUnHoverEffect , areaSelectEffect , areaUnSelectEffect } from './components/thorium-input';
+
+import * as ThoriumAnimation from '../../../Thorium@Animation';
 
 // const ViewApp = DesignSystem()
 // .register('views' , {
@@ -29,29 +31,118 @@ import ThoriumInput , { IThoriumInput , areHoverEffect , areaUnHoverEffect , are
  ``` 
 */
 
-( () => {
+( async () => {
 
     // const { document , body , head , useEffect } = DOM;
 
+    let cssStyle = await DesignSystem().style( {
+        div : { height : 'stretch' }
+    } );
+    // let cssStyleSheet = await DesignSystem().styleSheet( 'div{height:stretch}' );
+
+
+    // window.onload = () => {
+
+        // let e = DOM.render<IThoriumInput>( ThoriumInput({
+        //     attr : { loading : 'false' },
+        //     childrens : [
+        //         { localName : 'label' , attr : { text : 'lol : ' } }
+        //     ],
+        //     proto : {
+        //         onmousedown : (event) => {
+        //             ThoriumAnimation.Magic(event.target as HTMLElement)
+        //         },
+        //     }
+        // }));
+
+    //     // element.afterMounting = (target) => {
+    //     //     // alert('hello');
+    //     // }
+    
+    //     // document.body.appendChild( element );
+    
+    //     // console.log(document.body , element);
+    //     // console.log(document.body.appendChild( element ));
+
+    //     let element = DOM.render<HTMLDivElement>({
+    //         localName : 'div',
+    //         attr : {
+    //             stye : await DesignSystem().style( 'div{height:stretch}' )
+    //         },
+    //         childrens : [
+    //             ThoriumInput({
+    //                 attr : { loading : 'false' },
+    //                 childrens : [
+    //                     { localName : 'label' , attr : { text : 'lol : ' } }
+    //                 ],
+    //                 proto : {
+    //                     onmousedown : (event) => {
+    //                         ThoriumAnimation.Magic(event.target as HTMLElement)
+    //                     },
+    //                 }
+    //             })
+    //         ]
+    //     })
+
+    //     document.body.appendChild(element);
+
+    // }
+
     window.onload = () => {
-
-        let element = DOM.render<IThoriumInput>( ThoriumInput({
-            attr : { loading : 'false' },
+        DOM.render<HTMLDivElement>({
+            localName : 'div',
+            attr : {
+                id : 'container',
+            },
             childrens : [
-                { localName : 'label' , attr : { text : 'lol : ' } }
+                ThoriumInput({
+                    attr : { 
+                        loading : 'false',
+                        "stylesheet" : {
+                            '#container' : {
+                                position:'absolute',
+                                height : '100%',
+                                width : '100%',
+                                top : '0',
+                                left : '0',
+                                display : 'flex',
+                                'align-items' : 'center',
+                                'justify-content' : 'center'
+                            },
+                            '#test' : {
+                                position:'absolute',
+                                height : '100%',
+                                width : '100%',
+                                top : '0',
+                                left : '0',
+                                display : 'flex',
+                                'align-items' : 'center',
+                                'justify-content' : 'center'
+                            }
+                        },
+                     },
+                    childrens : [
+                        { localName : 'label' , attr : { text : 'lol : ' } }
+                    ],
+                    proto : {
+                        onmousedown : (event) => {
+                            ThoriumAnimation.PuffIn(event.target as HTMLElement);
+                        },
+                    }
+                })
             ]
-        }));
-
-        element.afterMounting = (target) => {
-            // alert('hello');
-        }
-    
-        document.body.appendChild( element );
-    
-        console.log(document.body , element);
-        console.log(document.body.appendChild( element ));
-
+        } , document.body)
     }
+
+    // element.onload = () => {
+    //     alert('onnload')
+    // }
+
+    // console.log(element)
+
+    
+
+    // document.body.appendChild(element);
 
     // Thorium.on('/' , AppPage);
 

@@ -1,11 +1,14 @@
 import { NodeTemplate } from "../dom/dom-render";
+import { CssObject } from "../design-system/style";
+
+type AttributePropertie = 'id' | 'class' | 'name' | 'local-name' | 'context' | 'style' | 'stylesheet' | string;
 
 export interface ConnectorTemplate<T>{
-  /** component's attributes */
-  attr?:Record<string,string>;
-  /** component's childrens */
+  /** Attributs du component */
+  attr?:Record<AttributePropertie,string|CssObject>;
+  /** Enfants du component */
   childrens?:NodeTemplate<any>[];
-  /** component's prototypes methods and variables */
+  /** Méthodes et variables du component */
   proto?:Partial<T>;
 }
 

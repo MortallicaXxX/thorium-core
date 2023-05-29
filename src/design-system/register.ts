@@ -6,13 +6,12 @@ import { Observer , Observers , Mutation, PageController , ThoriumController , V
 import { Transactions , TransactionPatern } from '../controller/transactions';
 import { Effects , EffectPatern } from '../controller/effects';
 
+import * as DOMCSSOM from 'dom-cssom';
+
 export interface DesignPatern<T> extends ConnectorTemplate<T>{
   baseName:string;
   observedAttibutes?:string[];
-  attr?:Record<string,string>;
-  childrens?:NodeTemplate<any>[];
   content?:string;
-  proto?:T;
   styles?:string[];
   __getter__?:Record<string,(target?:T) => void>;
   __setter__?:Record<string,(value:any,target?:T) => void>;
@@ -27,6 +26,9 @@ export interface DesignPatern<T> extends ConnectorTemplate<T>{
  * @typeparam IEffect - Le type des effets utilisés par l'élément personnalisé (optionnel).
  */
 export type CustomElement<T,X,ITransaction = null,IEffect = null> = T & X & {
+    $Thorium:any;
+    patern:NodeTemplate<T & X> | DesignPatern<T & X>;
+    isMounted:boolean;
     /**
      * Récupère le contexte de l'élément personnalisé.
      *
@@ -40,7 +42,7 @@ export type CustomElement<T,X,ITransaction = null,IEffect = null> = T & X & {
     beforeMounting(target:CustomElement<T,X,ITransaction,IEffect>):void;
     afterMounting(target:CustomElement<T,X,ITransaction,IEffect>):void;
     onunmount():void;
-    oncontextchange():void;
+    oncontextchange(newContext:string):void;
     /**
      * Active une transaction spécifique sur le composant.
      *
@@ -136,6 +138,10 @@ export type CustomElement<T,X,ITransaction = null,IEffect = null> = T & X & {
      * @returns L'observateur créé, qui peut être utilisé pour le détacher ultérieurement.
     */
     on( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{},ITransaction,IEffect> | Element ):Observer;
+    isStyleSheetAttached:boolean;
+    styleSheetId:string;
+    attachStyleSheet : () => any;
+    styleSheet : () => DOMCSSOM;
 };
 
 /**
@@ -186,7 +192,7 @@ export const register = <T,X,Z>( type : 'page' | 'thorium' | 'local' | 'views' ,
             if(patern.childrens){
                 const shadow = (this as unknown as HTMLElement).attachShadow({mode: 'open'});
                 Array.from( patern.childrens , (children) => {
-                    shadow.appendChild(DOMRender<HTMLElement>(children))
+                    DOMRender<HTMLElement>(children , shadow)
                 } )
             }
 

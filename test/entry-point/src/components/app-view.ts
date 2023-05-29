@@ -1,5 +1,5 @@
 import Thorium , { Connector , DesignSystem , DOM , ThoriumController } from '../../../../';
-import useState from '/Users/guillaume/Documents/github/Types/States/src';
+// import useState from '/Users/guillaume/Documents/github/Types/States/src';
 
 // import { alertTransaction } from '../transactions/alert-transaction';
 // import { hoverTransaction } from '../transactions/hover-transaction';
