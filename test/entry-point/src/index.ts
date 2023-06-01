@@ -88,6 +88,31 @@ import * as ThoriumAnimation from '../../../Thorium@Animation';
 
     // }
 
+    let {token:ThoriumInputStyle} = await DesignSystem().createStyleSheet({
+        '#container' : {
+            position:'absolute',
+            height : 'stretch',
+            width : 'stretch',
+            top : '0',
+            left : '0',
+            display : 'flex',
+            'align-items' : 'center',
+            'justify-content' : 'center'
+        },
+        '#test' : {
+            position:'absolute',
+            height : 'stretch',
+            width : 'stretch',
+            top : '0',
+            left : '0',
+            display : 'flex',
+            'align-items' : 'center',
+            'justify-content' : 'center'
+        }
+    });
+
+    console.log({ThoriumInputStyle});
+
     window.onload = () => {
         DOM.render<HTMLDivElement>({
             localName : 'div',
@@ -98,11 +123,47 @@ import * as ThoriumAnimation from '../../../Thorium@Animation';
                 ThoriumInput({
                     attr : { 
                         loading : 'false',
+                        // "stylesheet" : {
+                        //     '#container' : {
+                        //         position:'absolute',
+                        //         height : 'stretch',
+                        //         width : 'stretch',
+                        //         top : '0',
+                        //         left : '0',
+                        //         display : 'flex',
+                        //         'align-items' : 'center',
+                        //         'justify-content' : 'center'
+                        //     },
+                        //     '#test' : {
+                        //         position:'absolute',
+                        //         height : 'stretch',
+                        //         width : 'stretch',
+                        //         top : '0',
+                        //         left : '0',
+                        //         display : 'flex',
+                        //         'align-items' : 'center',
+                        //         'justify-content' : 'center'
+                        //     }
+                        // },
+                        StyleSheet : ThoriumInputStyle
+                     },
+                    childrens : [
+                        { localName : 'label' , attr : { text : 'lol : ' } }
+                    ],
+                    proto : {
+                        onmousedown : (event) => {
+                            ThoriumAnimation.OpenDownRight(event.target as HTMLElement);
+                        },
+                    }
+                }),
+                ThoriumInput({
+                    attr : { 
+                        loading : 'false',
                         "stylesheet" : {
                             '#container' : {
                                 position:'absolute',
-                                height : '100%',
-                                width : '100%',
+                                height : 'stretch',
+                                width : 'stretch',
                                 top : '0',
                                 left : '0',
                                 display : 'flex',
@@ -111,8 +172,8 @@ import * as ThoriumAnimation from '../../../Thorium@Animation';
                             },
                             '#test' : {
                                 position:'absolute',
-                                height : '100%',
-                                width : '100%',
+                                height : 'stretch',
+                                width : 'stretch',
                                 top : '0',
                                 left : '0',
                                 display : 'flex',
@@ -126,7 +187,7 @@ import * as ThoriumAnimation from '../../../Thorium@Animation';
                     ],
                     proto : {
                         onmousedown : (event) => {
-                            ThoriumAnimation.PuffIn(event.target as HTMLElement);
+                            ThoriumAnimation.OpenDownRight(event.target as HTMLElement);
                         },
                     }
                 })

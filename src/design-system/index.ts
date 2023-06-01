@@ -1,5 +1,5 @@
 import { register , DesignPatern , CustomElementPatern , CustomElement } from './register';
-import { style } from './style';
+import { style , createStyleSheet , getStyleSheet } from './style';
 
 export * from './register';
 export * from './style';
@@ -7,10 +7,14 @@ export * from './style';
 const DesignSystem = ( ) => {
   return {
     register,
-    style
+    style,
+    createStyleSheet,
+    getStyleSheet
   } as {
     register:typeof register,
-    style: typeof style
+    style: typeof style,
+    createStyleSheet: typeof createStyleSheet,
+    getStyleSheet: typeof getStyleSheet
   }
 }
 

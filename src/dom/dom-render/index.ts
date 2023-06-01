@@ -1,6 +1,8 @@
 import { body } from "../dom-virtual";
 import { ConnectorTemplate , CustomElement , DesignPatern , Mutation , Observer , Observers , ElementController , DesignSystem , CssObject } from "../../";
 
+import * as DOMCSSOM from 'dom-cssom';
+
 /**
  * Représente la structure d'un nœud dans un template DOM.
  * Il étend `ConnectorTemplate` pour inclure des informations spécifiques au DOM.
@@ -69,22 +71,9 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode:Element|Shado
     if(attributeName == 'text')element.innerText = template.attr[attributeName] as string;
     else if(attributeName == 'stylesheet'){
       let context = element.context<HTMLDivElement>();
-      // if(!context.isStyleSheetAttached)context.attachStyleSheet();
       let styleSheet = context.styleSheet();
-      let styleSheetObject = template.attr[attributeName];
-
-      DesignSystem().style( styleSheetObject as CssObject )
-      .then((result) => {
-        let {nodes} = result.root;
-        Array.from( nodes as any[] , (rule) => {
-          console.log(rule)
-          let {selector , source , nodes} = rule;
-          styleSheet.add(selector , Object.fromEntries(new Map(Array.from( nodes as any[] , (declaration) => {
-            return [declaration.prop , declaration.value]
-          }))))
-        } )
-      })
-
+      let styleSheetObject = template.attr[attributeName] as CssObject;
+      addElementStyleSheet( styleSheet , styleSheetObject );
     }
     else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
   })
@@ -92,3 +81,41 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode:Element|Shado
   return element as CustomElement<T,any>;
 
 }
+
+const addElementStyleSheet = ( styleSheetContext:DOMCSSOM , styleSheetObject:CssObject ) => {
+
+  DesignSystem().style( styleSheetObject as CssObject )
+  .then((result) => {
+    let {nodes} = result.root;
+
+    console.log(result)
+    
+    Array.from( nodes as any[] , (rule) => {
+      let {selector , source , nodes} = rule;
+
+      Array.from( nodes as any[] , (declaration) => {
+        return [declaration.prop , declaration.value]
+      }).reduce((arr , declaration:[string,string]) => {
+
+        let insertCssValue = (arr:Record<string,string>[] , declaration:[string,string] , iterator = 0) => {
+          let [prop,value] = declaration;
+          if(!arr[iterator])arr[iterator] = {};
+          let object = arr[iterator];
+          if(prop in object == false){
+            object[prop] = value;
+            return arr;
+          }
+          else return insertCssValue(arr , declaration , iterator + 1);
+        }
+
+        return insertCssValue(arr , declaration);
+
+      } , []).forEach( (cssObject:Record<string,string>) => {
+        styleSheetContext.add(selector , cssObject);
+      });
+
+    } )
+
+  })
+}
+

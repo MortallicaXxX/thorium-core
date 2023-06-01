@@ -124,17 +124,13 @@ export interface CustomElementController{
   on:( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ) => Observer;
   isStyleSheetAttached:boolean;
   styleSheetId:string;
-  attachStyleSheet : () => any;
+  attachStyleSheet : DOMCSSOM;
   styleSheet : () => DOMCSSOM;
 };
 
 export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTMLElement,X,Y,Z>):CustomElementController => {
   const controller = {
     context<T>(contextNameToFind?:string){
-
-      alert('get context');
-      console.log(target)
-              
       /**
        * Fonction récursive pour rechercher le contexte dans les éléments parents.
        *
@@ -359,19 +355,14 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
       return stack.get(oberserverId);
   
     },
+    /// STYLES
     isStyleSheetAttached : false,
     styleSheetId : null,
-    attachStyleSheet : () => {
-      if(target.isStyleSheetAttached)return ;
-      target.isStyleSheetAttached = true;
-      let styleSheet = document.createElement('style');
-      target.styleSheetId = "test";
-      styleSheet.setAttribute('id'  , target.styleSheetId);
-      target.appendChild(styleSheet);
-    },
+    attachStyleSheet : null,
     styleSheet : () => {
+      if(!target.attachStyleSheet)target.attachStyleSheet = DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
       return DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
-    }
+    },
   } as CustomElementController;
 
   return controller;

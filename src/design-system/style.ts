@@ -9,23 +9,11 @@ export interface CssObject{
   [x:string]:string|CssObject
 }
 
+const StyleSheets:Map<string,StylePatern> = new Map();
+
 type StylePatern = {token:string} & postcss.Result;
 
-interface CssPatern{
-  css: string,
-  // minimal whitespace
-  minified: string,
-  // array of used classes if any
-  classes: string[],
-  // array of used ids if any
-  ids: string[],
-  // array of used selectors
-  selectors:string[],
-  // ast of this css object
-  parsed: [string,Record<string,string>][],
-}
-
-export const style = async ( cssObject?:CssObject):Promise<StylePatern> => {
+export const style = async (cssObject?:CssObject):Promise<StylePatern> => {
 
   let s = ObjectCSS.of(cssObject);
   // let css:CssPatern = CSSOM(cssObject);
@@ -39,4 +27,18 @@ export const style = async ( cssObject?:CssObject):Promise<StylePatern> => {
     })
   })
 
+}
+
+export const createStyleSheet = (cssObject:CssObject):Promise<StylePatern> => {
+  return new Promise((next) => {
+    style(cssObject)
+    .then((result) => {
+      StyleSheets.set(result.token , result);
+      next(result);
+    })
+  })
+}
+
+export const getStyleSheet = (sheetToken:string) => {
+  return ( StyleSheets.has(sheetToken) ? StyleSheets.get(sheetToken) : null );
 }

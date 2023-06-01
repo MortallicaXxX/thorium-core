@@ -140,7 +140,7 @@ export type CustomElement<T,X,ITransaction = null,IEffect = null> = T & X & {
     on( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{},ITransaction,IEffect> | Element ):Observer;
     isStyleSheetAttached:boolean;
     styleSheetId:string;
-    attachStyleSheet : () => any;
+    attachStyleSheet : DOMCSSOM;
     styleSheet : () => DOMCSSOM;
 };
 
