@@ -124,6 +124,7 @@ export interface CustomElementController{
   on:( attributeName:string , callback:(mutation:Mutation)=>void , sourceElement?:CustomElement<Element,{}> | Element ) => Observer;
   isStyleSheetAttached:boolean;
   styleSheetId:string;
+  appliedStyles:string[];
   attachStyleSheet : DOMCSSOM;
   styleSheet : () => DOMCSSOM;
 };
@@ -358,10 +359,11 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
     /// STYLES
     isStyleSheetAttached : false,
     styleSheetId : null,
+    appliedStyles : [],
     attachStyleSheet : null,
     styleSheet : () => {
       if(!target.attachStyleSheet)target.attachStyleSheet = DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
-      return DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
+      return target.attachStyleSheet;
     },
   } as CustomElementController;
 

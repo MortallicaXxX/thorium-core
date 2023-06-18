@@ -81,7 +81,7 @@ spaceInLeft - ✅
 
 /// MAGIC EFFECTS
 
-let interval = 1500;
+let timeout = 1000;
 
 /** 
  * Ajoute l'effet de magie à l'élément cible
@@ -94,10 +94,10 @@ export const Magic = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('magic');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('magic');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -112,10 +112,10 @@ export const TwisterInDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('twisterInDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('twisterInDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -130,10 +130,10 @@ export const TwisterInUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('twisterInUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('twisterInUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -148,10 +148,10 @@ export const Swap = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('swap');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('swap');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -168,10 +168,10 @@ export const PuffIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('puffIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('puffIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -186,10 +186,10 @@ export const PuffOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('puffOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('puffOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -204,10 +204,10 @@ export const VanishIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('vanishIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('vanishIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -222,10 +222,10 @@ export const VanishOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('vanishOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('vanishOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -243,10 +243,10 @@ export const OpenDownLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openDownLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openDownLeft');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -261,10 +261,10 @@ export const OpenDownRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openDownRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openDownRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -279,10 +279,10 @@ export const OpenUpLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpLeft');
-    }, interval)
+    }, timeout)
   }
 };
 
@@ -297,10 +297,10 @@ export const OpenUpRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpRight');
-    }, interval)
+    }, timeout)
   }
 };
 
@@ -315,10 +315,10 @@ export const OpenDownLeftReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openDownLeftReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openDownLeftReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -338,10 +338,10 @@ export const OpenUpLeftReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpLeftReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpLeftReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -356,10 +356,10 @@ export const OpenUpRightReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpRightReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpRightReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -376,10 +376,10 @@ export const OpenDownLeftOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openDownLeftOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openDownLeftOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -394,10 +394,10 @@ export const OpenDownRightOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openDownRightOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openDownRightOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -412,10 +412,10 @@ export const OpenUpLeftOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpLeftOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpLeftOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -430,10 +430,10 @@ export const OpenUpRightOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('openUpRightOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('openUpRightOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -450,10 +450,10 @@ export const PerspectiveDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -468,10 +468,10 @@ export const PerspectiveUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -486,10 +486,10 @@ export const PerspectiveLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveLeft');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -504,10 +504,10 @@ export const PerspectiveRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -522,10 +522,10 @@ export const PerspectiveDownReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveDownReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveDownReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -540,10 +540,10 @@ export const PerspectiveUpReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveUpReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveUpReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -558,10 +558,10 @@ export const PerspectiveLeftReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveLeftReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveLeftReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -576,10 +576,10 @@ export const PerspectiveRightReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('perspectiveRightReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('perspectiveRightReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -595,10 +595,10 @@ export const RotateDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('rotateDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('rotateDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -613,10 +613,10 @@ export const RotateUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('rotateUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('rotateUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -631,10 +631,10 @@ export const RotateLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('rotateLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('rotateLeft');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -649,10 +649,10 @@ export const RotateRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('rotateRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('rotateRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -668,10 +668,10 @@ export const SlideDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -686,10 +686,10 @@ export const SlideUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -704,10 +704,10 @@ export const SlideLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideLeft');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -722,10 +722,10 @@ export const SlideRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -740,10 +740,10 @@ export const SlideDownReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideDownReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideDownReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -758,10 +758,10 @@ export const SlideUpReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideUpReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideUpReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -776,10 +776,10 @@ export const SlideLeftReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideLeftReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideLeftReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -794,10 +794,10 @@ export const SlideRightReturn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('slideRightReturn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('slideRightReturn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -814,10 +814,10 @@ export const SwashOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('swashOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('swashOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -832,10 +832,10 @@ export const SwashIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('swashIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('swashIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -850,10 +850,10 @@ export const FoolishIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('foolishIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('foolishIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -868,10 +868,10 @@ export const HoleOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('holeOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('holeOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -888,10 +888,10 @@ export const TinRightOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinRightOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinRightOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -906,10 +906,10 @@ export const TinLeftOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinLeftOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinLeftOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -924,10 +924,10 @@ export const TinUpOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinUpOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinUpOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -942,10 +942,10 @@ export const TinDownOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinDownOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinDownOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -960,10 +960,10 @@ export const TinRightIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinRightIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinRightIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -978,10 +978,10 @@ export const TinLeftIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinLeftIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinLeftIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -996,10 +996,10 @@ export const TinUpIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinUpIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinUpIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1014,10 +1014,10 @@ export const TinDownIn = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('tinDownIn');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('tinDownIn');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1034,10 +1034,10 @@ export const BombRightOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('bombRightOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('bombRightOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1052,10 +1052,10 @@ export const BombLeftOut = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('bombLeftOut');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('bombLeftOut');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1072,10 +1072,10 @@ export const BoingInUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('boingInUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('boingInUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1090,10 +1090,10 @@ export const BoingOutDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('boingOutDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('boingOutDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1110,10 +1110,10 @@ export const SpaceOutUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceOutUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceOutUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1128,10 +1128,10 @@ export const SpaceOutRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceOutRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceOutRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1146,10 +1146,10 @@ export const SpaceOutDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceOutDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceOutDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1164,10 +1164,10 @@ export const SpaceOutLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceOutLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceOutLeft');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1182,10 +1182,10 @@ export const SpaceInUp = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceInUp');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceInUp');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1200,10 +1200,10 @@ export const SpaceInRight = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceInRight');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceInRight');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1218,10 +1218,10 @@ export const SpaceInDown = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceInDown');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceInDown');
-    }, interval)
+    }, timeout)
   }
 }
 
@@ -1236,10 +1236,10 @@ export const SpaceInLeft = (target:HTMLElement) => {
   else{
     target.classList.add('magictime');
     target.classList.add('spaceInLeft');
-    setInterval( ( ) => {
+    setTimeout( ( ) => {
       target.classList.remove('magictime');
       target.classList.remove('spaceInLeft');
-    }, interval)
+    }, timeout)
   }
 }
 

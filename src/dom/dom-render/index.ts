@@ -1,5 +1,5 @@
 import { body } from "../dom-virtual";
-import { ConnectorTemplate , CustomElement , DesignPatern , Mutation , Observer , Observers , ElementController , DesignSystem , CssObject } from "../../";
+import { ConnectorTemplate , CustomElement , DesignPatern , Mutation , Observer , Observers , ElementController , DesignSystem , CssObject  , StyleSheets , StylePatern } from "../../";
 
 import * as DOMCSSOM from 'dom-cssom';
 
@@ -26,7 +26,7 @@ export interface NodeTemplate<T> extends ConnectorTemplate<T>{
  * @param template - Le template représentant la structure du nœud DOM à générer.
  * @returns L'élément DOM généré à partir du template.
 */
-export const DOMRender = <T>(template:NodeTemplate<T> , parentNode:Element|ShadowRoot):T => {
+export const DOMRender = <T>(template:NodeTemplate<T> , parentNode?:Element|ShadowRoot):T => {
 
   // Vérifie si le template est local
   let isLocal = (template && template.localName && template.localName.includes('local-') ? true : false);
@@ -40,7 +40,9 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode:Element|Shado
     }
   })() as CustomElement<HTMLElement,{}>
 
-  parentNode.appendChild(element);
+  if(parentNode && ( parentNode instanceof Element || parentNode instanceof ShadowRoot)){
+    parentNode.appendChild(element);
+  }
 
   element.patern = template;
   Object.assign( element , ElementController(element as any) )
@@ -70,10 +72,20 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode:Element|Shado
   if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
     if(attributeName == 'text')element.innerText = template.attr[attributeName] as string;
     else if(attributeName == 'stylesheet'){
+      // Récuperation du context
       let context = element.context<HTMLDivElement>();
+      // Récuperation ou création de la feuille de style associé
       let styleSheet = context.styleSheet();
-      let styleSheetObject = template.attr[attributeName] as CssObject;
-      addElementStyleSheet( styleSheet , styleSheetObject );
+      // Récuperation du token de la fuille de style
+      let styleToken = template.attr[attributeName] as string;
+      // REcuperation de la fuille de style enregistrée dans le systeme
+      let styleSheetObject = StyleSheets.get(styleToken);
+      // Récuperation des feuilles de style appliquée au context
+      let contextAppliedStyles = (context as any).appliedStyles as string[];
+      if(!contextAppliedStyles.includes(styleToken)){
+        (context as any).appliedStyles.push(template.attr[attributeName])
+        addElementCompiledCssProperties( styleSheet , styleSheetObject );
+      }
     }
     else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
   })
@@ -117,5 +129,39 @@ const addElementStyleSheet = ( styleSheetContext:DOMCSSOM , styleSheetObject:Css
     } )
 
   })
+}
+
+const addElementCompiledCssProperties = (styleSheetContext:DOMCSSOM , stylePatern:StylePatern) => {
+
+  let {result} = stylePatern;
+  let {nodes} = result.root;
+  
+  Array.from( nodes as any[] , (rule) => {
+    let {selector , source , nodes} = rule;
+
+    Array.from( nodes as any[] , (declaration) => {
+      return [declaration.prop , declaration.value]
+    }).reduce((arr , declaration:[string,string]) => {
+
+      let insertCssValue = (arr:Record<string,string>[] , declaration:[string,string] , iterator = 0) => {
+        let [prop,value] = declaration;
+        if(!arr[iterator])arr[iterator] = {};
+        let object = arr[iterator];
+        if(prop in object == false){
+          object[prop] = value;
+          return arr;
+        }
+        else return insertCssValue(arr , declaration , iterator + 1);
+      }
+
+      return insertCssValue(arr , declaration);
+
+    } , []).forEach( (cssObject:Record<string,string>) => {
+      styleSheetContext.add(selector , cssObject);
+    });
+
+  } )
+
+
 }
 

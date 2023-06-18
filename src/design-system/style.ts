@@ -9,11 +9,11 @@ export interface CssObject{
   [x:string]:string|CssObject
 }
 
-const StyleSheets:Map<string,StylePatern> = new Map();
+export const StyleSheets:Map<string,StylePatern> = new Map();
 
-type StylePatern = {token:string} & postcss.Result;
+export type StylePatern = {token:string,cssObject:CssObject,result:({token:string} & postcss.Result)};
 
-export const style = async (cssObject?:CssObject):Promise<StylePatern> => {
+export const style = async (cssObject?:CssObject):Promise<StylePatern['result']> => {
 
   let s = ObjectCSS.of(cssObject);
   // let css:CssPatern = CSSOM(cssObject);
@@ -22,8 +22,8 @@ export const style = async (cssObject?:CssObject):Promise<StylePatern> => {
     postcss([autoprefixer])
     .process( s , {from : undefined})
     .then(result => {
-      (result as StylePatern).token = crypto.randomUUID();
-      next((result as StylePatern))
+      (result as StylePatern['result']).token = crypto.randomUUID();
+      next((result as StylePatern['result']))
     })
   })
 
@@ -32,9 +32,15 @@ export const style = async (cssObject?:CssObject):Promise<StylePatern> => {
 export const createStyleSheet = (cssObject:CssObject):Promise<StylePatern> => {
   return new Promise((next) => {
     style(cssObject)
-    .then((result) => {
-      StyleSheets.set(result.token , result);
-      next(result);
+    .then((result:({token:string} & postcss.Result)) => {
+
+      StyleSheets.set(result.token , {
+        token : result.token,
+        cssObject : cssObject,
+        result : result
+      });
+      
+      next(StyleSheets.get(result.token));
     })
   })
 }
