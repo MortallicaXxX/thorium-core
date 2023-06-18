@@ -8,37 +8,15 @@ import * as ThoriumAnimation from '../../../Thorium@Animation/src';
 
 import Style from './tile.style.module.css';
 
-// const ViewApp = DesignSystem()
-// .register('views' , {
-//     baseName : 'app',
-//     defaultView : 'home',
-//     childrens : [{localName : 'slot'}],
-//     views : {
-//         'home' : {
-//             localName : 'div',
-//             attr : { name : 'dashboard' , text : '/dashboard' }
-//         }
-//     }
-// });
-
-// const AppView = Connector('views-app');
-
-/**
- * Description : Comment créer un Custom Element ?
- ```typescript
-    // SANS TRANSACTION &/OU EFFECTS
-    type MyElement = CustomElement<HTMLElement , {...}>
-    // AVEC TRANSACTION &/OU EFFECTS
-    type MyElement = CustomElement<HTMLElement , {...} , Transactions , Effects>
- ``` 
-*/
-
+/** Tile interface */
 export interface ITile {
 
 }
+
+/** Tile custom element type */
 export type TTile = CustomElement<HTMLElement , ITile>
 
-export let Tile = (options:{name:string}) => {
+export let Tile = (options:{name:string}):TTile => {
 
     let setTileTime = (target:TTile , time:Date) => {
 
@@ -110,13 +88,15 @@ export let Tile = (options:{name:string}) => {
     </div>
 }
 
+/** Clock interface */
 export interface IClock{
     updateTime : (target:TClock , time:number) => void
 }
 
+/** Clock custom element type */
 export type TClock = CustomElement<HTMLElement , IClock>;
 
-export let Clock = () => {
+export let Clock = ():TClock => {
 
     let clokId = crypto.randomUUID();
 
@@ -147,120 +127,10 @@ export let Clock = () => {
 
 ( async () => {
 
-    // const { document , body , head , useEffect } = DOM;
-
-    let cssStyle = await DesignSystem().style( {
-        div : { height : 'stretch' }
-    } );
-
-    let {token:ContainerStyle} = await DesignSystem().createStyleSheet({
-        '#container' : {
-            position:'absolute',
-            height : 'stretch',
-            width : 'stretch',
-            top : '0',
-            left : '0',
-            display : 'flex',
-            'align-items' : 'center',
-            'justify-content' : 'center'
-        }
-    })
-
-    let {token:InputStyle} = await DesignSystem().createStyleSheet({
-        'thorium-input' : {
-            background : 'lightblue'
-        }
-    });
-
-    // let element = <div><p>hello world !</p></div>;
-
-    // console.warn(element);
-
-    console.log(ThoriumInput);
-
-    // let patern = <patern
-    //     type = {"thorium"}
-    //     baseName = {"input"}
-    //     observedAttibutes = {["loading"]}
-    //     childrens = {[]}
-    //     __getter__ = {[]}
-    //     ___setter__ = {[]}
-    //     __transactions__ = {[]}
-    //     __initTransation__ = {[]}
-    //     __effects__ = {[]}
-    // />
-    console.log({ clock : <div class={Style.ClockContainer}><Clock/></div> })
-    // let element = DOM.render( <Clock/> , document.body );
-
-    // element.onload = () => {
-    //     alert('onnload')
-    // }
-
-    // console.log(element)
-
-    
-
-    // document.body.appendChild(element);
-
-    // Thorium.on('/' , AppPage);
-
-    // AppPage.Show();
-    
-    // document.body.appendChild( DOMRender( Container({
-    //     attr : { context : 'container' },
-    //     childrens : [
-    //         ThoriumButton({attr : { text : 'submit' }}),
-    //         LocalButton({attr : { text : 'submit' }}),
-    //         { localName : 'button' , attr : { text : 'submit 2' , is : 'thorium-button' } }
-    //     ],
-    //     proto : {
-    //         oncontextchange : (newContext:string) => {
-    //             alert(`changement de context : ${newContext}`)
-    //         }
-    //     }
-    // }) ) )
-
-    // document.body.appendChild( DOM.render( AppView({
-    //     attr : { context : 'dashboard' }
-    // }) ) )
-
-    // useEffect();
-
-    // let {render} = DOM.virtual.body.attatch( 
-    //     [
-    //         AppView({
-    //             attr : { context : 'dashboard' }
-    //         }),
-    //         AppView({
-    //             attr : { context : 'user' }
-    //         })
-    //     ]
-    // )
-
-    // // console.log(virtualElement)
-
-    // console.log(ViewApp)
-
-    // render();
-
-    // console.log(DOM);
-
-    let Message = (options:{message}) => {
-        return <p test={"test"}>options.message</p>;
-    }
-
-    // let x = <div _onmousedown = {() => {
-    //     alert('ici');
-    // }}><Message message={'test'}/></div>;
-    // console.log(x);
-    // DOM.render( x , document.body );
-
-    let element = DOM.render( <div class={Style.ClockContainer}>
+    let element = DOM.render<HTMLDivElement>( <div class={Style.ClockContainer}>
         <Clock/>
     </div> , document.body );
 
     console.log(element);
-
-    // console.log(element , <Clock/>);
 
 })()

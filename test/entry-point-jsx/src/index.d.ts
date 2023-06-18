@@ -1,22 +1,17 @@
 import { CustomElement } from '../../../dist';
 import './components/app-view';
-/**
- * Description : Comment créer un Custom Element ?
- ```typescript
-    // SANS TRANSACTION &/OU EFFECTS
-    type MyElement = CustomElement<HTMLElement , {...}>
-    // AVEC TRANSACTION &/OU EFFECTS
-    type MyElement = CustomElement<HTMLElement , {...} , Transactions , Effects>
- ```
-*/
+/** Tile interface */
 export interface ITile {
 }
+/** Tile custom element type */
 export type TTile = CustomElement<HTMLElement, ITile>;
 export declare let Tile: (options: {
     name: string;
-}) => any;
+}) => TTile;
+/** Clock interface */
 export interface IClock {
     updateTime: (target: TClock, time: number) => void;
 }
+/** Clock custom element type */
 export type TClock = CustomElement<HTMLElement, IClock>;
-export declare let Clock: () => any;
+export declare let Clock: () => TClock;
