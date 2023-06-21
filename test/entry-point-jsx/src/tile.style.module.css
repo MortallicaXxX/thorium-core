@@ -20,8 +20,7 @@
 .Tile{
   border: 1px solid white;
   background-color: black;
-  display: grid;
-  grid-template-columns: 1fr 1px 1fr;
+  display: inline-flex;
   border-radius: 5px;
   overflow: hidden;
 }
