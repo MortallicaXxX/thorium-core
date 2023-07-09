@@ -2,12 +2,14 @@ import { PageController } from "./page-controller";
 import { ThoriumController } from "./thorium-controller";
 import { ViewController , IViewController , ViewDesignPatern } from "./view-controller";
 import DesignSystem, { DesignPatern , CustomElementPatern, CustomElement, CssObject } from "../design-system";
-import { DOM, NodeTemplate } from "../dom";
+import { DOM, NodeTemplate, VDOM } from "../dom";
 import { Transactions , ITransaction } from "./transactions";
 import { Effects } from "./effects";
 import { ConnectorTemplate } from "../connector";
 import { PaternArea } from "./area";
+import { VirtualElement } from "../dom/dom-virtual-v2";
 
+import * as path from 'path';
 import * as DOMCSSOM from 'dom-cssom';
 
 export interface CustomElementController{
@@ -20,7 +22,9 @@ export interface CustomElementController{
     * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
   */
   context<T>(contextNameToFind?:string):T;
+  useContext<T>(hook:(context:T) => void):void;
   contextPage<T>():T;
+  useVirtual( hook:(virtualElement:VirtualElement) => void ):void;
   /** Gestionnaire de cycle de vie : connectedCallback */
   connectedCallback():void;
   /** Gestionnaire de cycle de vie : disconnectedCallback */
@@ -168,6 +172,24 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
       // Appeler la fonction de recherche en commençant par l'élément actuel et la convertir en type T
       return findUpperElementContext(target) as T
   
+    },
+    useContext<T>( hook:( context?:T )=>void , contextNameToFind?:string ){
+
+      let srcElement = this as CustomElement<HTMLElement , {}>;
+      if( srcElement && 'context' in srcElement ){
+        let elementContext = ( contextNameToFind ? srcElement.context(contextNameToFind) : srcElement.context() ) as T;
+        return hook.bind(elementContext)( elementContext );
+      }
+      else return ;
+    
+    },
+    useVirtual( hook:( virtualELement:VirtualElement ) => void ){
+      let srcElement = this as CustomElement<HTMLElement , {}>;
+      console.log(srcElement , this)
+      if(srcElement['_id']){
+        let virtualElement = VDOM.getElementByElementId(srcElement['_id']);
+        return hook.bind(virtualElement)( virtualElement );
+      }
     },
     contextPage<T>(){
 
@@ -317,11 +339,11 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
         else if(!observer.sourceElement)observer.callback(mutation);
         // Si l'observateur a un élément source mais il n'est plus présent dans le document,
         // il est supprimé de la pile d'observateurs
-        else stack.delete(observer._id);
+        else (stack as ObserversStack).delete(observer._id);
       } )
   
     },
-    addComponentObserver : (sourceElement:CustomElement<HTMLElement,{}> | HTMLElement , event:string , callback:(mutation:Mutation)=>void):Observer => {
+    addComponentObserver : (sourceElement:CustomElement<HTMLElement,{}> | HTMLElement , event:string , callback:(mutation:Mutation)=>void):Observer|void => {
   
       let patern = ( 'patern' in sourceElement ? sourceElement.patern : null) as NodeTemplate<any> | DesignPatern<any>;
       console.warn('sourceElement : ',sourceElement);
@@ -330,7 +352,7 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
       if(patern){
         let observedAttibutes = ( 'observedAttibutes' in patern ? (patern as DesignPatern<any>).observedAttibutes : null);
         console.warn('observedAttibutes : ',observedAttibutes , event );
-        if(observedAttibutes.includes(event)){
+        if((observedAttibutes as string[]).includes(event)){
           return (sourceElement as CustomElement<HTMLElement,{}>).on( event , callback , target as unknown as CustomElement<HTMLElement,{}>);
         }
       }
@@ -345,15 +367,15 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
       })() );
   
       let oberserverId = crypto.randomUUID();
-      stack.set(oberserverId , {
+      (stack as ObserversStack).set(oberserverId , {
         _id : oberserverId,
         attributeName : attributeName,
-        target : target,
+        target : target as any,
         sourceElement : sourceElement,
         callback : callback
       });
   
-      return stack.get(oberserverId);
+      return (stack as any).get(oberserverId);
   
     },
     /// STYLES
@@ -365,7 +387,7 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
       if(!target.attachStyleSheet)target.attachStyleSheet = DOMCSSOM({scoped: true}).appendTo(target) as HTMLStyleElement;
       return target.attachStyleSheet;
     },
-  } as CustomElementController;
+  } as unknown as CustomElementController;
 
   return controller;
 }
@@ -436,7 +458,7 @@ export const Controller = <T,X,Z>(paternName:string,patern:DesignPatern<T>,sourc
             let element = this;
   
             this.__defineGetter__( key , () => {
-              return patern.__getter__[key](element as any)
+              return (patern as any).__getter__[key](element as any)
             } )
           } )
         }
@@ -447,7 +469,7 @@ export const Controller = <T,X,Z>(paternName:string,patern:DesignPatern<T>,sourc
             let element = this;
   
             this.__defineSetter__( key , (value) => {
-              return patern.__setter__[key](value , element as any)
+              return (patern as any).__setter__[key](value , element as any)
             } )
           } )
         }

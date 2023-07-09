@@ -41,7 +41,7 @@ export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<
 
   return class extends Controller<T,X,Z>(paternName,patern,T){
 
-    patern:ViewDesignPatern<T>;
+    patern:ViewDesignPatern<T> = patern;
 
     /**
      * Méthode appelée lorsque l'élément est rattaché au DOM.
@@ -148,7 +148,7 @@ export function ViewController<T,X,Z>(paternName:string,patern:ViewDesignPatern<
     */
     getContextList(){ return [...new Set([
       ...('views' in this.patern ? Object.keys(this.patern.views) : []),
-      ...('views-elements' in this.patern ? Object.keys(this.patern['views-elements']) : []),
+      ...('views-elements' in this.patern ? Object.keys(this.patern['views-elements'] as any) : []),
     ])]; }
 
     /**

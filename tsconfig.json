@@ -8,8 +8,8 @@
     "preserveConstEnums" : true,
     "skipLibCheck": true,
     "moduleResolution":"node",
-    "outDir": "dist"
+    "outDir": "dist",
+    "noImplicitAny": false
   },
   "include": ["./src/**/*"],
-  "exclude": ["./src/modules"]
 }

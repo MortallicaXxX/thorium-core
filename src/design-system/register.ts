@@ -1,5 +1,5 @@
 import * as htmlTags from 'html-tags';
-import { ConnectorTemplate } from '../'
+import { ConnectorTemplate } from '..'
 
 import { DOMRender , NodeTemplate } from "../dom/dom-render";
 import { Observer , Observers , Mutation, PageController , ThoriumController , ViewController , ViewDesignPatern } from '../controller';
@@ -7,6 +7,7 @@ import { Transactions , TransactionPatern } from '../controller/transactions';
 import { Effects , EffectPatern } from '../controller/effects';
 
 import * as DOMCSSOM from 'dom-cssom';
+import { VirtualElement } from '../dom/dom-virtual-v2';
 
 export interface DesignPatern<T> extends ConnectorTemplate<T>{
   baseName:string;
@@ -38,6 +39,8 @@ export type CustomElement<T,X,ITransaction = null,IEffect = null> = T & X & {
      * @returns L'élément contextuel correspondant ou `undefined` si aucun contexte n'est trouvé.
     */
     context<Y>(contextName?:string):CustomElement<Y,Element,any,any>;
+    useContext<T>( hook:( context:T ) => void ):void;
+    useVirtual( hook:( context:VirtualElement ) => void ):void; 
     onmutation(mutation:Mutation):void;
     beforeMounting(target:CustomElement<T,X,ITransaction,IEffect>):void;
     afterMounting(target:CustomElement<T,X,ITransaction,IEffect>):void;
@@ -197,7 +200,7 @@ export const register = <T,X,Z>( type : 'page' | 'thorium' | 'local' | 'views' ,
             }
 
             if(patern.proto)Array.from( Object.keys(patern.proto) , (protoKey) => {
-                this[protoKey] = (patern.proto as Record<string,any>)[protoKey];
+                this[protoKey] = (patern.proto as Record<string,any>)[protoKey].bind(this);
             })
 
         }

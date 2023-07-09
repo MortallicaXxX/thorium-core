@@ -1,5 +1,5 @@
 import { body } from "../dom-virtual";
-import { ConnectorTemplate , CustomElement , DesignPatern , Mutation , Observer , Observers , ElementController , DesignSystem , CssObject  , StyleSheets , StylePatern } from "../../";
+import { ConnectorTemplate , CustomElement , DesignPatern , Mutation , Observer , Observers , ElementController , DesignSystem , CssObject  , StyleSheets , StylePatern } from "../..";
 
 import * as DOMCSSOM from 'dom-cssom';
 
@@ -40,12 +40,11 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode?:Element|Shad
     }
   })() as CustomElement<HTMLElement,{}>
 
-  if(parentNode && ( parentNode instanceof Element || parentNode instanceof ShadowRoot)){
-    parentNode.appendChild(element);
-  }
-
   element.patern = template;
-  Object.assign( element , ElementController(element as any) )
+  let controller = ElementController(element as any);
+  Object.keys(controller).forEach( key => {
+    element[key] = ( typeof controller[key] == 'function' ? controller[key].bind(element) : controller[key] )
+  } )
 
   // Parcours les enfants du template et les ajoute à l'élément parent
   if(template.childrens)Array.from( template.childrens , (childTemplate) => {
@@ -70,25 +69,31 @@ export const DOMRender = <T>(template:NodeTemplate<T> , parentNode?:Element|Shad
 
   // Applique les attributs au nouvel élément DOM
   if(template.attr)Array.from( Object.keys(template.attr) , (attributeName) => {
-    if(attributeName == 'text')element.innerText = template.attr[attributeName] as string;
+    if(attributeName == 'text')element.innerText = (template.attr as any)[attributeName] as string;
     else if(attributeName == 'stylesheet'){
       // Récuperation du context
       let context = element.context<HTMLDivElement>();
       // Récuperation ou création de la feuille de style associé
       let styleSheet = context.styleSheet();
       // Récuperation du token de la fuille de style
-      let styleToken = template.attr[attributeName] as string;
+      let styleToken = (template.attr as any)[attributeName] as string;
       // REcuperation de la fuille de style enregistrée dans le systeme
       let styleSheetObject = StyleSheets.get(styleToken);
       // Récuperation des feuilles de style appliquée au context
       let contextAppliedStyles = (context as any).appliedStyles as string[];
       if(!contextAppliedStyles.includes(styleToken)){
-        (context as any).appliedStyles.push(template.attr[attributeName])
-        addElementCompiledCssProperties( styleSheet , styleSheetObject );
+        (context as any).appliedStyles.push((template.attr as any)[attributeName])
+        addElementCompiledCssProperties( styleSheet , styleSheetObject as any );
       }
     }
     else element.setAttribute(attributeName , (template.attr as Record<string,any>)[attributeName]);
   })
+
+  if(parentNode && ( parentNode instanceof Element || parentNode instanceof ShadowRoot)){
+    if('beforeMounting' in element)element.afterMounting( element );
+    parentNode.appendChild(element);
+    if('afterMounting' in element)element.afterMounting( element );
+  }
 
   return element as CustomElement<T,any>;
 
@@ -106,8 +111,8 @@ const addElementStyleSheet = ( styleSheetContext:DOMCSSOM , styleSheetObject:Css
       let {selector , source , nodes} = rule;
 
       Array.from( nodes as any[] , (declaration) => {
-        return [declaration.prop , declaration.value]
-      }).reduce((arr , declaration:[string,string]) => {
+        return [declaration.prop , declaration.value] as [string,string]
+      }).reduce((arr:any[] , declaration:[string,string]) => {
 
         let insertCssValue = (arr:Record<string,string>[] , declaration:[string,string] , iterator = 0) => {
           let [prop,value] = declaration;
@@ -140,8 +145,8 @@ const addElementCompiledCssProperties = (styleSheetContext:DOMCSSOM , stylePater
     let {selector , source , nodes} = rule;
 
     Array.from( nodes as any[] , (declaration) => {
-      return [declaration.prop , declaration.value]
-    }).reduce((arr , declaration:[string,string]) => {
+      return [declaration.prop , declaration.value] as [string,string]
+    }).reduce((arr:any[] , declaration:[string,string]) => {
 
       let insertCssValue = (arr:Record<string,string>[] , declaration:[string,string] , iterator = 0) => {
         let [prop,value] = declaration;

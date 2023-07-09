@@ -3,6 +3,7 @@ import { DOMVirtual , htmlDocument as document , body , head , applyDOMChanges }
 
 export * from "./dom-render";
 export * from "./dom-virtual";
+export * as VDOM from "./dom-virtual-v2";
 
 /**
  * # DOM

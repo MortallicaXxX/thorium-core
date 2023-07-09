@@ -40,7 +40,7 @@ export const createStyleSheet = (cssObject:CssObject):Promise<StylePatern> => {
         result : result
       });
       
-      next(StyleSheets.get(result.token));
+      next(StyleSheets.get(result.token) as any);
     })
   })
 }

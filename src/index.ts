@@ -23,6 +23,7 @@ export * from './connector';
 export * from './design-system';
 export * from './dom';
 export * from './controller';
+
 export { DesignSystem };
 
 export class Page{

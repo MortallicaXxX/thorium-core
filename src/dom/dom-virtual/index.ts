@@ -32,7 +32,7 @@ const buildReferences = (element:HTMLElement) => {
     //   return [attribute.name , attribute.value];
     // }))),
     get children(){
-      return Array.from( element.children , ( element:HTMLElement ) => {
+      return Array.from( element.children as any, ( element:HTMLElement ) => {
         return buildReferences(element);
       })
     },
@@ -58,7 +58,7 @@ const buildReferences = (element:HTMLElement) => {
 const recursiveReferenceCloning = (node:HTMLElement , clone:HTMLElement) => {
   // let clone = node.cloneNode() as HTMLElement;
   // if(node.innerText)clone.innerText = node.innerText;
-  if(node.children.length > 0)Array.from( node.children , (child:HTMLElement) => {
+  if(node.children.length > 0)Array.from( node.children as any , (child:HTMLElement) => {
     let cloneELement = clone.appendChild(child.cloneNode()) as HTMLElement;
     recursiveReferenceCloning(child , cloneELement);
   } )
@@ -83,7 +83,7 @@ export const applyDOMChanges = () => {
 
       source.replaceWith( virtual.cloneNode(true) );
 
-      Array.from( virtual.children , (virtualChild:HTMLElement) => {
+      Array.from( virtual.children as any , (virtualChild:HTMLElement) => {
         let childNode = source.appendChild( virtualChild.cloneNode() ) as HTMLElement;
         recursiveEffect( childNode , virtualChild );
       })
