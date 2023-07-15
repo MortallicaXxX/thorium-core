@@ -1,4 +1,4 @@
-import { DOMTokenList , TMapDomTokenList } from ".";
+import { DOMTokenList , setBodyToken , TMapDomTokenList } from ".";
 
 export type TCommandAddMapElement = 'addMapElement';
 export type TCommandAddElement = 'addElement';
@@ -23,8 +23,9 @@ function addReferenceElement () {
 
 function addMapReferenceElement ( referenceElements:TMapDomTokenList ) {
 
-  [...referenceElements.values()].map( ( reference ) => {
-    DOMTokenList.set( reference.key , reference );
+  return [...referenceElements.values()].map( ( reference ) => {
+    if(reference.element == document.body)setBodyToken(reference.key);
+    return DOMTokenList.set( reference.key , reference );
   } )
 
 }
