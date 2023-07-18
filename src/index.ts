@@ -26,53 +26,53 @@ export * from './controller';
 
 export { DesignSystem };
 
-export class Page{
+// export class Page{
 
-    #_component:any;
+//     #_component:any;
 
-    constructor(component){
-        this.#_component = component;
-    }
+//     constructor(component){
+//         this.#_component = component;
+//     }
 
-    /**
-     * Rendering process
-     */
-    #_render(){
+//     /**
+//      * Rendering process
+//      */
+//     #_render(){
 
-    }
+//     }
 
-    /**
-     * Build the page
-     */
-    show(){this.#_render();}
+//     /**
+//      * Build the page
+//      */
+//     show(){this.#_render();}
 
-}
+// }
 
-export interface Route{
-    path:string;
-    component:any;
-}
+// export interface Route{
+//     path:string;
+//     component:any;
+// }
 
-export class PageHandler extends RouteRecognizer{
+// export class PageHandler extends RouteRecognizer{
 
-    #_pages:Map<string,any> = new Map();
-    recognizer = new RouteRecognizer();
-    /**
-     * Define the endpoint of the page
-     * @param pageOption 
-     * @returns 
-     */
-    set(pageOption:Route):Page{
-        // Ajout de la page au répertoir
-        this.#_pages.set(pageOption.path , new Page(pageOption.component));
-        // Ajout du path dans le gestionaire + ajout d'un point de lancement
-        this.add([{path : pageOption.path , handler :  () => {
-            console.log('Page Launched');
-        } }])
-        // Return la page
-        return this.#_pages.get(pageOption.path);
-    }
-}
+//     #_pages:Map<string,any> = new Map();
+//     recognizer = new RouteRecognizer();
+//     /**
+//      * Define the endpoint of the page
+//      * @param pageOption 
+//      * @returns 
+//      */
+//     set(pageOption:Route):Page{
+//         // Ajout de la page au répertoir
+//         this.#_pages.set(pageOption.path , new Page(pageOption.component));
+//         // Ajout du path dans le gestionaire + ajout d'un point de lancement
+//         this.add([{path : pageOption.path , handler :  () => {
+//             console.log('Page Launched');
+//         } }])
+//         // Return la page
+//         return this.#_pages.get(pageOption.path);
+//     }
+// }
 
 namespace Thorium{
 
@@ -81,13 +81,13 @@ namespace Thorium{
     // Active page
     export var Page = null;
     // Routeur gérant les pages
-    export const pages:PageHandler = new PageHandler();
+    // export const pages:PageHandler = new PageHandler();
 
-    export const on = (pathname:string , page) => {
-        Thorium.pages.add([{ path : pathname , handler : () => {
-            page.Show();
-        } }])
-    }
+    // export const on = (pathname:string , page) => {
+    //     Thorium.pages.add([{ path : pathname , handler : () => {
+    //         page.Show();
+    //     } }])
+    // }
 
     export const CreatePage = ( baseName ) => {
 

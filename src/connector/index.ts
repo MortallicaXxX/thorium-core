@@ -1,7 +1,7 @@
 import { NodeTemplate } from "../dom/dom-render";
 import { CssObject } from "../design-system/style";
 
-type AttributePropertie = 'id' | 'class' | 'name' | 'local-name' | 'context' | 'style' | 'stylesheet' | string;
+export type AttributePropertie = 'id' | 'class' | 'name' | 'local-name' | 'context' | 'style' | 'stylesheet' | string;
 
 export interface ConnectorTemplate<T>{
   /** Attributs du component */
@@ -11,6 +11,8 @@ export interface ConnectorTemplate<T>{
   /** Méthodes et variables du component */
   proto?:Partial<T>;
 }
+
+export * from './page';
 
 export const Connector = <T>(localName:NodeTemplate<T>["localName"]) => {
   return (connectorTemplate?:ConnectorTemplate<T>) => {

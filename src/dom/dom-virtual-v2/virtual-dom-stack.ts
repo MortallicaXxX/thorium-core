@@ -36,6 +36,8 @@ const stack = new class{
   #_addMapReferenceElement = addMapReferenceElement.bind(this);
 
   execute = (operations:IOperation[]) => {
+
+    console.log('Virtual Stack Execution')
     
     return operations.reduce((arr:any , operation:any) => {
 

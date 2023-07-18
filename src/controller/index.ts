@@ -185,7 +185,6 @@ export const ElementController = <X,Y = null,Z = null>(target:CustomElement<HTML
     },
     useVirtual( hook:( virtualELement:VirtualElement ) => void ){
       let srcElement = this as CustomElement<HTMLElement , {}>;
-      console.log(srcElement , this)
       if(srcElement['_id']){
         let virtualElement = VDOM.getElementByElementId(srcElement['_id']);
         return hook.bind(virtualElement)( virtualElement );

@@ -2,24 +2,11 @@ import { ConnectorTemplate } from "../../connector";
 import { CustomElement } from "../../design-system";
 import { domStack , IOperation } from "./virtual-dom-stack";
 
-export * from './createElement';
-import { VirtualElement } from './createElement';
-export * from './render';
+import { VirtualElement , IVirtualElement , ITemplateReference} from './virtual-element';
+import { getElementByElementId } from "./controllers";
 
-export interface ITemplateReference{
-  localName:string;
-  attr:ConnectorTemplate<any>['attr'];
-  proto:ConnectorTemplate<any>['proto'];
-  childrens?:string[];
-  ref?:CustomElement<Element,{}> | HTMLElement
-}
-
-export interface IVirtualElement{
-  parent_key?:string;
-  key:string;
-  element?:CustomElement<HTMLElement,{}> | HTMLElement;
-  patern:ITemplateReference;
-}
+export * from './controllers';
+export * from './virtual-element'
 
 /** Contient le token ( référence virtuelle du body ) */
 export var bodyToken = null;
@@ -32,33 +19,6 @@ export const getBody = () => {
 }
 
 export const DOMTokenList:TMapDomTokenList = new Map();
-
-export const getElementByElementId = (elementId:string) => {
-  return ( DOMTokenList.has(elementId) ? DOMTokenList.get(elementId) : null );
-}
-
-export const fragment = (elementId:string) => {
-
-  if(!DOMTokenList.has(elementId))return null;
-
-  let recursiveMap = ( virtualElement:VirtualElement ) => {
-    let { patern } = virtualElement;
-
-    let newPatern = { ...patern } as (VirtualElement['patern'] | {childrens : any[]});
-
-    if(newPatern.childrens && newPatern.childrens.length > 0){
-      newPatern.childrens = Array.from( patern.childrens , ( key ) => {
-        return recursiveMap( getElementByElementId(key) );
-      } )
-    };
-
-    return newPatern;
-  }
-
-  let virtualElement = getElementByElementId(elementId);
-  return recursiveMap( virtualElement );
-
-}
 
 export const prepare_addMapElement = ( data ):IOperation => {
   return {
