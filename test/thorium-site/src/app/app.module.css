@@ -1,0 +1,8 @@
+.content {
+    display: grid;
+    grid-template-columns: 25vh minmax(0,1fr) 25vh;
+}
+content {
+    display: grid;
+    grid-template-rows: 10vh minmax(0,1fr);
+}
