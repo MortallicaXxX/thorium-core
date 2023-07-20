@@ -1,0 +1,14 @@
+.LeftSideBar {
+    display: grid;
+    grid-template-rows: 10vh minmax(0,1fr);
+}
+.LeftSideBar > div[class=banner] {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-size: 40%;
+    background-repeat: no-repeat;
+    background-position: center;
+    height: auto;
+    width: auto;
+}
